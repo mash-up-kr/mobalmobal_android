@@ -14,10 +14,10 @@ jobs:
           command: chmod +x ./gradlew
       - run:
           name: create AVD
-          command: sdkmanager "system-images;android-29;google_apis;x86_64" && echo "no" | avdmanager --verbose create avd --force --name "Pixel_3a_API_29" --package "system-images;android-29;google_apis;x86_64"
+          command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
       - run:
           name: start AVD
-          command: emulator Pixel_3a_API_29 -no-window -no-audio
+          command: emulator test -no-window -no-audio
           background: true
       - run:
           name: wait for emulator

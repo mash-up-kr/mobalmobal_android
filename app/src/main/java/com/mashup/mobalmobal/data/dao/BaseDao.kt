@@ -6,6 +6,10 @@ import androidx.room.*
 @Dao
 abstract class BaseDao<T : Any> {
 
+    companion object {
+        private const val FAILED_CODE_INSERTION = -1L
+    }
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insert(vararg objects: T)
 
@@ -34,7 +38,7 @@ abstract class BaseDao<T : Any> {
     open fun insertOrUpdate(vararg objects: T) {
         insertOrIgnore(*objects)
             .zip(objects)
-            .mapNotNull { (result: Long, obj: T) -> obj.takeIf { result == -1L } }
+            .mapNotNull { (result: Long, obj: T) -> obj.takeIf { result == FAILED_CODE_INSERTION } }
             .also { update(it) }
     }
 
@@ -42,7 +46,7 @@ abstract class BaseDao<T : Any> {
     open fun insertOrUpdate(objects: List<T>) {
         insertOrIgnore(objects)
             .zip(objects)
-            .mapNotNull { (result: Long, obj: T) -> obj.takeIf { result == -1L } }
+            .mapNotNull { (result: Long, obj: T) -> obj.takeIf { result == FAILED_CODE_INSERTION } }
             .also { update(it) }
     }
 }

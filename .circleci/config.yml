@@ -5,19 +5,37 @@ orbs:
 
 jobs:
   build:
-    executor: android/android
-
+    machine:
+      image: android:202102-01
+    # To optimize build times, we recommend "large" and above for Android-related jobs
+    resource_class: medium
     steps:
       - checkout
       - run:
           name: chmod permissions
           command: chmod +x ./gradlew
       - run:
-          name: Build
-          command: ./gradlew build
-      - run: 
-          name: Verification - ConnectedCheck
-          command: ./gradlew connectedCheck
+          name: Create avd
+          command: |
+            SYSTEM_IMAGES="system-images;android-29;default;x86"
+            sdkmanager "$SYSTEM_IMAGES"
+            echo "no" | avdmanager --verbose create avd -n test -k "$SYSTEM_IMAGES"
       - run:
-          name: test
-          command: ./gradlew test
+          name: Launch emulator
+          command: |
+            emulator -avd test -delay-adb -verbose -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          background: true
+      - run:
+          name: Wait for emulator to start
+          command: |
+            circle-android wait-for-boot
+      - run:
+          name: Run connectedCheck
+          command: ./gradlew connectedCheck --stacktrace
+      - run:
+          name: Run test
+          command: ./gradlew test --stacktrace
+workflows:
+  build:
+    jobs:
+      - build

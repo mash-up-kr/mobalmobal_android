@@ -3,6 +3,22 @@ version: 2.1
 orbs:
   android: circleci/android@0.2.1
 
+create-launch-android-emulator:
+    description: "create and launch android emulators"
+    steps:
+        - run:
+            name: create AVD
+            command: echo "no" | avdmanager --verbose create avd --force --name "Pixel_3a_API_29" --package "system-images;android-29;google_apis;x86_64"
+
+        - run:
+            name: start AVD
+            command: emulator @Pixel_3a_API_29 -no-window -no-audio
+            background: true
+
+        - run:
+            name: wait for emulator
+            command: adb wait-for-device shell 'while [[ -z $(getprop dev.bootcomplete) ]]; do sleep 1; done;'
+
 jobs:
   build:
     executor: android/android
@@ -12,13 +28,6 @@ jobs:
       - run:
           name: chmod permissions
           command: chmod +x ./gradlew
-      - run:
-          name: Setup emulator
-          command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
-      - run:
-          name: Launch emulator
-          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
-          background: true
       - run:
           name: Build
           command: ./gradlew build

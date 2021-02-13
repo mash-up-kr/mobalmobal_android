@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   android: circleci/android@0.2.1
-  
+
 jobs:
   build:
     machine:
@@ -33,6 +33,12 @@ jobs:
           name: Run UI tests
           command: |
             ./gradlew connectedDebugAndroidTest
+      - run:
+          name: Run connectedCheck
+          command: ./gradlew connectedCheck --stacktrace
+      - run:
+          name: Run test
+          command: ./gradlew test --stacktrace
 workflows:
   build:
     jobs:

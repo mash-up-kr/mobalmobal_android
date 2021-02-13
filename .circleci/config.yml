@@ -30,10 +30,6 @@ jobs:
           command: |
             circle-android wait-for-boot
       - run:
-          name: Run UI tests
-          command: |
-            ./gradlew connectedDebugAndroidTest
-      - run:
           name: Run connectedCheck
           command: ./gradlew connectedCheck --stacktrace
       - run:

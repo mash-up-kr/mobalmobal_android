@@ -45,7 +45,8 @@ abstract class MobalDatabase : RoomDatabase() {
         private val CALLBACK_CLEAR_ALL = object : Callback() {
             override fun onOpen(db: SupportSQLiteDatabase) {
                 super.onOpen(db)
-                // TODO
+                db.delete("users", null, arrayOf())
+                db.delete("donations", null, arrayOf())
             }
         }
     }

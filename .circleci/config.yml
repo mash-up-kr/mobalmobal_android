@@ -14,7 +14,7 @@ jobs:
           command: chmod +x ./gradlew
       - run:
           name: create AVD
-          command: echo "no" | avdmanager --verbose create avd --force --name "Pixel_3a_API_29" --package "system-images;android-29;google_apis;x86_64"
+          command: sdkmanager "system-images;android-29;google_apis;x86_64" && echo "no" | avdmanager --verbose create avd --force --name "Pixel_3a_API_29" --package "system-images;android-29;google_apis;x86_64"
       - run:
           name: start AVD
           command: emulator @Pixel_3a_API_29 -no-window -no-audio

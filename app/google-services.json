@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "831248419905",
+    "project_id": "mobalmobal-android-da741",
+    "storage_bucket": "mobalmobal-android-da741.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831248419905:android:651e4c849871cefff1cac0",
+        "android_client_info": {
+          "package_name": "com.mashup.mobalmobal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831248419905-qh2v3vqgp10qkcp21hln2a80ainh79s9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRydVyhI3FwlojeMP7Vvxi4b1MHBaUpc8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "831248419905-qh2v3vqgp10qkcp21hln2a80ainh79s9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

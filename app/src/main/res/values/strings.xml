@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MobalMobal</string>
+
+    <string name="profile_edit">프로필 변경</string>
+    <string name="open_source">오픈소스 약관</string>
+    <string name="terms_of_service">이용약관</string>
+    <string name="notification">알림설정</string>
+    <string name="inquiry">문의하기</string>
+    <string name="my_account">내 계좌</string>
 </resources>

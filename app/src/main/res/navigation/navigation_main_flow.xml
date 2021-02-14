@@ -9,7 +9,11 @@
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment" >
+            <argument
+                android:name="key_selected_donation"
+                app:argType="com.mashup.mobalmobal.data.vo.Donation"/>
+        </action>
         <action
             android:id="@+id/action_mainFragment_to_profileFragment"
             app:destination="@id/profileFragment" />

@@ -1,9 +1,12 @@
 package com.mashup.mobalmobal.data.vo
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 @Entity(tableName = "donations")
 data class Donation(
@@ -15,4 +18,4 @@ data class Donation(
     @SerializedName("donation_price") @ColumnInfo(name = "donation_price") val price: Int,
     @SerializedName("current_price") @ColumnInfo(name = "current_price") val currentPrice: Int,
     @SerializedName("product_url") @ColumnInfo(name = "product_url") val productUrl: String?
-)
+) : Serializable

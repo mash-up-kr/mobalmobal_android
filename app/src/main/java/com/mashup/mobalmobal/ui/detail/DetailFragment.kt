@@ -1,12 +1,16 @@
 package com.mashup.mobalmobal.ui.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.funin.base.funinbase.base.BaseViewModelFragment
 import com.mashup.mobalmobal.R
+import com.mashup.mobalmobal.data.vo.Donation
+import com.mashup.mobalmobal.ui.main.MainFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -14,12 +18,26 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class DetailFragment : BaseViewModelFragment() {
+    companion object{
+        private const val TAG = "DetailFragment"
+        private const val KEY_SELECTED_DONATION = "key_selected_donation"
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_detail, container, false)
+    }
+
+    override fun onBindViewModels() {
+        super.onBindViewModels()
+        initFromArguments()
+    }
+
+    private fun initFromArguments() = arguments?.let{
+        val donation = it.getSerializable(KEY_SELECTED_DONATION) as? Donation
     }
 
     private fun goDetailToDonate() =

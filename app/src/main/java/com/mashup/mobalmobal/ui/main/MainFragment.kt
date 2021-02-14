@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewModelFragment
 import com.mashup.mobalmobal.R
+import com.mashup.mobalmobal.data.vo.Donation
 import com.mashup.mobalmobal.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,12 +34,15 @@ class MainFragment : BaseViewModelFragment() {
         _binding = null
     }
 
-    private fun goMainToDetail() =
-        findNavController().navigate(R.id.action_mainFragment_to_detailFragment)
+    private fun goMainToDetail(donateion: Donation) =
+       MainFragmentDirections.actionMainFragmentToDetailFragment(donateion)
+           .also { action ->
+               findNavController().navigate(action)
+           }
 
     private fun goMainToProfile() =
         findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
-
+    
     private fun goMainToRegistDonation() =
         findNavController().navigate(R.id.action_mainFragment_to_registDonationFragment)
 }

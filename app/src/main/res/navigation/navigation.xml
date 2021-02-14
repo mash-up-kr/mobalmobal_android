@@ -16,10 +16,8 @@
         <action
             android:id="@+id/action_mainFragment_to_registDonationFragment"
             app:destination="@id/registDonationFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_registDonationFragment2"
-            app:destination="@id/registDonationFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.mashup.mobalmobal.ui.detail.DetailFragment"
@@ -28,6 +26,7 @@
             android:id="@+id/action_detailFragment_to_donateFragment"
             app:destination="@id/donateFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/donateFragment"
         android:name="com.mashup.mobalmobal.ui.donate.DonateFragment"
@@ -36,6 +35,7 @@
             android:id="@+id/action_donateFragment_to_chargeFragment"
             app:destination="@id/chargeFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.mashup.mobalmobal.ui.settings.SettingsFragment"
@@ -51,14 +51,17 @@
             android:id="@+id/action_profileFragment_to_myDonationsFragment"
             app:destination="@id/myDonationsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/myDonationsFragment"
         android:name="com.mashup.mobalmobal.ui.mydonations.MyDonationsFragment"
         android:label="MyDonationsFragment" />
+
     <fragment
         android:id="@+id/registDonationFragment"
         android:name="com.mashup.mobalmobal.ui.registdonation.RegistDonationFragment"
         android:label="RegistDonationFragment" />
+
     <fragment
         android:id="@+id/chargeFragment"
         android:name="com.mashup.mobalmobal.ui.charge.ChargeFragment"

@@ -49,8 +49,6 @@ android {
 
 dependencies {
     implementation project(path: ':base')
-    implementation 'com.google.firebase:firebase-messaging:21.0.1'
-    implementation 'androidx.work:work-runtime:2.3.4'
 
     // Test
     testImplementation 'junit:junit:4.13.1'
@@ -94,4 +92,5 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.5.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
 }

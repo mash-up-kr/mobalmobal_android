@@ -1,4 +1,4 @@
-package com.mashup.mobalmobal.ui.profile
+package com.mashup.mobalmobal.ui.mydonations
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,15 +9,15 @@ import com.mashup.mobalmobal.R
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * 프로필 변경
+ * 나의 도네이션 페이지
  */
 @AndroidEntryPoint
-class ProfileFragment : BaseFragment() {
+class MyDonationsFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        return inflater.inflate(R.layout.fragment_my_donations, container, false)
     }
 }

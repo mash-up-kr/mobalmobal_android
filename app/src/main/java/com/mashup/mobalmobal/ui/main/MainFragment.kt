@@ -28,24 +28,9 @@ class MainFragment : BaseViewModelFragment() {
         return binding.root
     }
 
-    override fun onBindViewModels() {
-        super.onBindViewModels()
-        initializingView()
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun initializingView() = with(binding) {
-        mainDonation.setOnClickListener {
-            goDonation()
-        }
-
-        mainProfile.setOnClickListener {
-            goProfile()
-        }
     }
 
     private fun goDonation() =

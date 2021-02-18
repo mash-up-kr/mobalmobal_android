@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.funin.base.funinbase.base.BaseViewModelFragment
 import com.mashup.mobalmobal.R
-import com.mashup.mobalmobal.data.vo.Donation
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

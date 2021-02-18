@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewModelFragment
 import com.mashup.mobalmobal.R
-import com.mashup.mobalmobal.data.vo.Donation
 import com.mashup.mobalmobal.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

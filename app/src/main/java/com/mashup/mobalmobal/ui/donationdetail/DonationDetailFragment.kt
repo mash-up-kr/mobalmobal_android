@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.funin.base.funinbase.base.BaseViewModelFragment
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.data.vo.Donation
@@ -33,9 +34,7 @@ class DonationDetailFragment : BaseViewModelFragment() {
         initFromArguments()
     }
 
-    private fun initFromArguments() = arguments?.let {
-        val donation = it.getSerializable(KEY_SELECTED_DONATION) as? Donation
-    }
+    private fun initFromArguments() = arguments?.let {}
 
     private fun goDetailToDonate() =
         findNavController().navigate(R.id.action_detailFragment_to_donateFragment)

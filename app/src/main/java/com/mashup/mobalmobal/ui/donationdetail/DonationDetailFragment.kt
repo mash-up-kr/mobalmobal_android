@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class DonationDetailFragment : BaseViewModelFragment() {
-    companion object{
+    companion object {
         private const val TAG = "DetailFragment"
         private const val KEY_SELECTED_DONATION = "key_selected_donation"
     }
@@ -33,7 +33,7 @@ class DonationDetailFragment : BaseViewModelFragment() {
         initFromArguments()
     }
 
-    private fun initFromArguments() = arguments?.let{
+    private fun initFromArguments() = arguments?.let {
         val donation = it.getSerializable(KEY_SELECTED_DONATION) as? Donation
     }
 

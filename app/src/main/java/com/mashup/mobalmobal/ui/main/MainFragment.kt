@@ -35,14 +35,14 @@ class MainFragment : BaseViewModelFragment() {
     }
 
     private fun goMainToDetail(donation: Donation) =
-       MainFragmentDirections.actionMainFragmentToDetailFragment(donation)
-           .also { action ->
-               findNavController().navigate(action)
-           }
+        MainFragmentDirections.actionMainFragmentToDetailFragment(donation)
+            .also { action ->
+                findNavController().navigate(action)
+            }
 
     private fun goMainToProfile() =
         findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
-    
+
     private fun goMainToRegistDonation() =
         findNavController().navigate(R.id.action_mainFragment_to_registDonationFragment)
 }

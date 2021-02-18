@@ -20,6 +20,6 @@ class SignInFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_sign_in, container, false)
     }
 
-    fun goSignInToSignUp() =
+    fun navigateSignInToSignUp() =
         findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
 }

@@ -36,6 +36,6 @@ class DonationDetailFragment : BaseViewModelFragment() {
 
     private fun initFromArguments() = arguments?.let {}
 
-    private fun goDetailToDonate() =
+    private fun navigateDetailToDonate() =
         findNavController().navigate(R.id.action_detailFragment_to_donateFragment)
 }

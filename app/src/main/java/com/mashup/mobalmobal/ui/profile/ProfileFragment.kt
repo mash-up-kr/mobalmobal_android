@@ -22,9 +22,9 @@ class ProfileFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
-    private fun goProfileToMyDonations() =
+    private fun navigateProfileToMyDonations() =
         findNavController().navigate(R.id.action_profileFragment_to_myDonationsFragment)
 
-    private fun goProfileToSettings() =
+    private fun navigateProfileToSettings() =
         findNavController().navigate(R.id.action_profileFragment_to_settingsFragment)
 }

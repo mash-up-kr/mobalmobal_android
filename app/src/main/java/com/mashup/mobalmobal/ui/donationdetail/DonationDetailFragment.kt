@@ -29,13 +29,6 @@ class DonationDetailFragment : BaseViewModelFragment() {
         return inflater.inflate(R.layout.fragment_detail, container, false)
     }
 
-    override fun onBindViewModels() {
-        super.onBindViewModels()
-        initFromArguments()
-    }
-
-    private fun initFromArguments() = arguments?.let {}
-
     private fun navigateDetailToDonate() =
         findNavController().navigate(R.id.action_detailFragment_to_donateFragment)
 }

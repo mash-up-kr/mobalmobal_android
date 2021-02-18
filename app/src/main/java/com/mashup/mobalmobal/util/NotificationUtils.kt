@@ -36,9 +36,4 @@ object NotificationUtils {
         notify(NOTIFICATION_ID, builder.build())
     }
 
-    fun NotificationManager.cancelAllNotifications() {
-        cancelAll()
-    }
-
-
 }

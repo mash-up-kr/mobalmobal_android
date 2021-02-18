@@ -88,8 +88,7 @@ dependencies {
     testImplementation "androidx.paging:paging-common-ktx:$paging_version"
     implementation "androidx.paging:paging-rxjava2-ktx:$paging_version"
 
-    // fcm
+    // FCM
     implementation platform('com.google.firebase:firebase-bom:26.5.0')
     implementation 'com.google.firebase:firebase-messaging-ktx'
-    implementation 'com.google.firebase:firebase-messaging:21.0.1'
 }

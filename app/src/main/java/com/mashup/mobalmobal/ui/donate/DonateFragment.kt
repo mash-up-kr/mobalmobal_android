@@ -20,6 +20,6 @@ class DonateFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_donate, container, false)
     }
 
-    private fun goDonateToCharge() =
+    private fun navigateDonateToCharge() =
         findNavController().navigate(R.id.action_donateFragment_to_chargeFragment)
 }

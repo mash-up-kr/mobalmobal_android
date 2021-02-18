@@ -34,8 +34,8 @@ class MainFragment : BaseViewModelFragment() {
         _binding = null
     }
 
-    private fun navigateMainToDetail(donation: Donation) =
-        MainFragmentDirections.actionMainFragmentToDetailFragment(donation)
+    private fun navigateMainToDetail(donationId: Int) =
+        MainFragmentDirections.actionMainFragmentToDetailFragment(donationId)
             .also { action -> findNavController().navigate(action) }
 
     private fun navigateMainToProfile() =

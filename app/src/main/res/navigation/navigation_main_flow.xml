@@ -11,8 +11,8 @@
             android:id="@+id/action_mainFragment_to_detailFragment"
             app:destination="@id/donationDeatilFragment" >
             <argument
-                android:name="key_selected_donation"
-                app:argType="com.mashup.mobalmobal.data.vo.Donation"/>
+                android:name="key_selected_donation_id"
+                app:argType="integer"/>
         </action>
         <action
             android:id="@+id/action_mainFragment_to_profileFragment"

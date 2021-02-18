@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class DonationDetailFragment : BaseViewModelFragment() {
     companion object {
         private const val TAG = "DetailFragment"
-        private const val KEY_SELECTED_DONATION = "key_selected_donation"
+        private const val KEY_SELECTED_DONATION_ID = "key_selected_donation_id"
     }
 
     override fun onCreateView(

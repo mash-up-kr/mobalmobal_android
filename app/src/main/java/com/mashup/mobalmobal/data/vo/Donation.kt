@@ -16,4 +16,4 @@ data class Donation(
     @SerializedName("donation_price") @ColumnInfo(name = "donation_price") val price: Int,
     @SerializedName("current_price") @ColumnInfo(name = "current_price") val currentPrice: Int,
     @SerializedName("product_url") @ColumnInfo(name = "product_url") val productUrl: String?
-) : Serializable
+)

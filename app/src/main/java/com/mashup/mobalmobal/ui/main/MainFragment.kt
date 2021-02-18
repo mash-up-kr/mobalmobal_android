@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainFragment : BaseViewModelFragment() {
     companion object {
-        val TAG = this::class.java.simpleName
+        private const val TAG = "MainFragment"
     }
 
     private var _binding: FragmentMainBinding? = null
@@ -36,9 +36,7 @@ class MainFragment : BaseViewModelFragment() {
 
     private fun goMainToDetail(donation: Donation) =
         MainFragmentDirections.actionMainFragmentToDetailFragment(donation)
-            .also { action ->
-                findNavController().navigate(action)
-            }
+            .also { action -> findNavController().navigate(action) }
 
     private fun goMainToProfile() =
         findNavController().navigate(R.id.action_mainFragment_to_profileFragment)

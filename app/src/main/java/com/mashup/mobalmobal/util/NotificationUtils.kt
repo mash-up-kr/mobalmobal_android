@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.mashup.mobalmobal.R
-import com.mashup.mobalmobal.ui.MainActivity
+import com.mashup.mobalmobal.ui.main.MainActivity
 
 object NotificationUtils {
     private const val NOTIFICATION_ID = 0

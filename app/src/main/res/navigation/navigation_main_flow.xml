@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.mashup.mobalmobal.ui.main.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_detailFragment"
+            app:destination="@id/donationDeatilFragment" >
+            <argument
+                android:name="key_selected_donation_id"
+                app:argType="integer"/>
+        </action>
+        <action
+            android:id="@+id/action_mainFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_registDonationFragment"
+            app:destination="@id/registDonationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/donationDeatilFragment"
+        android:name="com.mashup.mobalmobal.ui.donationdetail.DonationDetailFragment"
+        android:label="DonationDetailFragment" >
+        <action
+            android:id="@+id/action_detailFragment_to_donateFragment"
+            app:destination="@id/donateFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/donateFragment"
+        android:name="com.mashup.mobalmobal.ui.donate.DonateFragment"
+        android:label="DonateFragment" >
+        <action
+            android:id="@+id/action_donateFragment_to_chargeFragment"
+            app:destination="@id/chargeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.mashup.mobalmobal.ui.settings.SettingsFragment"
+        android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.mashup.mobalmobal.ui.profile.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myDonationsFragment"
+            app:destination="@id/myDonationsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myDonationsFragment"
+        android:name="com.mashup.mobalmobal.ui.mydonations.MyDonationsFragment"
+        android:label="MyDonationsFragment" />
+
+    <fragment
+        android:id="@+id/registDonationFragment"
+        android:name="com.mashup.mobalmobal.ui.registdonation.RegistDonationFragment"
+        android:label="RegistDonationFragment" />
+
+    <fragment
+        android:id="@+id/chargeFragment"
+        android:name="com.mashup.mobalmobal.ui.charge.ChargeFragment"
+        android:label="ChargeFragment" />
+</navigation>

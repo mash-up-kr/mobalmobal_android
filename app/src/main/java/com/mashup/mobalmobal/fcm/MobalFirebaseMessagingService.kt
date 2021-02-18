@@ -10,7 +10,7 @@ import com.mashup.mobalmobal.util.NotificationUtils.sendNotification
 
 class MobalFirebaseMessagingService : FirebaseMessagingService() {
     companion object {
-        private const val TAG = "MyFirebaseMsgService"
+        private const val TAG = "MobalFirebaseMsgService"
     }
 
     override fun onNewToken(token: String) {
@@ -31,7 +31,10 @@ class MobalFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun sendNotification(messageBody: String) {
-        val notificationManager = ContextCompat.getSystemService(applicationContext, NotificationManager::class.java) as NotificationManager
-        notificationManager.sendNotification(messageBody, applicationContext)
+        val notificationManager = ContextCompat.getSystemService(
+            applicationContext,
+            NotificationManager::class.java
+        ) as NotificationManager
+        notificationManager.sendNotification(applicationContext, messageBody)
     }
 }

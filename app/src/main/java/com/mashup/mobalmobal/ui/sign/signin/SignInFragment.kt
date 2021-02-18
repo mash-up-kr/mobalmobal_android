@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseFragment
 import com.mashup.mobalmobal.R
 
@@ -18,4 +19,7 @@ class SignInFragment : BaseFragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_sign_in, container, false)
     }
+
+    fun goSignInToSignUp() =
+        findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
 }

@@ -1,23 +1,20 @@
-package com.mashup.mobalmobal.ui.detail
+package com.mashup.mobalmobal.ui.donationdetail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.funin.base.funinbase.base.BaseViewModelFragment
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.data.vo.Donation
-import com.mashup.mobalmobal.ui.main.MainFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * 도네 상세페이지
  */
 @AndroidEntryPoint
-class DetailFragment : BaseViewModelFragment() {
+class DonationDetailFragment : BaseViewModelFragment() {
     companion object{
         private const val TAG = "DetailFragment"
         private const val KEY_SELECTED_DONATION = "key_selected_donation"

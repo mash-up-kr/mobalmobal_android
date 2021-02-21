@@ -9,4 +9,7 @@
     <string name="notification_title">돈에이션</string>
     <string name="notification_channel_id">donation</string>
     <string name="notification_channel_name">donation</string>
+
+    <string name="facebook_app_id">434752647797257</string>
+    <string name="fb_login_protocol_scheme">fb434752647797257</string>
 </resources>

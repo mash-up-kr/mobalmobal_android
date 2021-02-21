@@ -5,10 +5,12 @@ import android.view.ViewGroup
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentSignInBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * 로그인
  */
+@AndroidEntryPoint
 class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
 
     companion object {

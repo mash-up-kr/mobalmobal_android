@@ -38,7 +38,7 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
     // Funin-base
-    api 'com.funin.base.funinbase:funinbase:0.0.1-alpha7'
+    api 'com.funin.base.funinbase:funinbase:0.0.1-beta1'
 
     // Kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"

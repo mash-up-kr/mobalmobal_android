@@ -1,12 +1,16 @@
 package com.mashup.mobalmobal.ui.profile.data.repository
 
+import com.mashup.mobalmobal.network.MobalRetrofit
 import com.mashup.mobalmobal.ui.profile.data.dto.ProfileResultDto
 import com.mashup.mobalmobal.ui.profile.data.repository.ProfileRepository
+import com.mashup.mobalmobal.ui.profile.data.service.ProfileService
 import io.reactivex.Single
+import javax.inject.Inject
 
-class ProfileRepositoryImpl:
-    ProfileRepository {
-    override fun getProfile(userId: String): Single<ProfileResultDto> {
-        TODO("Not yet implemented")
-    }
+class ProfileRepositoryImpl @Inject constructor(
+    private val profileService: ProfileService
+): ProfileRepository {
+
+    override fun getProfile(userId: String): Single<ProfileResultDto> =
+        profileService.getProfile(userId)
 }

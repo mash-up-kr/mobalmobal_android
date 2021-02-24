@@ -2,16 +2,19 @@ package com.mashup.mobalmobal.ui.sign.signin
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
 import com.funin.base.funinbase.base.BaseViewBindingFragment
+import com.funin.base.funinbase.extension.showToast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -42,18 +45,18 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
         container: ViewGroup?
     ): FragmentSignInBinding = FragmentSignInBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onSetupViews(view: View) {
         setGoogleLogin()
         setFacebookLogin()
 
         binding.signInGoogle.setOnClickListener {
             onGoogleClicked()
         }
+    }
 
+    override fun onBindViewModels() {
         viewModel.showToast.observe(viewLifecycleOwner, { message ->
-            showToastMessage(message)
+            showToast(message)
         })
     }
 
@@ -61,7 +64,7 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
         super.onActivityResult(requestCode, resultCode, data)
         callbackManager.onActivityResult(requestCode, resultCode, data)
     }
-    
+
     private fun setGoogleLogin() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -95,6 +98,9 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
                 }
 
                 override fun onError(error: FacebookException?) {
+                    error?.let {
+                        showToast(it.message!!)
+                    }
                 }
             })
     }

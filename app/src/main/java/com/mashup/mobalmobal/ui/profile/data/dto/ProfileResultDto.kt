@@ -1,4 +1,4 @@
-package com.mashup.mobalmobal.ui.profile.dto
+package com.mashup.mobalmobal.ui.profile.data.dto
 
 import com.google.gson.annotations.SerializedName
 import com.mashup.mobalmobal.dto.DonationDto

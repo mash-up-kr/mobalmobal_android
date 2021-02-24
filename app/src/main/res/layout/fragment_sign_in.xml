@@ -29,11 +29,20 @@
         android:id="@+id/sign_in_google"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/sign_in_facebook"
+        app:layout_constraintEnd_toEndOf="@id/guide_end_20"
+        app:layout_constraintStart_toStartOf="@id/guide_start_20"
+        app:layout_constraintTop_toBottomOf="@id/guide_center"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/sign_in_facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guide_end_20"
         app:layout_constraintStart_toStartOf="@id/guide_start_20"
-        app:layout_constraintTop_toBottomOf="@id/guide_center" />
+        app:layout_constraintTop_toBottomOf="@id/sign_in_google" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

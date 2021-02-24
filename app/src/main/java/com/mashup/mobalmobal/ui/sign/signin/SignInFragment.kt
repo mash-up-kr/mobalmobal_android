@@ -7,6 +7,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginResult
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -31,6 +35,8 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var googleLoginLauncher: ActivityResultLauncher<Intent>
 
+    private lateinit var callbackManager: CallbackManager
+
     override fun setBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -40,6 +46,7 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         setGoogleLogin()
+        setFacebookLogin()
 
         binding.signInGoogle.setOnClickListener {
             onGoogleClicked()
@@ -50,6 +57,11 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
         })
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+    }
+    
     private fun setGoogleLogin() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -60,9 +72,31 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
 
         googleLoginLauncher = registerForActivityResult(GoogleLoginResultContract()) { idToken ->
             idToken?.let {
-                viewModel.signInFirebase(it)
+                viewModel.handleGoogleAccessToken(it)
             }
         }
+    }
+
+    private fun setFacebookLogin() {
+        callbackManager = CallbackManager.Factory.create()
+
+        binding.signInFacebook.setPermissions("email", "public_profile")
+        binding.signInFacebook.fragment = this
+        binding.signInFacebook.registerCallback(
+            callbackManager,
+            object : FacebookCallback<LoginResult> {
+                override fun onSuccess(result: LoginResult?) {
+                    result?.let {
+                        viewModel.handleFacebookAccessToken(it.accessToken)
+                    }
+                }
+
+                override fun onCancel() {
+                }
+
+                override fun onError(error: FacebookException?) {
+                }
+            })
     }
 
     private fun onGoogleClicked() {

@@ -5,7 +5,7 @@ import com.mashup.mobalmobal.databinding.HolderProfileRequestDonationBinding
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 
 class ProfileRequestDonationViewHolder(
-    val binding: HolderProfileRequestDonationBinding
+    private val binding: HolderProfileRequestDonationBinding
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: ProfileItem.RequestDonation) {
         with(binding) {

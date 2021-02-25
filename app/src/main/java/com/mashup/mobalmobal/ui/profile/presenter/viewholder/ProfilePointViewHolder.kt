@@ -5,7 +5,7 @@ import com.mashup.mobalmobal.databinding.HolderProfilePointBinding
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 
 class ProfilePointViewHolder(
-    val binding: HolderProfilePointBinding
+    private val binding: HolderProfilePointBinding
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: ProfileItem.Point) {
         with(binding) {

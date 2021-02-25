@@ -79,7 +79,6 @@ class ProfileAdapter : ListAdapter<ProfileItem, RecyclerView.ViewHolder>(Profile
         }
     }
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
             is ProfileUserViewHolder -> {

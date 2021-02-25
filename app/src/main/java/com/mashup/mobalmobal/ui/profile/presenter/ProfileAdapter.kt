@@ -1,10 +1,13 @@
 package com.mashup.mobalmobal.ui.profile.presenter
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.mashup.mobalmobal.databinding.*
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
+import com.mashup.mobalmobal.ui.profile.presenter.viewholder.*
 
 class ProfileAdapter : ListAdapter<ProfileItem, RecyclerView.ViewHolder>(ProfileItemDiffCallback()){
     enum class ViewType {
@@ -36,10 +39,64 @@ class ProfileAdapter : ListAdapter<ProfileItem, RecyclerView.ViewHolder>(Profile
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        TODO("Not yet implemented")
+        return when(viewType){
+            ViewType.USER.ordinal -> ProfileUserViewHolder(
+                HolderProfileUserBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            ViewType.POINT.ordinal -> ProfilePointViewHolder(
+                HolderProfilePointBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            ViewType.DONATION_SUMMARY.ordinal -> ProfileDonationSummaryViewHolder(
+                HolderProfileDonationSummaryBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            ViewType.REQUEST_DONATION.ordinal -> ProfileRequestDonationViewHolder(
+                HolderProfileRequestDonationBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            ViewType.DONATED.ordinal -> ProfileDonatedViewHolder(
+                HolderProfileDonatedBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            else -> throw IllegalArgumentException()
+        }
     }
 
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        when(holder){
+            is ProfileUserViewHolder -> {
+                holder.bind(getItem(position) as ProfileItem.User)
+            }
+            is ProfilePointViewHolder -> {
+                holder.bind(getItem(position) as ProfileItem.Point)
+            }
+            is ProfileDonationSummaryViewHolder -> {
+                holder.bind(getItem(position) as ProfileItem.DonationSummary)
+            }
+            is ProfileRequestDonationViewHolder -> {
+                holder.bind(getItem(position) as ProfileItem.RequestDonation)
+            }
+            is ProfileDonatedViewHolder -> {
+                holder.bind(getItem(position) as ProfileItem.Donated)
+            }
+        }
     }
 }

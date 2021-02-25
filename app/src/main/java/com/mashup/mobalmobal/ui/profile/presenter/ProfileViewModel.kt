@@ -1,4 +1,4 @@
-package com.mashup.mobalmobal.ui.profile
+package com.mashup.mobalmobal.ui.profile.presenter
 
 import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.observeOnMain
@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    var schedulerProvider: BaseSchedulerProvider,
-    var profileRepository: ProfileRepository
+    val schedulerProvider: BaseSchedulerProvider,
+    val profileRepository: ProfileRepository
 ) : BaseViewModel(schedulerProvider) {
 
     private val _toastSubject: PublishSubject<String> = PublishSubject.create()

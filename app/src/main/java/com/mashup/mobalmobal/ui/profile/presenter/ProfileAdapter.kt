@@ -1,8 +1,6 @@
-package com.mashup.mobalmobal.ui.profile
+package com.mashup.mobalmobal.ui.profile.presenter
 
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView

@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
+import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentProfileBinding
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.extension.showToast
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 /**
@@ -41,8 +41,11 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>() {
     }
 
     private fun observeViewModel() = with(profileViewModel) {
-        toastSubject.observeOn(AndroidSchedulers.mainThread())
+        toastSubject.observeOnMain()
             .subscribeWithErrorLogger { context?.showToast(it, Toast.LENGTH_SHORT) }
+
+        profileSubject.observeOnMain()
+            .subscribeWithErrorLogger {}
     }
 
     private fun navigateProfileToMyDonations() =

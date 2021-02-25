@@ -1,8 +1,10 @@
-package com.mashup.mobalmobal.ui.profile
+package com.mashup.mobalmobal.ui.profile.presenter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.funin.base.funinbase.extension.rx.observeOnMain
@@ -22,8 +24,7 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>() {
         private const val KEY_USER_ID = "key_user_id"
     }
 
-    @Inject
-    lateinit var profileViewModel: ProfileViewModel
+    private val profileViewModel: ProfileViewModel by viewModels()
 
     val userId: String by lazy {
         arguments?.getString(KEY_USER_ID)

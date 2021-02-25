@@ -1,21 +1,16 @@
 package com.mashup.mobalmobal.ui.settings
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.funin.base.funinbase.base.BaseFragment
-import com.mashup.mobalmobal.R
+import com.funin.base.funinbase.base.BaseViewBindingFragment
+import com.mashup.mobalmobal.databinding.FragmentSettingsBinding
 
 /**
  * 설정
  */
-class SettingsFragment : BaseFragment() {
-    override fun onCreateView(
+class SettingsFragment : BaseViewBindingFragment<FragmentSettingsBinding>() {
+    override fun setBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_settings, container, false)
-    }
+        container: ViewGroup?
+    ): FragmentSettingsBinding = FragmentSettingsBinding.inflate(inflater, container, false)
 }

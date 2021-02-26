@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    val schedulerProvider: BaseSchedulerProvider,
-    val profileRepository: ProfileRepository
+    private val schedulerProvider: BaseSchedulerProvider,
+    private val profileRepository: ProfileRepository
 ) : BaseViewModel(schedulerProvider) {
 
     private val _toastSubject: PublishSubject<String> = PublishSubject.create()

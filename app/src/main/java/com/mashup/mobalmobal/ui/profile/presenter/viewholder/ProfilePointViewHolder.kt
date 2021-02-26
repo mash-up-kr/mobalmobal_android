@@ -7,6 +7,7 @@ import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 class ProfilePointViewHolder(
     private val binding: HolderProfilePointBinding
 ) : RecyclerView.ViewHolder(binding.root) {
+
     fun bind(item: ProfileItem.Point) {
         with(binding) {
             tvPointCount.text = item.point.toString()

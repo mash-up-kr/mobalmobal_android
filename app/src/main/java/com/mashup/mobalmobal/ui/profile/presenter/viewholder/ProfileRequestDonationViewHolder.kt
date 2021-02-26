@@ -7,8 +7,10 @@ import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 class ProfileRequestDonationViewHolder(
     private val binding: HolderProfileRequestDonationBinding
 ) : RecyclerView.ViewHolder(binding.root) {
+
     fun bind(item: ProfileItem.RequestDonation) {
         with(binding) {
+            tvTitle.text = item.title
         }
     }
 }

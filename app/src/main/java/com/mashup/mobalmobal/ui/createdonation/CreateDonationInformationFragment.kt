@@ -9,23 +9,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.funin.base.funinbase.base.BaseFragment
+import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.mashup.mobalmobal.databinding.FragmentCreateDonationInformationBinding
 import java.util.*
 
 
-class CreateDonationInformationFragment : BaseFragment() {
-    private var _binding : FragmentCreateDonationInformationBinding? = null
-    private val binding get() = _binding!!
+class CreateDonationInformationFragment :
+    BaseViewBindingFragment<FragmentCreateDonationInformationBinding>() {
     private val DAY_DIFF = 7
     private val HOUR_DIFF = 1
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        _binding = FragmentCreateDonationInformationBinding.inflate(inflater, container, false)
-        val view = binding.root
 
+    override fun setBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentCreateDonationInformationBinding =
+        FragmentCreateDonationInformationBinding.inflate(inflater, container, false)
+
+    override fun onSetupViews(view: View) {
         initializeDateAndTime()
         binding.startDateTime.setOnClickListener {
             val c = Calendar.getInstance()
@@ -37,7 +37,6 @@ class CreateDonationInformationFragment : BaseFragment() {
             c.add(Calendar.HOUR_OF_DAY, HOUR_DIFF)
             showDatePickerDialog(c)
         }
-        return view
     }
 
     fun initializeDateAndTime() {
@@ -60,7 +59,7 @@ class CreateDonationInformationFragment : BaseFragment() {
         binding.endDateTime.text = endDateTime
     }
 
-    fun showDatePickerDialog(c:Calendar) {
+    fun showDatePickerDialog(c: Calendar) {
         DatePickerDialog(
             requireActivity(),
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
@@ -72,7 +71,7 @@ class CreateDonationInformationFragment : BaseFragment() {
             c.get(Calendar.YEAR),
             c.get(Calendar.MONTH),
             c.get(Calendar.DAY_OF_MONTH)
-        ) .apply {
+        ).apply {
             datePicker.minDate = System.currentTimeMillis()
         }.show()
     }
@@ -81,7 +80,7 @@ class CreateDonationInformationFragment : BaseFragment() {
         val c = Calendar.getInstance()
         TimePickerDialog(
             activity,
-            TimePickerDialog.OnTimeSetListener{ _, hourOfDay, minute ->
+            TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 Toast.makeText(context, "$hourOfDay, $minute", Toast.LENGTH_SHORT).show()
             },
             c.get(Calendar.HOUR_OF_DAY),
@@ -90,8 +89,4 @@ class CreateDonationInformationFragment : BaseFragment() {
         ).show()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

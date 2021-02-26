@@ -9,6 +9,7 @@ class ProfilePointViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: ProfileItem.Point) {
         with(binding) {
+            tvPointCount.text = item.point.toString()
         }
     }
 }

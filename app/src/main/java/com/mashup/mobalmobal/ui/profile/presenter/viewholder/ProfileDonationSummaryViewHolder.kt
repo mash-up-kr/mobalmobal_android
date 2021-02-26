@@ -9,6 +9,9 @@ class ProfileDonationSummaryViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: ProfileItem.DonationSummary) {
         with(binding) {
+            tvRequestDonationCount.text = item.requestCount.toString()
+            tvDonatedCount.text = item.donatedCount.toString()
+            tvClosedDonationCount.text = item.closedCount.toString()
         }
     }
 }

@@ -12,5 +12,9 @@
     <string name="profile_modify">수정</string>
     <string name="profile_setting">설정</string>
     <string name="profile_point">보유 포인트</string>
-    <string name="profile_charge">충전하기</string>
+    <string name="profile_charge">충전하</string>
+    <string name="profile_donation_summary_status">현황</string>
+    <string name="profile_donation_summary_request">내가 받는</string>
+    <string name="profile_donation_summary_donated">내가 주는</string>
+    <string name="profile_donation_summary_closed">종료</string>
 </resources>

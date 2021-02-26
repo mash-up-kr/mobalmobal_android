@@ -16,13 +16,14 @@ import com.mashup.mobalmobal.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>() {
+class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
+    ProfileAdapter.ProfileClickListener {
     companion object {
         private const val KEY_USER_ID = "key_user_id"
     }
 
     private val profileViewModel: ProfileViewModel by viewModels()
-    private val profileAdapter by lazy { ProfileAdapter() }
+    private val profileAdapter by lazy { ProfileAdapter(this) }
     private val userId: String by lazy {
         arguments?.getString(KEY_USER_ID)
             ?: throw IllegalArgumentException("ProfileFragment must have user's id")
@@ -45,6 +46,12 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>() {
         super.onBindViewModels()
         observeViewModel()
         requestUserProfile()
+    }
+
+    override fun onProfileItemClick(view: View, position: Int) {
+        when(view.id){
+            R.id.tv_setting -> navigateProfileToSettings()
+        }
     }
 
     private fun requestUserProfile() = profileViewModel.getProfile(userId)

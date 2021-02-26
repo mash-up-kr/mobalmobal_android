@@ -49,7 +49,7 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
     }
 
     override fun onProfileItemClick(view: View, position: Int) {
-        when(view.id){
+        when (view.id) {
             R.id.tv_setting -> navigateProfileToSettings()
         }
     }

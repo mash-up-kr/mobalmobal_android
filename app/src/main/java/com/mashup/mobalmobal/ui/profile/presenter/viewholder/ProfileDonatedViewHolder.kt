@@ -11,7 +11,7 @@ class ProfileDonatedViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {
-        with(binding){
+        with(binding) {
             root.setOnClickListener {
                 listener.onProfileItemClick(it, absoluteAdapterPosition)
             }

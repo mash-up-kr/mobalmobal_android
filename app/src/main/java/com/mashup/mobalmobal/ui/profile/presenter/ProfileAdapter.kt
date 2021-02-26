@@ -23,7 +23,7 @@ class ProfileAdapter(val clickListener: ProfileClickListener) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType){
+        return when (viewType) {
             ViewType.USER.ordinal -> ProfileUserViewHolder(
                 HolderProfileUserBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -64,7 +64,7 @@ class ProfileAdapter(val clickListener: ProfileClickListener) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder){
+        when (holder) {
             is ProfileUserViewHolder -> {
                 holder.bind(getItem(position) as ProfileItem.User)
             }

@@ -16,7 +16,7 @@ class ProfileUserViewHolder(
     lateinit var glideRequest: GlideRequests
 
     init {
-        with(binding){
+        with(binding) {
             tvModify.setOnClickListener {
                 listener.onProfileItemClick(it, absoluteAdapterPosition)
             }

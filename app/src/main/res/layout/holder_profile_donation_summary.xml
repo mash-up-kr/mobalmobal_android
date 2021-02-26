@@ -41,9 +41,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/profile_donation_summary_count"
-                app:layout_constraintEnd_toStartOf="@+id/tv_donated_count"
+                app:layout_constraintEnd_toStartOf="@id/tv_donated_count"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guide_start"
+                app:layout_constraintTop_toTopOf="@id/guide_start"
                 tools:text="1" />
 
             <TextView
@@ -53,9 +53,9 @@
                 android:layout_marginTop="6dp"
                 android:text="@string/profile_donation_summary_request"
                 android:textAppearance="@style/profile_donation_summary_count"
-                app:layout_constraintEnd_toEndOf="@+id/tv_request_donation_count"
-                app:layout_constraintStart_toStartOf="@+id/tv_request_donation_count"
-                app:layout_constraintTop_toBottomOf="@+id/tv_request_donation_count" />
+                app:layout_constraintEnd_toEndOf="@id/tv_request_donation_count"
+                app:layout_constraintStart_toStartOf="@id/tv_request_donation_count"
+                app:layout_constraintTop_toBottomOf="@id/tv_request_donation_count" />
 
             <TextView
                 android:id="@+id/tv_donated_count"
@@ -64,7 +64,7 @@
                 android:textAppearance="@style/profile_donation_summary_count"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guide_start"
+                app:layout_constraintTop_toTopOf="@id/guide_start"
                 tools:text="2" />
 
             <TextView
@@ -74,9 +74,9 @@
                 android:layout_marginTop="6dp"
                 android:text="@string/profile_donation_summary_donated"
                 android:textAppearance="@style/profile_donation_summary_count"
-                app:layout_constraintEnd_toEndOf="@+id/tv_donated_count"
-                app:layout_constraintStart_toStartOf="@+id/tv_donated_count"
-                app:layout_constraintTop_toBottomOf="@+id/tv_donated_count" />
+                app:layout_constraintEnd_toEndOf="@id/tv_donated_count"
+                app:layout_constraintStart_toStartOf="@id/tv_donated_count"
+                app:layout_constraintTop_toBottomOf="@id/tv_donated_count" />
 
             <TextView
                 android:id="@+id/tv_closed_donation_count"
@@ -84,8 +84,8 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/profile_donation_summary_count"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_donated_count"
-                app:layout_constraintTop_toTopOf="@+id/guide_start"
+                app:layout_constraintStart_toEndOf="@id/tv_donated_count"
+                app:layout_constraintTop_toTopOf="@id/guide_start"
                 tools:text="3" />
 
             <TextView
@@ -95,9 +95,9 @@
                 android:layout_marginTop="6dp"
                 android:text="@string/profile_donation_summary_closed"
                 android:textAppearance="@style/profile_donation_summary_count"
-                app:layout_constraintEnd_toEndOf="@+id/tv_closed_donation_count"
-                app:layout_constraintStart_toStartOf="@+id/tv_closed_donation_count"
-                app:layout_constraintTop_toBottomOf="@+id/tv_closed_donation_count" />
+                app:layout_constraintEnd_toEndOf="@id/tv_closed_donation_count"
+                app:layout_constraintStart_toStartOf="@id/tv_closed_donation_count"
+                app:layout_constraintTop_toBottomOf="@id/tv_closed_donation_count" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

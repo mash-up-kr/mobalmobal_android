@@ -4,6 +4,7 @@ import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
+import com.mashup.mobalmobal.data.sharedpreferences.MobalSharedPreferencesImpl
 import com.mashup.mobalmobal.ui.profile.data.dto.toProfileItems
 import com.mashup.mobalmobal.ui.profile.data.repository.ProfileRepository
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
@@ -28,6 +29,10 @@ class ProfileViewModel @Inject constructor(
     private val _profileSubject: BehaviorSubject<List<ProfileItem>> =
         BehaviorSubject.createDefault(emptyList())
     val profileSubject get() = _profileSubject
+
+    init {
+        MobalSharedPreferencesImpl.getUserId()?.let { requestProfile(it) }
+    }
 
     fun requestProfile(userId: String) {
         profileRepository.getProfile(userId)

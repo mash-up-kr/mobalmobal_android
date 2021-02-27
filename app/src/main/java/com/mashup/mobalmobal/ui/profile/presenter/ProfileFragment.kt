@@ -60,11 +60,7 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
                 .subscribeWithErrorLogger { profileAdapter.submitList(it) }
                 .addToDisposables()
         }
-
-        requestProfile(userId)
     }
-
-    private fun requestProfile(userId: String) = profileViewModel.requestProfile(userId)
 
     override fun onProfileItemClick(view: View, position: Int) {
         when (view.id) {

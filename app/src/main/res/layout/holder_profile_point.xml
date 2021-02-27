@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="17dp"
                 android:layout_marginEnd="20dp"
-                android:textAppearance="@style/profile_point_count"
+                android:textAppearance="@style/ModalComponent.ProfilePointCount"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="13213000" />
@@ -37,7 +37,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:text="@string/profile_point"
-                android:textAppearance="@style/profile_point"
+                android:textAppearance="@style/ModalComponent.ProfilePoint"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,7 +48,7 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="24dp"
                 android:text="@string/profile_charge"
-                android:textAppearance="@style/profile_point"
+                android:textAppearance="@style/ModalComponent.ProfilePoint"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 

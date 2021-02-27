@@ -31,6 +31,8 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
 
     companion object {
         private const val TAG = "SignInFragment"
+        private const val EMAIL = "email"
+        private const val PUBLIC_PROFILE = "public_profile"
     }
 
     private val viewModel by viewModels<SignInViewModel>()
@@ -83,7 +85,7 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
     private fun setFacebookLogin() {
         callbackManager = CallbackManager.Factory.create()
 
-        binding.signInFacebook.setPermissions("email", "public_profile")
+        binding.signInFacebook.setPermissions(EMAIL, PUBLIC_PROFILE)
         binding.signInFacebook.fragment = this
         binding.signInFacebook.registerCallback(
             callbackManager,
@@ -98,8 +100,8 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
                 }
 
                 override fun onError(error: FacebookException?) {
-                    error?.let {
-                        showToast(it.message!!)
+                    error?.message?.let {
+                        showToast(it)
                     }
                 }
             })
@@ -117,18 +119,9 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
 
         override fun parseResult(resultCode: Int, intent: Intent?): String {
             val task = GoogleSignIn.getSignedInAccountFromIntent(intent)
+            val account = task.getResult(ApiException::class.java)
 
-            try {
-                val account = task.getResult(ApiException::class.java)
-
-                account?.let {
-                    return account.idToken!!
-                }
-            } catch (e: ApiException) {
-                e.printStackTrace()
-            }
-
-            return ""
+            return account?.idToken ?: throw IllegalStateException("Account token must be not null")
         }
     }
 }

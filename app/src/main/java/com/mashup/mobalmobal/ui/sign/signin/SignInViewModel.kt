@@ -12,6 +12,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 
@@ -29,7 +30,6 @@ class SignInViewModel @Inject constructor(
     private val _showToast = MutableLiveData<String>()
     val showToast: LiveData<String>
         get() = _showToast
-
 
     fun handleGoogleAccessToken(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)

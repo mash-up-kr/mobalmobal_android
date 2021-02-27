@@ -24,9 +24,14 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
 
     private val profileViewModel: ProfileViewModel by viewModels()
     private val profileAdapter by lazy { ProfileAdapter(this) }
-    private val userId: String by lazy {
-        arguments?.getString(KEY_USER_ID)
-            ?: throw IllegalArgumentException("ProfileFragment must have user's id")
+    private val userId: String by lazy { arguments?.getString(KEY_USER_ID) ?: ""}
+
+    init {
+        checkVerifyUserId()
+    }
+
+    private fun checkVerifyUserId(){
+        if(userId.isEmpty()) findNavController().popBackStack()
     }
 
     override fun setBinding(
@@ -57,7 +62,7 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
         requestProfile(userId)
     }
 
-    fun requestProfile(userId: String) = profileViewModel.requestProfile(userId)
+    private fun requestProfile(userId: String) = profileViewModel.requestProfile(userId)
 
     override fun onProfileItemClick(view: View, position: Int) {
         when (view.id) {
@@ -70,4 +75,5 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
 
     private fun navigateProfileToSettings() =
         findNavController().navigate(R.id.action_profileFragment_to_settingsFragment)
+
 }

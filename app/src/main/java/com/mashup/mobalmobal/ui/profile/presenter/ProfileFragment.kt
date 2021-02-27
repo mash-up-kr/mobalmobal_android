@@ -44,26 +44,25 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
 
     override fun onBindViewModels() {
         super.onBindViewModels()
-        observeViewModel()
-        requestUserProfile()
+        with(profileViewModel) {
+            toastSubject.observeOnMain()
+                .subscribeWithErrorLogger { context?.showToast(it, Toast.LENGTH_SHORT) }
+                .addToDisposables()
+
+            profileSubject.observeOnMain()
+                .subscribeWithErrorLogger { profileAdapter.submitList(it) }
+                .addToDisposables()
+        }
+
+        requestProfile(userId)
     }
+
+    fun requestProfile(userId: String) = profileViewModel.requestProfile(userId)
 
     override fun onProfileItemClick(view: View, position: Int) {
         when (view.id) {
             R.id.tv_setting -> navigateProfileToSettings()
         }
-    }
-
-    private fun requestUserProfile() = profileViewModel.getProfile(userId)
-
-    private fun observeViewModel() = with(profileViewModel) {
-        toastSubject.observeOnMain()
-            .subscribeWithErrorLogger { context?.showToast(it, Toast.LENGTH_SHORT) }
-            .addToDisposables()
-
-        profileSubject.observeOnMain()
-            .subscribeWithErrorLogger { profileAdapter.submitList(it) }
-            .addToDisposables()
     }
 
     private fun navigateProfileToMyDonations() =

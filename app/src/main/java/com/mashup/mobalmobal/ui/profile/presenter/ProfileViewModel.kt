@@ -29,11 +29,10 @@ class ProfileViewModel @Inject constructor(
         BehaviorSubject.createDefault(emptyList())
     val profileSubject get() = _profileSubject
 
-    fun getProfile(userId: String) {
+    fun requestProfile(userId: String) {
         profileRepository.getProfile(userId)
             .toFlowable()
             .subscribeOnIO()
-            .observeOnMain()
             .doOnSubscribe { _loadingSubject.onNext(true) }
             .subscribeWithErrorLogger { response ->
                 with(response) {

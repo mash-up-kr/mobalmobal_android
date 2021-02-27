@@ -1,5 +1,6 @@
 package com.mashup.mobalmobal.di
 
+import androidx.fragment.app.Fragment
 import com.mashup.mobalmobal.ui.profile.presenter.ProfileAdapter
 import com.mashup.mobalmobal.ui.profile.presenter.ProfileFragment
 import dagger.Module
@@ -13,6 +14,6 @@ import dagger.hilt.android.scopes.FragmentScoped
 object ProfileModule {
 
     @Provides
-    fun provideProfileAdapter(@FragmentScoped fragment: ProfileFragment): ProfileAdapter =
-        ProfileAdapter(fragment)
+    fun provideProfileAdapter(fragment: Fragment): ProfileAdapter =
+        ProfileAdapter(fragment as? ProfileFragment)
 }

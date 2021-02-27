@@ -7,13 +7,13 @@ import com.mashup.mobalmobal.ui.profile.presenter.ProfileAdapter
 
 class ProfilePointViewHolder(
     private val binding: HolderProfilePointBinding,
-    private val listener: ProfileAdapter.ProfileClickListener
+    private val listener: ProfileAdapter.ProfileClickListener?
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {
         with(binding) {
             root.setOnClickListener {
-                listener.onProfileItemClick(it, absoluteAdapterPosition)
+                listener?.onProfileItemClick(it, absoluteAdapterPosition)
             }
         }
     }

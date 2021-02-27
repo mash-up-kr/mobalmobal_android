@@ -10,7 +10,7 @@ import com.mashup.mobalmobal.databinding.*
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 import com.mashup.mobalmobal.ui.profile.presenter.viewholder.*
 
-class ProfileAdapter(val clickListener: ProfileClickListener) :
+class ProfileAdapter(private val clickListener: ProfileClickListener?) :
     ListAdapter<ProfileItem, RecyclerView.ViewHolder>(ProfileItemDiffCallback()) {
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {

@@ -7,9 +7,9 @@ import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 import com.mashup.mobalmobal.ui.profile.presenter.ProfileAdapter
 import javax.inject.Inject
 
-class ProfileUserViewHolder(
+class ProfileUserViewHolder (
     private val binding: HolderProfileUserBinding,
-    private val listener: ProfileAdapter.ProfileClickListener
+    private val listener: ProfileAdapter.ProfileClickListener?
 ) : RecyclerView.ViewHolder(binding.root) {
 
     @Inject
@@ -18,7 +18,7 @@ class ProfileUserViewHolder(
     init {
         with(binding) {
             tvModify.setOnClickListener {
-                listener.onProfileItemClick(it, absoluteAdapterPosition)
+                listener?.onProfileItemClick(it, absoluteAdapterPosition)
             }
         }
     }

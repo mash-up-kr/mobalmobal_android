@@ -30,7 +30,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
 
     companion object {
-        private const val TAG = "SignInFragment"
         private const val EMAIL = "email"
         private const val PUBLIC_PROFILE = "public_profile"
     }

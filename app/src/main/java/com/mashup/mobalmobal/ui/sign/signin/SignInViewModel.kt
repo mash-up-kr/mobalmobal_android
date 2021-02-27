@@ -39,7 +39,7 @@ class SignInViewModel @Inject constructor(
     }
 
     private fun signInFirebase(credential: AuthCredential) {
-        auth.signInWithCredential(credential).addOnCompleteListener() { task ->
+        auth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 auth.currentUser?.let {
                     //서버 키 체크 Logic (우리 서비스 가입 여부 확인)

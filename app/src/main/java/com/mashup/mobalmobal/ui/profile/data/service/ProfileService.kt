@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ProfileService {
-    @GET("/users")
+    @GET("users")
     fun getProfile(
         @Query("user_id")
         userId: String

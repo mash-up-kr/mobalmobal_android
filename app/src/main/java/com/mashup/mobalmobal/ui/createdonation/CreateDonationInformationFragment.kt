@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.funin.base.funinbase.base.BaseFragment
+import androidx.fragment.app.activityViewModels
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.mashup.mobalmobal.databinding.FragmentCreateDonationInformationBinding
 import java.util.*
@@ -16,8 +16,13 @@ import java.util.*
 
 class CreateDonationInformationFragment :
     BaseViewBindingFragment<FragmentCreateDonationInformationBinding>() {
-    private val DAY_DIFF = 7
-    private val HOUR_DIFF = 1
+
+    companion object {
+        private const val DAY_DIFF = 7
+        private const val HOUR_DIFF = 1
+    }
+
+    private val createDonationViewModel: CreateDonationViewModel by activityViewModels()
 
     override fun setBinding(
         inflater: LayoutInflater,
@@ -39,7 +44,7 @@ class CreateDonationInformationFragment :
         }
     }
 
-    fun initializeDateAndTime() {
+    private fun initializeDateAndTime() {
         val c = Calendar.getInstance()
         val startYear = c.get(Calendar.YEAR)
         val startMonth = c.get(Calendar.MONTH) + 1
@@ -59,7 +64,7 @@ class CreateDonationInformationFragment :
         binding.endDateTime.text = endDateTime
     }
 
-    fun showDatePickerDialog(c: Calendar) {
+    private fun showDatePickerDialog(c: Calendar) {
         DatePickerDialog(
             requireActivity(),
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
@@ -76,7 +81,7 @@ class CreateDonationInformationFragment :
         }.show()
     }
 
-    fun showTimePickerDialog() {
+    private fun showTimePickerDialog() {
         val c = Calendar.getInstance()
         TimePickerDialog(
             activity,

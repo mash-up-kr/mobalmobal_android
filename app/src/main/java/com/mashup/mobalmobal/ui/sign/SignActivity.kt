@@ -1,13 +1,13 @@
 package com.mashup.mobalmobal.ui.sign
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.funin.base.funinbase.base.BaseActivity
 import com.mashup.mobalmobal.databinding.ActivitySignBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class SignActivity : AppCompatActivity() {
+class SignActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySignBinding
 

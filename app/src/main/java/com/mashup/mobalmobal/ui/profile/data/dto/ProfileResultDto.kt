@@ -42,41 +42,41 @@ data class DonationSummaryDto(
 fun ProfileDetailDto.toProfileItems(): List<ProfileItem> =
     listOfNotNull(
         ProfileItem.User(
-            name,
-            nickName,
-            profileUrl
+            name = name,
+            nickName = nickName,
+            profileUrl = profileUrl
         ),
 
         ProfileItem.Point(point),
 
         ProfileItem.DonationSummary(
-            donationSummary.requestCount,
-            donationSummary.donatedCount,
-            donationSummary.closedCount
+            requestCount = donationSummary.requestCount,
+            donatedCount = donationSummary.donatedCount,
+            closedCount = donationSummary.closedCount
         ),
     ).toMutableList()
         .also {
             it.addAll(requestDonations.map { donation ->
                 ProfileItem.RequestDonation(
-                    donation.author,
-                    donation.title,
-                    donation.description,
-                    donation.goalPrice,
-                    donation.donatedPrice,
-                    donation.startDate,
-                    donation.dueDate
+                    author = donation.author,
+                    title = donation.title,
+                    description = donation.description,
+                    goalPrice = donation.goalPrice,
+                    donatedPrice = donation.donatedPrice,
+                    startDate = donation.startDate,
+                    dueDate = donation.dueDate
                 )
             })
 
             it.addAll(donations.map { donation ->
                 ProfileItem.Donated(
-                    donation.author,
-                    donation.title,
-                    donation.description,
-                    donation.goalPrice,
-                    donation.donatedPrice,
-                    donation.startDate,
-                    donation.dueDate
+                    author = donation.author,
+                    title = donation.title,
+                    description = donation.description,
+                    goalPrice = donation.goalPrice,
+                    donatedPrice = donation.donatedPrice,
+                    startDate = donation.startDate,
+                    dueDate =  donation.dueDate
                 )
             })
         }

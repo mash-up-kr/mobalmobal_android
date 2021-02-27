@@ -12,6 +12,12 @@ import com.mashup.mobalmobal.ui.profile.presenter.viewholder.*
 
 class ProfileAdapter(private val clickListener: ProfileClickListener?) :
     ListAdapter<ProfileItem, RecyclerView.ViewHolder>(ProfileItemDiffCallback()) {
+
+    companion object {
+        private const val PAYLOAD_REQUEST_DONATION_TITLE = "payload_request_donation_title"
+        private const val PAYLOAD_DONATED_TITLE = "payload_donated_title"
+    }
+
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
             is ProfileItem.User -> ViewType.USER.ordinal
@@ -83,6 +89,33 @@ class ProfileAdapter(private val clickListener: ProfileClickListener?) :
         }
     }
 
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isEmpty()) {
+            onBindViewHolder(holder, position)
+        } else {
+            val item = getItem(position)
+            payloads.forEach { payload ->
+                when (payload) {
+                    PAYLOAD_REQUEST_DONATION_TITLE -> {
+                        (item as? ProfileItem.RequestDonation)?.let { item ->
+                            (holder as? ProfileRequestDonationViewHolder)?.bindTitle(item)
+                        }
+                    }
+
+                    PAYLOAD_DONATED_TITLE -> {
+                        (item as? ProfileItem.Donated)?.let { item ->
+                            (holder as? ProfileDonatedViewHolder)?.bindTitle(item)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     enum class ViewType {
         USER,
         POINT,
@@ -93,11 +126,32 @@ class ProfileAdapter(private val clickListener: ProfileClickListener?) :
 
     class ProfileItemDiffCallback : DiffUtil.ItemCallback<ProfileItem>() {
         override fun areItemsTheSame(oldItem: ProfileItem, newItem: ProfileItem): Boolean {
-            return oldItem == newItem
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: ProfileItem, newItem: ProfileItem): Boolean {
             return oldItem == newItem
+        }
+
+        override fun getChangePayload(oldItem: ProfileItem, newItem: ProfileItem): Any? {
+            if (oldItem is ProfileItem.RequestDonation
+                && newItem is ProfileItem.RequestDonation
+            ) {
+                if (oldItem.title == newItem.title
+                    && oldItem.copy(newItem.title) == newItem
+                ) {
+                    return PAYLOAD_REQUEST_DONATION_TITLE
+                }
+            } else if (oldItem is ProfileItem.Donated
+                && newItem is ProfileItem.Donated
+            ) {
+                if (oldItem.title == newItem.title
+                    && oldItem.copy(newItem.title) == newItem
+                ) {
+                    return PAYLOAD_DONATED_TITLE
+                }
+            }
+            return null
         }
     }
 

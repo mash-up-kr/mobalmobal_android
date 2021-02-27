@@ -12,6 +12,8 @@ data class ProfileResultDto(
 )
 
 data class ProfileDetailDto(
+    @SerializedName("userId")
+    val userId: String,
     @SerializedName("name")
     val name: String,
     @SerializedName("nick_name")
@@ -42,6 +44,7 @@ data class DonationSummaryDto(
 fun ProfileDetailDto.toProfileItems(): List<ProfileItem> =
     listOfNotNull(
         ProfileItem.User(
+            userId = userId,
             name = name,
             nickName = nickName,
             profileUrl = profileUrl
@@ -58,6 +61,7 @@ fun ProfileDetailDto.toProfileItems(): List<ProfileItem> =
         .also {
             it.addAll(requestDonations.map { donation ->
                 ProfileItem.RequestDonation(
+                    donationId = donation.donationId,
                     author = donation.author,
                     title = donation.title,
                     description = donation.description,
@@ -70,6 +74,7 @@ fun ProfileDetailDto.toProfileItems(): List<ProfileItem> =
 
             it.addAll(donations.map { donation ->
                 ProfileItem.Donated(
+                    donationId = donation.donationId,
                     author = donation.author,
                     title = donation.title,
                     description = donation.description,

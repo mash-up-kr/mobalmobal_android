@@ -19,8 +19,10 @@ class ProfileDonatedViewHolder(
     }
 
     fun bind(item: ProfileItem.Donated) {
-        with(binding) {
-            tvTitle.text = item.title
-        }
+        bindTitle(item)
+    }
+
+    fun bindTitle(item: ProfileItem.Donated) {
+        binding.tvTitle.text = item.title
     }
 }

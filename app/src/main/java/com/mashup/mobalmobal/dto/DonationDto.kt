@@ -3,6 +3,8 @@ package com.mashup.mobalmobal.dto
 import com.google.gson.annotations.SerializedName
 
 class DonationDto (
+    @SerializedName("donation_id")
+    val donationId: String,
     @SerializedName("author")
     val author: UserDto,
     @SerializedName("title")

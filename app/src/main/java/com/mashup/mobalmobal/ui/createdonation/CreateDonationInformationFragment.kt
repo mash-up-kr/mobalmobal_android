@@ -10,19 +10,22 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.funin.base.funinbase.base.BaseViewBindingFragment
+import com.funin.base.funinbase.extension.rx.observeOnMain
+import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.mashup.mobalmobal.databinding.FragmentCreateDonationInformationBinding
+import java.text.SimpleDateFormat
 import java.util.*
 
 
 class CreateDonationInformationFragment :
     BaseViewBindingFragment<FragmentCreateDonationInformationBinding>() {
 
+    private val createDonationViewModel: CreateDonationViewModel by activityViewModels()
+
     companion object {
         private const val DAY_DIFF = 7
         private const val HOUR_DIFF = 1
     }
-
-    private val createDonationViewModel: CreateDonationViewModel by activityViewModels()
 
     override fun setBinding(
         inflater: LayoutInflater,
@@ -31,12 +34,12 @@ class CreateDonationInformationFragment :
         FragmentCreateDonationInformationBinding.inflate(inflater, container, false)
 
     override fun onSetupViews(view: View) {
-        initializeDateAndTime()
-        binding.startDateTime.setOnClickListener {
+        observeViewModel()
+        binding.createDonationInformationStartDateTime.setOnClickListener {
             val c = Calendar.getInstance()
             showDatePickerDialog(c)
         }
-        binding.endDateTime.setOnClickListener {
+        binding.createDonationInformationEndDateTime.setOnClickListener {
             val c = Calendar.getInstance()
             c.add(Calendar.DAY_OF_MONTH, DAY_DIFF)
             c.add(Calendar.HOUR_OF_DAY, HOUR_DIFF)
@@ -44,24 +47,27 @@ class CreateDonationInformationFragment :
         }
     }
 
-    private fun initializeDateAndTime() {
-        val c = Calendar.getInstance()
-        val startYear = c.get(Calendar.YEAR)
-        val startMonth = c.get(Calendar.MONTH) + 1
-        val startDay = c.get(Calendar.DAY_OF_MONTH)
-        val startHour = c.get(Calendar.HOUR_OF_DAY)
+    private fun observeViewModel() {
+        createDonationViewModel.description
+            .observeOnMain()
+            .subscribeWithErrorLogger {
+                binding.createDonationInformationDescription.setText(it)
+            }
+            .addToDisposables()
 
-        c.add(Calendar.DAY_OF_MONTH, DAY_DIFF)
-        c.add(Calendar.HOUR_OF_DAY, HOUR_DIFF)
-        val endYear = c.get(Calendar.YEAR)
-        val endMonth = c.get(Calendar.MONTH) + 1
-        val endDate = c.get(Calendar.DAY_OF_MONTH)
-        val endHour = c.get(Calendar.HOUR_OF_DAY)
-        val startDateTime = "$startYear 년 $startMonth 월 $startDay 일 $startHour 시"
-        val endDateTime = "$endYear 년 $endMonth 월 $endDate 일 $endHour 시"
+        createDonationViewModel.startDateTimeTextSubject
+            .observeOnMain()
+            .subscribeWithErrorLogger {
+                binding.createDonationInformationStartDateTime.text = it
+            }
+            .addToDisposables()
 
-        binding.startDateTime.text = startDateTime
-        binding.endDateTime.text = endDateTime
+        createDonationViewModel.endDateTimeTextSubject
+            .observeOnMain()
+            .subscribeWithErrorLogger {
+                binding.createDonationInformationEndDateTime.text = it
+            }
+            .addToDisposables()
     }
 
     private fun showDatePickerDialog(c: Calendar) {
@@ -69,6 +75,7 @@ class CreateDonationInformationFragment :
             requireActivity(),
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 var realMonth = monthOfYear + 1
+                //TODO: set data
                 Toast.makeText(context, "$year 년 $realMonth 월 $dayOfMonth 일", Toast.LENGTH_SHORT)
                     .show()
                 showTimePickerDialog()
@@ -86,6 +93,7 @@ class CreateDonationInformationFragment :
         TimePickerDialog(
             activity,
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                //TODO: set data
                 Toast.makeText(context, "$hourOfDay, $minute", Toast.LENGTH_SHORT).show()
             },
             c.get(Calendar.HOUR_OF_DAY),
@@ -95,3 +103,5 @@ class CreateDonationInformationFragment :
     }
 
 }
+
+

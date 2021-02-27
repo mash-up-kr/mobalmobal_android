@@ -10,6 +10,7 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 object SchedulersModule {
+
     @Provides
-    fun provideScheduler(): BaseSchedulerProvider = SchedulerProvider
+    fun provideSchedulerProvider(): BaseSchedulerProvider = SchedulerProvider
 }

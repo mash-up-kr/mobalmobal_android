@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.fragment.app.viewModels
@@ -14,6 +15,8 @@ import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
 import com.funin.base.funinbase.base.BaseViewBindingFragment
+import com.funin.base.funinbase.extension.rx.observeOnMain
+import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.extension.showToast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -23,9 +26,6 @@ import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentSignInBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * 로그인
- */
 @AndroidEntryPoint
 class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
 
@@ -57,9 +57,9 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
     }
 
     override fun onBindViewModels() {
-        viewModel.showToast.observe(viewLifecycleOwner, { message ->
-            showToast(message)
-        })
+        viewModel.toastSubject.observeOnMain()
+            .subscribeWithErrorLogger { context?.showToast(it, Toast.LENGTH_SHORT) }
+            .addToDisposables()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

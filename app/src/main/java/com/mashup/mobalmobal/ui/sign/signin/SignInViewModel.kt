@@ -1,7 +1,5 @@
 package com.mashup.mobalmobal.ui.sign.signin
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.facebook.AccessToken
 import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
@@ -27,9 +25,8 @@ class SignInViewModel @Inject constructor(
 
     private val auth: FirebaseAuth = Firebase.auth
 
-    private val _showToast = MutableLiveData<String>()
-    val showToast: LiveData<String>
-        get() = _showToast
+    private val _toastSubject: PublishSubject<String> = PublishSubject.create()
+    val toastSubject get() = _toastSubject
 
     fun handleGoogleAccessToken(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
@@ -47,9 +44,8 @@ class SignInViewModel @Inject constructor(
                 auth.currentUser?.let {
                     //서버 키 체크 Logic (우리 서비스 가입 여부 확인)
                 }
-                _showToast.postValue("로그인에 성공하였습니다.")
             } else {
-                _showToast.postValue("로그인에 실패하였습니다.")
+
             }
         }
     }

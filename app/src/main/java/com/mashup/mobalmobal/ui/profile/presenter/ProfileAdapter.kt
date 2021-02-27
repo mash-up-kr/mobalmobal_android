@@ -66,19 +66,19 @@ class ProfileAdapter(val clickListener: ProfileClickListener) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ProfileUserViewHolder -> {
-                holder.bind(getItem(position) as ProfileItem.User)
+                (getItem(position) as? ProfileItem.User)?.let { holder.bind(it) }
             }
             is ProfilePointViewHolder -> {
-                holder.bind(getItem(position) as ProfileItem.Point)
+                (getItem(position) as? ProfileItem.Point)?.let { holder.bind(it) }
             }
             is ProfileDonationSummaryViewHolder -> {
-                holder.bind(getItem(position) as ProfileItem.DonationSummary)
+                (getItem(position) as? ProfileItem.DonationSummary)?.let { holder.bind(it) }
             }
             is ProfileRequestDonationViewHolder -> {
-                holder.bind(getItem(position) as ProfileItem.RequestDonation)
+                (getItem(position) as? ProfileItem.RequestDonation)?.let { holder.bind(it) }
             }
             is ProfileDonatedViewHolder -> {
-                holder.bind(getItem(position) as ProfileItem.Donated)
+                (getItem(position) as? ProfileItem.Donated)?.let { holder.bind(it) }
             }
         }
     }

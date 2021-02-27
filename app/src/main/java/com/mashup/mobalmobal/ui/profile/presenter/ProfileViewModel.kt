@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val schedulerProvider: BaseSchedulerProvider,
+    schedulerProvider: BaseSchedulerProvider,
     private val profileRepository: ProfileRepository
 ) : BaseViewModel(schedulerProvider) {
 

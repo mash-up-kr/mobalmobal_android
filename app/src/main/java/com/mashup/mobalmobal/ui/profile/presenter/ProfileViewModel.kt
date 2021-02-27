@@ -1,7 +1,6 @@
 package com.mashup.mobalmobal.ui.profile.presenter
 
 import com.funin.base.funinbase.base.BaseViewModel
-import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
 import com.mashup.mobalmobal.data.sharedpreferences.MobalSharedPreferencesImpl

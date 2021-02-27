@@ -24,7 +24,8 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
     }
 
     private val profileViewModel: ProfileViewModel by viewModels()
-    private val userId: String by lazy { arguments?.getString(KEY_USER_ID) ?: ""}
+    private val userId: String by lazy { arguments?.getString(KEY_USER_ID) ?: "" }
+
     @Inject
     lateinit var profileAdapter: ProfileAdapter
 
@@ -32,8 +33,8 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
         checkVerifyUserId()
     }
 
-    private fun checkVerifyUserId(){
-        if(userId.isEmpty()) findNavController().popBackStack()
+    private fun checkVerifyUserId() {
+        if (userId.isEmpty()) findNavController().popBackStack()
     }
 
     override fun setBinding(

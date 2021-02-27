@@ -81,7 +81,7 @@ fun ProfileDetailDto.toProfileItems(): List<ProfileItem> =
                     goalPrice = donation.goalPrice,
                     donatedPrice = donation.donatedPrice,
                     startDate = donation.startDate,
-                    dueDate =  donation.dueDate
+                    dueDate = donation.dueDate
                 )
             })
         }

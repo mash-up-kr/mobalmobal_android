@@ -84,6 +84,11 @@ dependencies {
     // FCM
     implementation platform('com.google.firebase:firebase-bom:26.5.0')
     implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    // Facebook
+    implementation 'com.facebook.android:facebook-login:5.9.0'
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"

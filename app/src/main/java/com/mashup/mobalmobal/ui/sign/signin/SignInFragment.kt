@@ -5,7 +5,6 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.fragment.app.viewModels
@@ -30,8 +29,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
 
     companion object {
-        private const val EMAIL = "email"
-        private const val PUBLIC_PROFILE = "public_profile"
+        private const val FACEBOOK_PERMISSION_EMAIL = "email"
+        private const val FACEBOOK_PERMISSION_PUBLIC_PROFILE = "public_profile"
     }
 
     private val viewModel by viewModels<SignInViewModel>()
@@ -50,14 +49,13 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
         setGoogleLogin()
         setFacebookLogin()
 
-        binding.signInGoogle.setOnClickListener {
-            onGoogleClicked()
-        }
+        binding.signInGoogle.setOnClickListener { onGoogleClicked() }
     }
 
     override fun onBindViewModels() {
-        viewModel.toastSubject.observeOnMain()
-            .subscribeWithErrorLogger { context?.showToast(it, Toast.LENGTH_SHORT) }
+        viewModel.toastMessage
+            .observeOnMain()
+            .subscribeWithErrorLogger(::showToast)
             .addToDisposables()
     }
 
@@ -75,23 +73,24 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
         googleLoginLauncher = registerForActivityResult(GoogleLoginResultContract()) { idToken ->
-            idToken?.let {
-                viewModel.handleGoogleAccessToken(it)
-            }
+            idToken?.let { viewModel.handleGoogleAccessToken(it) }
         }
     }
 
     private fun setFacebookLogin() {
         callbackManager = CallbackManager.Factory.create()
 
-        binding.signInFacebook.setPermissions(EMAIL, PUBLIC_PROFILE)
+        binding.signInFacebook.setPermissions(
+            FACEBOOK_PERMISSION_EMAIL,
+            FACEBOOK_PERMISSION_PUBLIC_PROFILE
+        )
         binding.signInFacebook.fragment = this
         binding.signInFacebook.registerCallback(
             callbackManager,
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult?) {
-                    result?.let {
-                        viewModel.handleFacebookAccessToken(it.accessToken)
+                    result?.accessToken?.let {
+                        viewModel.handleFacebookAccessToken(it)
                     }
                 }
 
@@ -99,9 +98,7 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
                 }
 
                 override fun onError(error: FacebookException?) {
-                    error?.message?.let {
-                        showToast(it)
-                    }
+                    error?.message?.let { showToast(it) }
                 }
             })
     }
@@ -113,14 +110,18 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
     fun navigateSignInToSignUp() =
         findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
 
-    inner class GoogleLoginResultContract : ActivityResultContract<Intent, String>() {
+    private class GoogleLoginResultContract : ActivityResultContract<Intent, String>() {
         override fun createIntent(context: Context, input: Intent): Intent = input
 
-        override fun parseResult(resultCode: Int, intent: Intent?): String {
+        override fun parseResult(resultCode: Int, intent: Intent?): String? {
             val task = GoogleSignIn.getSignedInAccountFromIntent(intent)
             val account = task.getResult(ApiException::class.java)
 
-            return account?.idToken ?: throw IllegalStateException("Account token must be not null")
+            return try {
+                account?.idToken ?: throw IllegalStateException("Account token must be not null")
+            } catch (exception: IllegalStateException) {
+                null
+            }
         }
     }
 }

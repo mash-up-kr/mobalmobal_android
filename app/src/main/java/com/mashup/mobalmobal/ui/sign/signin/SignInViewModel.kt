@@ -13,7 +13,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
-
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     schedulerProvider: BaseSchedulerProvider
@@ -25,8 +24,8 @@ class SignInViewModel @Inject constructor(
 
     private val auth: FirebaseAuth = Firebase.auth
 
-    private val _toastSubject: PublishSubject<String> = PublishSubject.create()
-    val toastSubject get() = _toastSubject
+    private val _toastMessageSubject: PublishSubject<String> = PublishSubject.create()
+    val toastMessage get() = _toastMessageSubject
 
     fun handleGoogleAccessToken(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
@@ -44,8 +43,6 @@ class SignInViewModel @Inject constructor(
                 auth.currentUser?.let {
                     //서버 키 체크 Logic (우리 서비스 가입 여부 확인)
                 }
-            } else {
-
             }
         }
     }

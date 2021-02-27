@@ -1,13 +1,12 @@
 package com.mashup.mobalmobal.ui.donationdetail
 
-import androidx.lifecycle.ViewModel
 import com.funin.base.funinbase.base.BaseViewModel
-import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
+import com.mashup.mobalmobal.dto.DonationDto
 import com.mashup.mobalmobal.ui.donationdetail.data.repository.DonationDetailRepository
-import com.mashup.mobalmobal.ui.profile.data.repository.ProfileRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,12 +15,15 @@ class DonationDetailViewModel @Inject constructor(
     private val donationDetailRepository: DonationDetailRepository
 ) : BaseViewModel(schedulerProvider){
 
+    private val _donationSubject: PublishSubject<DonationDto> = PublishSubject.create()
+    val donatinSubject get() = _donationSubject
+
     fun requestDonationDetail(donationId: String) {
         donationDetailRepository.getDonationDetail(donationId)
             .toFlowable()
             .subscribeOnIO()
             .doOnSubscribe{}
-            .subscribeWithErrorLogger {  }
+            .subscribeWithErrorLogger { _donationSubject.onNext(it.data) }
             .addToDisposables()
     }
 }

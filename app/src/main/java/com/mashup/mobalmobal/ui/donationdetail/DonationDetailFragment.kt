@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
+import com.funin.base.funinbase.extension.rx.observeOnMain
+import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +38,10 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
     ): FragmentDetailBinding = FragmentDetailBinding.inflate(inflater, container, false)
 
     override fun onBindViewModels() {
+        donationDetailViewModel.donatinSubject.observeOnMain()
+            .subscribeWithErrorLogger{
+
+            }.addToDisposables()
         requestDonationDetail(donationId)
     }
 

@@ -3,7 +3,7 @@ package com.mashup.mobalmobal.ui.profile.presenter
 import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
-import com.mashup.mobalmobal.const.Const
+import com.mashup.mobalmobal.constant.Constant
 import com.mashup.mobalmobal.data.sharedpreferences.MobalSharedPreferencesImpl
 import com.mashup.mobalmobal.ui.profile.data.dto.toProfileItems
 import com.mashup.mobalmobal.ui.profile.data.repository.ProfileRepository
@@ -41,7 +41,7 @@ class ProfileViewModel @Inject constructor(
             .doOnSubscribe { _loadingSubject.onNext(true) }
             .subscribeWithErrorLogger { response ->
                 with(response) {
-                    if (result != Const.NETWORK_SUCCESS) {
+                    if (result != Constant.NETWORK_SUCCESS) {
                         throw IOException(data.message)
                     }
                     _profileSubject.onNext(data.toProfileItems())

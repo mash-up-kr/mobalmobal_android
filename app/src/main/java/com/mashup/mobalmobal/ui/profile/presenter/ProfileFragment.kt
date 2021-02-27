@@ -14,6 +14,7 @@ import com.funin.base.funinbase.extension.showToast
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
@@ -23,8 +24,9 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
     }
 
     private val profileViewModel: ProfileViewModel by viewModels()
-    private val profileAdapter by lazy { ProfileAdapter(this) }
     private val userId: String by lazy { arguments?.getString(KEY_USER_ID) ?: ""}
+    @Inject
+    lateinit var profileAdapter: ProfileAdapter
 
     init {
         checkVerifyUserId()

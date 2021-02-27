@@ -10,6 +10,7 @@ object MobalSharedPreferencesImpl : MobalSharedPreferences {
     private lateinit var sharedPreferences: SharedPreferences
 
     private const val KEY_ACCESS_TOKEN = "access_token"
+    private const val KEY_USER_ID = "user_id"
 
     fun init(applicationContext: Context) {
         sharedPreferences =
@@ -27,4 +28,16 @@ object MobalSharedPreferencesImpl : MobalSharedPreferences {
     }
 
     override fun getAccessToken(): String? = sharedPreferences.getString(KEY_ACCESS_TOKEN, null)
+
+    override fun saveUserId(userId: String?) {
+        sharedPreferences.edit {
+            if(userId == null){
+                remove(KEY_USER_ID)
+            } else {
+                putString(KEY_USER_ID, userId)
+            }
+        }
+    }
+
+    override fun getUserId(): String? = sharedPreferences.getString(KEY_USER_ID, null)
 }

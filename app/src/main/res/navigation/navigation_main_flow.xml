@@ -46,7 +46,7 @@
         android:label="SettingsFragment" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.mashup.mobalmobal.ui.profile.ProfileFragment"
+        android:name="com.mashup.mobalmobal.ui.profile.presenter.ProfileFragment"
         android:label="ProfileFragment" >
         <action
             android:id="@+id/action_profileFragment_to_settingsFragment"

@@ -11,6 +11,6 @@ interface DonationDetailService {
     @GET("donation")
     fun getProfile(
         @Query("donation_id")
-        donationId: Int
+        donationId: String
     ): Single<DonationDetailResultDto>
 }

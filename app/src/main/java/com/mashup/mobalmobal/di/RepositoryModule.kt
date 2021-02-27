@@ -1,5 +1,8 @@
 package com.mashup.mobalmobal.di
 
+import com.mashup.mobalmobal.ui.donationdetail.data.repository.DonationDetailRepository
+import com.mashup.mobalmobal.ui.donationdetail.data.repository.DonationDetailRepositoryImpl
+import com.mashup.mobalmobal.ui.donationdetail.data.service.DonationDetailService
 import com.mashup.mobalmobal.ui.profile.data.repository.ProfileRepository
 import com.mashup.mobalmobal.ui.profile.data.repository.ProfileRepositoryImpl
 import com.mashup.mobalmobal.ui.profile.data.service.ProfileService
@@ -15,4 +18,8 @@ object RepositoryModule {
     @Provides
     fun provideProfileRepository(profileService: ProfileService): ProfileRepository =
         ProfileRepositoryImpl(profileService)
+
+    @Provides
+    fun provideDonationDetailRepository(donationDetailService: DonationDetailService) : DonationDetailRepository =
+        DonationDetailRepositoryImpl(donationDetailService)
 }

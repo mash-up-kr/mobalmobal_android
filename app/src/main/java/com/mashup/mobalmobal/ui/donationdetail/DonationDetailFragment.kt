@@ -36,7 +36,6 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
     ): FragmentDetailBinding = FragmentDetailBinding.inflate(inflater, container, false)
 
     override fun onBindViewModels() {
-        super.onBindViewModels()
         requestDonationDetail(donationId)
     }
 

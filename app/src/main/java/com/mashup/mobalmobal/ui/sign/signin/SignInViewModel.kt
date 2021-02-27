@@ -18,10 +18,6 @@ class SignInViewModel @Inject constructor(
     schedulerProvider: BaseSchedulerProvider
 ) : BaseViewModel(schedulerProvider) {
 
-    companion object {
-        private const val TAG = "SignInViewModel"
-    }
-
     private val auth: FirebaseAuth = Firebase.auth
 
     private val _toastMessageSubject: PublishSubject<String> = PublishSubject.create()

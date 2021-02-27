@@ -12,4 +12,7 @@
 
     <string name="facebook_app_id">770264156924576</string>
     <string name="fb_login_protocol_scheme">fb770264156924576</string>
+
+    <string name="sign_in_google_login">Google로 로그인하기</string>
+    <string name="sign_in_facebook_login">Facebook으로 로그인하기</string>
 </resources>

@@ -12,7 +12,7 @@ data class ProfileResultDto(
 )
 
 data class ProfileDetailDto(
-    @SerializedName("userId")
+    @SerializedName("user_id")
     val userId: String,
     @SerializedName("name")
     val name: String,

@@ -1,13 +1,16 @@
 package com.mashup.mobalmobal.ui.profile.presenter.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
+import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.databinding.HolderProfileDonationBinding
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 import com.mashup.mobalmobal.ui.profile.presenter.ProfileAdapter
+import javax.inject.Inject
 
 class ProfileDonationViewHolder (
     private val binding: HolderProfileDonationBinding,
-    private val listener: ProfileAdapter.ProfileClickListener?
+    private val listener: ProfileAdapter.ProfileClickListener?,
+    private val glideRequests: GlideRequests
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {

@@ -37,4 +37,7 @@
 
     <string name="usage_policy_url">https://www.notion.so/26c36382cd8448188c7532519b9019cc</string>
     <string name="personal_information_policy_url">https://www.notion.so/b384c72d60cc4475af49284625f81a0e</string>
+    <string name="charge_complete_title">%s\n충전완료</string>
+
+    <string name="charge_price">%s원</string>
 </resources>

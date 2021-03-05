@@ -3,15 +3,20 @@ package com.mashup.mobalmobal.ui.profile.presenter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.databinding.*
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 import com.mashup.mobalmobal.ui.profile.presenter.viewholder.*
+import javax.inject.Inject
 
-class ProfileAdapter(private val clickListener: ProfileClickListener?) :
-    ListAdapter<ProfileItem, RecyclerView.ViewHolder>(ProfileItemDiffCallback()) {
+class ProfileAdapter @Inject constructor(
+    private val clickListener: ProfileClickListener?,
+    private val glideRequests: GlideRequests
+) : ListAdapter<ProfileItem, RecyclerView.ViewHolder>(ProfileItemDiffCallback()) {
 
     companion object {
         private const val PAYLOAD_DONATION_TITLE = "payload_donation_title"
@@ -28,12 +33,21 @@ class ProfileAdapter(private val clickListener: ProfileClickListener?) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
+            ViewType.HEADER.ordinal -> ProfileHeaderViewHolder(
+                HolderProfileHeaderBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
             ViewType.USER.ordinal -> ProfileUserViewHolder(
                 HolderProfileUserBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
-                ), clickListener
+                ),
+                clickListener,
+                glideRequests
             )
             ViewType.DONATION_SUMMARY.ordinal -> ProfileDonationSummaryViewHolder(
                 HolderProfileDonationSummaryBinding.inflate(
@@ -47,7 +61,9 @@ class ProfileAdapter(private val clickListener: ProfileClickListener?) :
                     LayoutInflater.from(parent.context),
                     parent,
                     false
-                ), clickListener
+                ),
+                clickListener,
+                glideRequests
             )
             else -> throw IllegalArgumentException()
         }

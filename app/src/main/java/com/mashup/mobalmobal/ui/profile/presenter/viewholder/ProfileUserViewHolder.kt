@@ -10,18 +10,16 @@ import javax.inject.Inject
 
 class ProfileUserViewHolder(
     private val binding: HolderProfileUserBinding,
-    private val listener: ProfileAdapter.ProfileClickListener?
+    private val listener: ProfileAdapter.ProfileClickListener?,
+    private val glideRequests: GlideRequests
 ) : RecyclerView.ViewHolder(binding.root) {
-
-    @Inject
-    lateinit var glideRequest: GlideRequests
 
     fun bind(item: ProfileItem.User) {
         with(binding) {
             tvProfileName.text = item.name
             tvProfilePoint.text = root.context.getString(R.string.profile_user_point, item.point)
 
-            glideRequest.load(item.profileUrl)
+            glideRequests.load(item.profileUrl)
                 .centerCrop()
                 .into(ivProfile)
         }

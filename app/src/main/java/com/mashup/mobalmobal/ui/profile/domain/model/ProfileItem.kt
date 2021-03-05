@@ -1,5 +1,6 @@
 package com.mashup.mobalmobal.ui.profile.domain.model
 
+import androidx.annotation.StringRes
 import com.mashup.mobalmobal.dto.UserDto
 
 sealed class ProfileItem(
@@ -13,16 +14,18 @@ sealed class ProfileItem(
         return id.hashCode()
     }
 
+    data class Header(
+        @StringRes
+        val titleId: Int
+    ) : ProfileItem(titleId.toString())
+
     data class User(
         val userId: String,
         val name: String,
         val nickName: String,
-        val profileUrl: String
+        val profileUrl: String,
+        val point: Long
     ) : ProfileItem(userId)
-
-    data class Point(
-        val point: Double
-    ) : ProfileItem("profile item point : $point")
 
     data class DonationSummary(
         val requestCount: Int,
@@ -30,18 +33,7 @@ sealed class ProfileItem(
         val closedCount: Int
     ) : ProfileItem("profile donation summary")
 
-    data class RequestDonation(
-        val donationId: String,
-        val author: UserDto,
-        val title: String,
-        val description: String,
-        val goalPrice: Long,
-        val donatedPrice: Long,
-        val startDate: String,
-        val dueDate: String,
-    ) : ProfileItem(donationId)
-
-    data class Donated(
+    data class Donation(
         val donationId: String,
         val author: UserDto,
         val title: String,

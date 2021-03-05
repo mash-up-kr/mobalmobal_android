@@ -19,10 +19,22 @@
     <string name="profile_donation_summary_request">내가 받는</string>
     <string name="profile_donation_summary_donated">내가 주는</string>
     <string name="profile_donation_summary_closed">종료</string>
-
     <string name="account_number_account_number">110–436–3412421 신한은행</string>
     <string name="account_number_account_number_text">%1$s으로 %2$s원을 보내주세요.</string>
     <string name="clip_success_text">복사됐습니다.</string>
     <string name="clip_failure_text">복사에 실패하였습니다.</string>
     <string name="account_number_description">충전이 완료되면 연락드릴게요</string>
+    <string name="sign_up_title">회원 가입</string>
+    <string name="sign_up_nickname_hint">닉네임</string>
+    <string name="sign_up_cell_phone_hint">전화번호</string>
+    <string name="sign_up_email_hint">이메일</string>
+    <string name="sign_up_agree_text">약관 동의</string>
+    <string name="sign_up_agree_detail_text">약관 상세</string>
+    <string name="sign_up_usage_policy">이용약관</string>
+    <string name="sign_up_personal_information_policy">개인정보 수집 및 이용</string>
+    <string name="sign_up_policy">%1$s, %2$s에 모두 동의 합니다.</string>
+    <string name="sign_up_complete">가입완료</string>
+
+    <string name="usage_policy_url">https://www.notion.so/26c36382cd8448188c7532519b9019cc</string>
+    <string name="personal_information_policy_url">https://www.notion.so/b384c72d60cc4475af49284625f81a0e</string>
 </resources>

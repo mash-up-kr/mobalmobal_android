@@ -27,7 +27,7 @@ data class ProfileDetailDto(
     val donationSummary: DonationSummaryDto,
     @SerializedName("my_request_donation")
     val requestDonations: List<DonationDto>,
-    @SerializedName("my_donatings")
+    @SerializedName("my_donations")
     val donations: List<DonationDto>,
     @SerializedName("my_closed_donation")
     val closedDonations: List<DonationDto>,
@@ -65,62 +65,68 @@ fun ProfileDetailDto.toProfileItems(): List<ProfileItem> =
         ),
     ).toMutableList()
         .also {
-            it.add(
-                ProfileItem.Header(
-                    titleId = R.string.profile_header_donation_request
+            if(!requestDonations.isNullOrEmpty()){
+                it.add(
+                    ProfileItem.Header(
+                        titleId = R.string.profile_header_donation_request
+                    )
                 )
-            )
 
-            it.addAll(requestDonations.map { donation ->
-                ProfileItem.Donation(
-                    donationId = donation.donationId,
-                    author = donation.author,
-                    title = donation.title,
-                    description = donation.description,
-                    goalPrice = donation.goalPrice,
-                    donatedPrice = donation.donatedPrice,
-                    startDate = donation.startDate,
-                    dueDate = donation.dueDate
-                )
-            })
+                it.addAll(requestDonations.map { donation ->
+                    ProfileItem.Donation(
+                        donationId = donation.donationId,
+                        author = donation.author,
+                        title = donation.title,
+                        description = donation.description,
+                        goalPrice = donation.goalPrice,
+                        donatedPrice = donation.donatedPrice,
+                        startDate = donation.startDate,
+                        dueDate = donation.dueDate
+                    )
+                })
+            }
 
-            it.add(
-                ProfileItem.Header(
-                    titleId = R.string.profile_header_donated
+            if(!donations.isNullOrEmpty()){
+                it.add(
+                    ProfileItem.Header(
+                        titleId = R.string.profile_header_donated
+                    )
                 )
-            )
 
-            it.addAll(donations.map { donation ->
-                ProfileItem.Donation(
-                    donationId = donation.donationId,
-                    author = donation.author,
-                    title = donation.title,
-                    description = donation.description,
-                    goalPrice = donation.goalPrice,
-                    donatedPrice = donation.donatedPrice,
-                    startDate = donation.startDate,
-                    dueDate = donation.dueDate
-                )
-            })
+                it.addAll(donations.map { donation ->
+                    ProfileItem.Donation(
+                        donationId = donation.donationId,
+                        author = donation.author,
+                        title = donation.title,
+                        description = donation.description,
+                        goalPrice = donation.goalPrice,
+                        donatedPrice = donation.donatedPrice,
+                        startDate = donation.startDate,
+                        dueDate = donation.dueDate
+                    )
+                })
+            }
 
-            it.add(
-                ProfileItem.Header(
-                    titleId = R.string.profile_header_donation_closed
+            if(!closedDonations.isNullOrEmpty()){
+                it.add(
+                    ProfileItem.Header(
+                        titleId = R.string.profile_header_donation_closed
+                    )
                 )
-            )
 
-            it.addAll(closedDonations.map { donation ->
-                ProfileItem.Donation(
-                    donationId = donation.donationId,
-                    author = donation.author,
-                    title = donation.title,
-                    description = donation.description,
-                    goalPrice = donation.goalPrice,
-                    donatedPrice = donation.donatedPrice,
-                    startDate = donation.startDate,
-                    dueDate = donation.dueDate
-                )
-            })
+                it.addAll(closedDonations.map { donation ->
+                    ProfileItem.Donation(
+                        donationId = donation.donationId,
+                        author = donation.author,
+                        title = donation.title,
+                        description = donation.description,
+                        goalPrice = donation.goalPrice,
+                        donatedPrice = donation.donatedPrice,
+                        startDate = donation.startDate,
+                        dueDate = donation.dueDate
+                    )
+                })
+            }
         }
 
 

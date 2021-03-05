@@ -93,7 +93,7 @@
     <string name="charge_error_user_name">올바른 경로가 아닙니다. 다시 시도해 주세요.</string>
     <string name="charge_error_message">충전하기에 실패하였습니다. 다시 시도해 주세요.</string>
     <string name="donate_success_message">성공적으로 후원에 성공하였습니다.</string>
-    <string name="profile_user_point">%d원</string>
+    <string name="profile_user_point">%,d원</string>
     <string name="profile_header_donation_summary">내 도네</string>
     <string name="profile_header_donation_request">내가 연 도네</string>
     <string name="profile_header_donated">후원중인 도네</string>

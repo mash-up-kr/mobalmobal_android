@@ -3,16 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+<<<<<<< HEAD:app/src/main/res/layout/holder_profile_request_donation.xml
     android:layout_height="wrap_content"
     android:background="@color/gray_c4_opa_30"
     android:padding="20dp">
+=======
+    android:layout_height="50dp">
+>>>>>>> 6d10434... 🚀 Add profile header and Combine similar view holder:app/src/main/res/layout/holder_profile_header.xml
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/ModalComponent.ProfileHeader"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="타이틀" />
+        tools:text="내 도네" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

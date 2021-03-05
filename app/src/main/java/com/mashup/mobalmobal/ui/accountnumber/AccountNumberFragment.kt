@@ -19,14 +19,26 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AccountNumberFragment : BaseViewBindingFragment<FragmentAccountNumberBinding>() {
 
+    companion object {
+        const val KEY_CHARGE_PRICE = "charge_price"
+    }
+
+    private val chargePrice: Int by lazy { arguments?.getInt(KEY_CHARGE_PRICE) ?: 0 }
+
     override fun onSetupViews(view: View) {
         setupAccountNumberText()
+        binding.accountNumberClose.setOnClickListener {
+            // TODO Close AccountNumberShow
+        }
     }
 
     private fun setupAccountNumberText() {
         val accountNumber = getString(R.string.account_number_account_number)
-        val accountNumberText =
-            getString(R.string.account_number_account_number_text, accountNumber)
+        val accountNumberText = getString(
+            R.string.account_number_account_number_text,
+            accountNumber,
+            chargePrice.toString()
+        )
 
         val accountNumberStartIndex = accountNumberText.indexOf(accountNumber)
         val accountNumberEndIndex = accountNumberStartIndex + accountNumber.length

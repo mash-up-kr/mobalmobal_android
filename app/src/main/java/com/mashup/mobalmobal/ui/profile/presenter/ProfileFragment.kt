@@ -3,7 +3,6 @@ package com.mashup.mobalmobal.ui.profile.presenter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +11,7 @@ import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.extension.showToast
 import com.mashup.mobalmobal.R
-import com.mashup.mobalmobal.constant.Constants.KEY_USER_ID
+import com.mashup.mobalmobal.data.sharedpreferences.MobalSharedPreferencesImpl
 import com.mashup.mobalmobal.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -22,7 +21,7 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
     ProfileAdapter.ProfileClickListener {
 
     private val profileViewModel: ProfileViewModel by viewModels()
-    private val userId: String by lazy { arguments?.getString(KEY_USER_ID) ?: "" }
+    private val userId: String by lazy { MobalSharedPreferencesImpl.getUserId() ?: "" }
 
     @Inject
     lateinit var profileAdapter: ProfileAdapter
@@ -59,11 +58,7 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
         }
     }
 
-    override fun onProfileItemClick(view: View, position: Int) {
-        when (view.id) {
-            R.id.tv_setting -> navigateProfileToSettings()
-        }
-    }
+    override fun onProfileItemClick(view: View, position: Int) {}
 
     private fun navigateProfileToMyDonations() =
         findNavController().navigate(R.id.action_profileFragment_to_myDonationsFragment)

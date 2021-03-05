@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:background="@color/black">
 
     <ImageView
         android:id="@+id/iv_profile"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,35 +27,14 @@
         tools:text="유저이름" />
 
     <TextView
-        android:id="@+id/tv_profile_nick_name"
+        android:id="@+id/tv_profile_point"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
         android:layout_marginTop="11dp"
-        android:textAppearance="@style/ModalComponent.ProfileUser"
+        android:textAppearance="@style/ModalComponent.ProfileUserPoint"
         app:layout_constraintStart_toEndOf="@id/iv_profile"
         app:layout_constraintTop_toBottomOf="@id/tv_profile_name"
-        tools:text="유저닉네임" />
-
-    <TextView
-        android:id="@+id/tv_modify"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="23dp"
-        android:text="@string/profile_modify"
-        android:textAppearance="@style/ModalComponent.ProfileUser"
-        app:layout_constraintEnd_toStartOf="@id/tv_setting"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="@string/profile_setting"
-        android:textAppearance="@style/ModalComponent.ProfileUser"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:text="12,340원" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

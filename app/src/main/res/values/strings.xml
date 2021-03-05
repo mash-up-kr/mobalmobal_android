@@ -20,8 +20,9 @@
     <string name="profile_donation_summary_donated">내가 주는</string>
     <string name="profile_donation_summary_closed">종료</string>
 
-    <string name="account_number_account_number">111–111–1111111 신한</string>
-    <string name="account_number_account_number_text">%s (복사) 으로 보내주세요.</string>
+    <string name="account_number_account_number">110–436–3412421 신한은행</string>
+    <string name="account_number_account_number_text">%1$s으로 %2$s원을 보내주세요.</string>
     <string name="clip_success_text">복사됐습니다.</string>
     <string name="clip_failure_text">복사에 실패하였습니다.</string>
+    <string name="account_number_description">충전이 완료되면 연락드릴게요</string>
 </resources>

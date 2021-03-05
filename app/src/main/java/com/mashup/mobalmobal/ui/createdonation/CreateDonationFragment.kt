@@ -12,11 +12,6 @@ import androidx.viewpager2.widget.ViewPager2
 
 @AndroidEntryPoint
 class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBinding>() {
-    private lateinit var viewPager: ViewPager2
-
-    companion object {
-        private const val NUM_PAGES = 3
-    }
 
     override fun setBinding(
         inflater: LayoutInflater,
@@ -24,26 +19,6 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
     ): FragmentCreateDonationBinding =
         FragmentCreateDonationBinding.inflate(inflater, container, false)
 
-
-    override fun onSetupViews(view: View) {
-        viewPager = binding.createDonationPager
-
-        val pageAdapter = CreateDonationAdapter(this)
-        viewPager.adapter = pageAdapter
-    }
-
-    private class CreateDonationAdapter(fa: Fragment): FragmentStateAdapter(fa) {
-        override fun getItemCount(): Int = Companion.NUM_PAGES
-
-        override fun createFragment(position: Int): Fragment {
-            return when(position) {
-                0 -> CreateDonationNameFragment()
-                1 -> CreateDonationInformationFragment()
-                else -> CreateDonationCompleteFragment()
-            }
-        }
-
-    }
 
 }
 

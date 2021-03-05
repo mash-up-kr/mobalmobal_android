@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
-        android:text="PS5가지고싶다"
+        android:text="PS5 가지고싶다"
         android:textSize="36sp"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"

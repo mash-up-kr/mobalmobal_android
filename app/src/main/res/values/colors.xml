@@ -16,4 +16,9 @@
     <color name="black_mask">#b3101010</color>
     <color name="gray_9d">#9d9d9d</color>
     <color name="light_yellow">#ffe487</color>
+    <color name="gray_1">#11ffffff</color>
+    <color name="gray_2">#797979</color>
+    <color name="gray_3">#252525</color>
+    <color name="gray_4">#474747</color>
+    <color name="lime">#7aff97</color>
 </resources>

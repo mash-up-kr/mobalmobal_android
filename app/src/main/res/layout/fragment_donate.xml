@@ -42,7 +42,7 @@
         app:layout_constraintTop_toTopOf="@id/iv_previous" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_charging"
+        android:id="@+id/cl_donate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
@@ -63,7 +63,7 @@
             app:srcCompat="@drawable/icon_broken_buy" />
 
         <EditText
-            android:id="@+id/et_charging"
+            android:id="@+id/et_donate_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
@@ -72,6 +72,8 @@
             android:textColorHint="@color/gray_2"
             android:textSize="15sp"
             android:textStyle="bold"
+            android:inputType="number"
+            android:background="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_cart"
@@ -80,6 +82,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
+        android:id="@+id/tv_donate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -93,6 +96,6 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_charging" />
+        app:layout_constraintTop_toBottomOf="@id/cl_donate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

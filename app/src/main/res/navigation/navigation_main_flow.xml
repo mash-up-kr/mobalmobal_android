@@ -64,7 +64,7 @@
 
     <fragment
         android:id="@+id/registDonationFragment"
-        android:name="com.mashup.mobalmobal.ui.registdonation.RegistDonationFragment"
+        android:name="com.mashup.mobalmobal.ui.createdonation.CreateDonationFragment"
         android:label="RegistDonationFragment" />
 
     <fragment

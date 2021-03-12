@@ -128,5 +128,11 @@ class CreateDonationViewModel @Inject constructor(
         )
     }
 
+    fun createDateTime(year: Int, month: Int, day: Int){
 
+    }
+
+    fun setStartDateTime(triple: Triple<Int, Int, Int>) {
+        _startDateSubject.onNext(triple)
+    }
 }

@@ -76,6 +76,7 @@ class CreateDonationInformationFragment :
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 var realMonth = monthOfYear + 1
                 //TODO: set data
+                createDonationViewModel.setStartDateTime(Triple(year, monthOfYear, dayOfMonth))
                 Toast.makeText(context, "$year 년 $realMonth 월 $dayOfMonth 일", Toast.LENGTH_SHORT)
                     .show()
                 showTimePickerDialog()

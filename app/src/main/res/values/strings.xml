@@ -44,4 +44,6 @@
     <string name="create_donation_title">도네이션 생성</string>
     <string name="create_donation_name_hint">가지고 싶은 물건 이름은?</string>
     <string name="create_donation_goal_hint">도네 목표 (가격)</string>
+    <string name="create_donation_complete">생성완료</string>
+    <string name="create_donation_share_button">공유하기</string>
 </resources>

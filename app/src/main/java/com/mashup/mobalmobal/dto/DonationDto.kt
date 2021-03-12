@@ -7,12 +7,14 @@ data class DonationDto(
     val donationId: String,
     @SerializedName("author")
     val author: UserDto,
+    @SerializedName("product")
+    val product: String,
     @SerializedName("title")
     val title: String,
     @SerializedName("description")
     val description: String,
-    @SerializedName("images")
-    val images: List<String>,
+    @SerializedName("image")
+    val images: String,
     @SerializedName("goal_price")
     val goalPrice: Double,
     @SerializedName("donated_price")

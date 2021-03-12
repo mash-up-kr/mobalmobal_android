@@ -7,10 +7,10 @@ import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
+import com.funin.base.funinbase.extension.startGalleryIntent
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.IllegalArgumentException
 
 /**
  * 도네 상세페이지

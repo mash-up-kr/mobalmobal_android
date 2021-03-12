@@ -16,16 +16,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
+
         <activity
             android:name=".ui.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".ui.createdonation.CreateDonationActivity">
 
-=======
         <activity android:name=".ui.createdonation.CreateDonationActivity" android:theme="@style/AppTheme.NoActionBar">
->>>>>>> 8f43ffd (💄Add create donation fragment UI)
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

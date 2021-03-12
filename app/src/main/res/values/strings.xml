@@ -71,4 +71,10 @@
     <string name="sign_up_error_empty_nickname">NickName을 적어주세요</string>
     <string name="open_source_url">https://www.notion.so/Android-Library-49bbbacaf24349a882f6051a2e704d1a</string>
     <string name="inquiry_email">mobal.mashup@gmail.com</string>
+    <string name="donation_detail_goal_price">목표 금액</string>
+    <string name="donation_detail_current_price">모금 금액</string>
+    <string name="donation_detial_donator">참여자 (%d)</string>
+    <string name="donation_detail_end_date">종료날짜</string>
+    <string name="donation_detail_funding">%s 에게 펀딩하기</string>
+    <string name="donation_detail_title">%s 는 %s 가지고 싶어요</string>
 </resources>

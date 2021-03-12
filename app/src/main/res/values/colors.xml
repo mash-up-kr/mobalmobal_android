@@ -33,4 +33,7 @@
     <color name="bottom_sheet_gray">#29292c</color>
     <color name="pink">#ff38b0</color>
     <color name="bright_grey">#e0e0e0</color>
+    <color name="purple_1">#6D39FF</color>
+    <color name="light_green_1">#7AFF97</color>
+    <color name="list_background">#222222</color>
 </resources>

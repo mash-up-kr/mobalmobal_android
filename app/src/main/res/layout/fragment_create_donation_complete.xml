@@ -20,23 +20,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
-        android:text="PS5 가지고싶다"
-        android:textSize="36sp"
         android:textColor="@color/white"
+        android:textSize="36sp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/donation_complete_finish_phrase"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="36sp"
-        android:text="생성완료"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/donation_complete_title" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="PS5 가지고싶다\n생성완료" />
 
     <Button
         android:layout_width="140dp"
@@ -47,6 +37,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/donation_complete_finish_phrase" />
+        app:layout_constraintTop_toBottomOf="@+id/donation_complete_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

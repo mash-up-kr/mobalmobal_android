@@ -47,5 +47,7 @@
     <string name="create_donation_price_hint">얼마를 모아볼까요?</string>
     <string name="create_donation_goal_hint">도네 목표 (가격)</string>
     <string name="create_donation_complete">생성완료</string>
+    <string name="create_donation_complete_product">%s 가지고싶다</string>
+    <string name="create_donation_complete_title">%s\n생성완료</string>
     <string name="create_donation_share_button">공유하기</string>
 </resources>

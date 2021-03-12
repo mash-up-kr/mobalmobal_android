@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.funin.base.funinbase.base.BaseFragment
 import com.mashup.mobalmobal.R
 
 
-class CreateDonationInformationFragment : Fragment() {
-
+class CreateDonationInformationFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

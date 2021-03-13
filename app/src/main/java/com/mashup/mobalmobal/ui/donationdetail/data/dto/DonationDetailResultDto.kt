@@ -14,7 +14,7 @@ data class DonationDetailResultDto (
 )
 
 fun DonationDto.toDonationItem(): DonationItem =
-    DonationItem.Info(
+    DonationItem(
         imageUrl = imageUrl,
         productName = product,
         description = description,

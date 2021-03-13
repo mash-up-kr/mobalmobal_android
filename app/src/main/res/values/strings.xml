@@ -77,4 +77,5 @@
     <string name="donation_detail_end_date">종료날짜</string>
     <string name="donation_detail_funding">%s 에게 펀딩하기</string>
     <string name="donation_detail_title">%s 는 %s 가지고 싶어요</string>
+    <string name="donation_price">%,d</string>
 </resources>

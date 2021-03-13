@@ -3,7 +3,6 @@ package com.mashup.mobalmobal.ui.donationdetail
 import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
-import com.mashup.mobalmobal.dto.DonationDto
 import com.mashup.mobalmobal.ui.donationdetail.data.dto.toDonationItem
 import com.mashup.mobalmobal.ui.donationdetail.data.repository.DonationDetailRepository
 import com.mashup.mobalmobal.ui.donationdetail.domain.DonationItem

@@ -32,7 +32,7 @@ class ChargeCompleteFragment : BaseViewBindingFragment<FragmentChargeCompleteBin
     }
 
     private fun setupChargingPriceTitleView() {
-        val chargingPriceText = getString(R.string.charge_price, chargingPrice.toString())
+        val chargingPriceText = getString(R.string.charge_price, chargingPrice)
         val chargingCompleteText = getString(R.string.charge_complete_title, chargingPriceText)
 
         val chargingPriceTextStartIndex = chargingCompleteText.indexOf(chargingPriceText)

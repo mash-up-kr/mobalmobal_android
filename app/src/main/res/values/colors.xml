@@ -8,7 +8,11 @@
     <color name="black">#FF000000</color>
     <color name="gray_c4">#C4C4C4</color>
     <color name="gray_c4_opa_30">#4DC4C4C4</color>
+    <color name="gray_22">#222222</color>
     <color name="dark_grey">#151516</color>
     <color name="white">#FDFDFD</color>
     <color name="gray">#E2E2E2</color>
+    <color name="black_mask">#b3101010</color>
+    <color name="gray_9d">#9d9d9d</color>
+    <color name="light_yellow">#ffe487</color>
 </resources>

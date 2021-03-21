@@ -65,11 +65,11 @@
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="30"
-            android:progressBackgroundTint="#616161"
+            android:progressBackgroundTint="@color/gray_61"
             android:progressTint="@color/light_yellow"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:max="100"
+            tools:progress="30" />
 
     </FrameLayout>
 

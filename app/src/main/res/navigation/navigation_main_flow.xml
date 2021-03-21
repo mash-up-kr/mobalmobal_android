@@ -76,4 +76,9 @@
         android:id="@+id/account_number_fragment"
         android:name="com.mashup.mobalmobal.ui.accountnumber.AccountNumberFragment"
         android:label="AccountNumberFragment" />
+
+    <fragment
+        android:id="@+id/charge_complete_fragment"
+        android:name="com.mashup.mobalmobal.ui.charge.complete.ChargeCompleteFragment"
+        android:label="ChargeCompleteFragment" />
 </navigation>

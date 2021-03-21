@@ -11,14 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="28dp" />
+        app:layout_constraintGuide_begin="20dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="63dp" />
+        app:layout_constraintGuide_end="20dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_horizontal_middle"
@@ -73,6 +73,53 @@
         app:layout_constraintStart_toStartOf="@+id/guide_start">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_donation_due_date_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:boxBackgroundColor="@color/dark_black"
+            app:boxStrokeColor="@color/create_donation_stroke_color"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="1dp"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_donation_due_date_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/create_donation_due_date_hint"
+                android:editable="false"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_donation_start_date_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:boxBackgroundColor="@color/dark_black"
+            app:boxStrokeColor="@color/create_donation_stroke_color"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="1dp"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_donation_start_date_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/create_donation_start_date_hint"
+                android:editable="false"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/create_donation_price_text_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,7 +135,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/create_donation_price_hint"
-                android:imeActionId="3"
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
                 android:digits="0123456789.,"
@@ -114,7 +160,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/create_donation_description_hint"
-                android:imeOptions="actionGo"
+                android:imeOptions="actionDone"
                 android:inputType="text"
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp"
@@ -140,7 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/create_donation_product_name_hint"
-                android:imeOptions="actionGo"
+                android:imeOptions="actionDone"
                 android:inputType="text"
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp"

@@ -5,11 +5,8 @@ import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
-import java.io.File
-import java.net.URI
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,6 +16,19 @@ class CreateDonationViewModel @Inject constructor(
 
     private val _createDonationInputSubject: BehaviorSubject<CreateDonation> =
         BehaviorSubject.createDefault(CreateDonation())
+
+    private val _isCreateDonationInputEnableSubject: BehaviorSubject<Boolean> =
+        BehaviorSubject.createDefault(false)
+    val isCreateDonationEnabled: Observable<Boolean> = _isCreateDonationInputEnableSubject
+
+    init {
+        _createDonationInputSubject
+            .subscribeOnIO()
+            .subscribeWithErrorLogger { createDonationInput ->
+                _isCreateDonationInputEnableSubject.onNext(createDonationInput.isValidate())
+            }
+            .addToDisposables()
+    }
 
     fun setCreateDonationProductName(productName: String?) {
         _createDonationInputSubject.onNext(
@@ -56,7 +66,9 @@ class CreateDonationViewModel @Inject constructor(
         )
     }
 
-
+    fun createDonation() {
+        // TODO Implement CreateDonation
+    }
 
     data class CreateDonation(
         val productName: String? = null,

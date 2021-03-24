@@ -195,4 +195,19 @@
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/create_donation_complete_button"
+        android:visibility="gone"
+        android:layout_width="196dp"
+        android:layout_height="60dp"
+        android:background="@drawable/create_donation_complete_background"
+        android:layout_marginBottom="40dp"
+        android:text="@string/create_donation_complete"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

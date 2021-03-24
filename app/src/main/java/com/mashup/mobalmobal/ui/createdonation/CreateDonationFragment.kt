@@ -2,9 +2,7 @@ package com.mashup.mobalmobal.ui.createdonation
 
 import android.animation.ObjectAnimator
 import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
 import android.app.TimePickerDialog
-import android.content.Context
 import android.text.TextWatcher
 import android.text.format.DateFormat
 import android.util.Log
@@ -13,11 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
-import androidx.annotation.Nullable
 import androidx.core.animation.doOnEnd
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import com.funin.base.funinbase.base.BaseViewBindingFragment
+import com.funin.base.funinbase.extension.rx.observeOnMain
+import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.extension.showSoftInput
 import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.databinding.FragmentCreateDonationBinding
@@ -26,7 +26,6 @@ import gun0912.tedimagepicker.builder.TedRxImagePicker
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.math.min
 
 
 @AndroidEntryPoint
@@ -58,6 +57,18 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         setImageFromGallery()
         setInputTextWatcher()
         setDateTimePickerDialog()
+        binding.createDonationCompleteButton.setOnClickListener {
+            createDonationViewModel.createDonation()
+        }
+    }
+
+    override fun onBindViewModels() {
+        createDonationViewModel.isCreateDonationEnabled
+            .observeOnMain()
+            .subscribeWithErrorLogger {
+                binding.createDonationCompleteButton.isVisible = it
+            }
+            .addToDisposables()
     }
 
     private fun setInputTextWatcher() {
@@ -74,8 +85,11 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         createDonationPriceWatcher =
             binding.createDonationPriceInput.doOnTextChanged { text, _, _, _ ->
                 if (text.toString().isNotBlank() && text.toString() != result) {
+                    val price =  text.toString().replace(",", "")
+                    createDonationViewModel.setCreateDonationFundAmount(price.toInt())
                     result =
-                        String.format("%,d", text.toString().replace(",", "").toLongOrNull() ?: 0L)
+                        String.format("%,d", price.toLongOrNull() ?: 0L)
+
                     binding.createDonationPriceInput.setText(result)
                     binding.createDonationPriceInput.setSelection(result.length)
                 }
@@ -173,14 +187,13 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         val day = c.get(Calendar.DAY_OF_MONTH)
 
         val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-            val sumOfDate = year + month + dayOfMonth
-            showTimePickerDialog(viewId, sumOfDate, year, month, dayOfMonth)
+            showTimePickerDialog(viewId, year, month, dayOfMonth)
         }
 
         DatePickerDialog(requireActivity(), dateSetListener, year, month, day).show()
     }
 
-    private fun showTimePickerDialog(viewId: Int, sumOfDate: Int, year: Int, month: Int, dayOfMonth: Int) {
+    private fun showTimePickerDialog(viewId: Int, year: Int, month: Int, dayOfMonth: Int) {
         val c = Calendar.getInstance()
         if (viewId == 2) {
             c.add(Calendar.DAY_OF_MONTH, DAY_DIFF)

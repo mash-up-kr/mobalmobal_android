@@ -31,7 +31,7 @@ object MobalSharedPreferencesImpl : MobalSharedPreferences {
 
     override fun saveUserId(userId: String?) {
         sharedPreferences.edit {
-            if(userId == null){
+            if (userId == null) {
                 remove(KEY_USER_ID)
             } else {
                 putString(KEY_USER_ID, userId)

@@ -20,7 +20,6 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>() {
     }
 
     override fun onSetupViews(view: View) {
-        navigateMainToCreateDonation()
     }
 
     private fun navigateMainToDetail(donationId: Int) =

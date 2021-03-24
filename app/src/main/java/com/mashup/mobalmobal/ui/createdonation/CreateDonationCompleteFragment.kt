@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.bumptech.glide.Glide
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.R

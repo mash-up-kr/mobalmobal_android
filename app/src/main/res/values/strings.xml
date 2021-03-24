@@ -40,4 +40,8 @@
     <string name="charge_complete_title">%s\n충전완료</string>
 
     <string name="charge_price">%,d원</string>
+
+    <string name="donation">후원</string>
+    <string name="donation_hint">후원할 금액을 입력하세요.</string>
+    <string name="donate">후원하기</string>
 </resources>

@@ -22,14 +22,10 @@ class DonateFragment : BaseViewBindingFragment<FragmentDonateBinding>() {
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
 
-        binding.tvDonate.setOnClickListener {
-            val price = binding.etDonatePrice.text.toString()
+        binding.donateButton.setOnClickListener {
+            val price = binding.donatePrice.text.toString()
             donateViewModel.requestDonation(price)
         }
-    }
-
-    override fun onBindViewModels() {
-        super.onBindViewModels()
     }
 
     private fun navigateDonateToCharge() =

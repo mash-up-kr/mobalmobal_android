@@ -15,11 +15,13 @@ import androidx.core.animation.doOnEnd
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.extension.showSoftInput
 import com.mashup.base.image.GlideRequests
+import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentCreateDonationBinding
 import dagger.hilt.android.AndroidEntryPoint
 import gun0912.tedimagepicker.builder.TedRxImagePicker
@@ -59,6 +61,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         setDateTimePickerDialog()
         binding.createDonationCompleteButton.setOnClickListener {
             createDonationViewModel.createDonation()
+            navigateCreateDonationToComplete()
         }
     }
 
@@ -70,6 +73,9 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             }
             .addToDisposables()
     }
+
+    private fun navigateCreateDonationToComplete() =
+        findNavController().navigate(R.id.create_donation_complete_fragment)
 
     private fun setInputTextWatcher() {
         createDonationProductNameWatcher =

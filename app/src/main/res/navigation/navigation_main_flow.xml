@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     app:startDestination="@id/mainFragment">
 
@@ -19,8 +20,8 @@
             android:id="@+id/action_mainFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_registDonationFragment"
-            app:destination="@id/registDonationFragment" />
+            android:id="@+id/action_mainFragment_to__createDonationFragment"
+            app:destination="@id/create_donation_fragment" />
     </fragment>
 
     <fragment
@@ -63,11 +64,6 @@
         android:label="MyDonationsFragment" />
 
     <fragment
-        android:id="@+id/registDonationFragment"
-        android:name="com.mashup.mobalmobal.ui.createdonation.CreateDonationFragment"
-        android:label="RegistDonationFragment" />
-
-    <fragment
         android:id="@+id/chargeFragment"
         android:name="com.mashup.mobalmobal.ui.charge.ChargeFragment"
         android:label="ChargeFragment" />
@@ -81,4 +77,19 @@
         android:id="@+id/charge_complete_fragment"
         android:name="com.mashup.mobalmobal.ui.charge.complete.ChargeCompleteFragment"
         android:label="ChargeCompleteFragment" />
+
+    <fragment
+        android:id="@+id/create_donation_complete_fragment"
+        android:name="com.mashup.mobalmobal.ui.createdonation.CreateDonationCompleteFragment"
+        android:label="fragment_create_donation_complete"
+        tools:layout="@layout/fragment_create_donation_complete" />
+
+    <fragment
+        android:id="@+id/create_donation_fragment"
+        android:name="com.mashup.mobalmobal.ui.createdonation.CreateDonationFragment"
+        android:label="CreateDonationFragment" >
+        <action
+            android:id="@+id/action_CreateDonationFragment_to_createDonationCompleteFragment"
+            app:destination="@id/create_donation_complete_fragment" />
+    </fragment>
 </navigation>

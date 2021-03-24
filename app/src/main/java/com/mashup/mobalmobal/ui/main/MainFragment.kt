@@ -1,6 +1,7 @@
 package com.mashup.mobalmobal.ui.main
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
@@ -18,6 +19,10 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>() {
         return FragmentMainBinding.inflate(inflater, container, false)
     }
 
+    override fun onSetupViews(view: View) {
+        navigateMainToCreateDonation()
+    }
+
     private fun navigateMainToDetail(donationId: Int) =
         MainFragmentDirections.actionMainFragmentToDetailFragment(donationId)
             .also { action -> findNavController().navigate(action) }
@@ -25,6 +30,6 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>() {
     private fun navigateMainToProfile() =
         findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
 
-    private fun navigateMainToRegistDonation() =
-        findNavController().navigate(R.id.action_mainFragment_to_registDonationFragment)
+    private fun navigateMainToCreateDonation() =
+        findNavController().navigate(R.id.create_donation_fragment)
 }

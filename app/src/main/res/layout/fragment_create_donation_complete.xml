@@ -15,28 +15,43 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/donation_complete_title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:textColor="@color/white"
-        android:textSize="36sp"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="PS5 가지고싶다\n생성완료" />
-
-    <Button
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/yellow_border_yellow_shadow_with_radius_button"
-        android:text="@string/create_donation_share_button"
-        android:textColor="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/donation_complete_title" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/create_donation_complete_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            tools:text="PS5 가지고싶다\n생성완료"/>
+
+        <com.mashup.mobalmobal.customview.DonationView
+            android:id="@+id/create_donation_complete_custom_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="46dp"
+            android:layout_marginEnd="40dp"/>
+
+        <TextView
+            android:id="@+id/create_donation_complete_share_button"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            android:text="@string/create_donation_share_button"
+            android:textColor="@color/white"
+            android:background="@drawable/yellow_border_yellow_shadow_with_radius_button"/>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

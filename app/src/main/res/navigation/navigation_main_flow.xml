@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     app:startDestination="@id/mainFragment">
 
@@ -81,8 +80,7 @@
     <fragment
         android:id="@+id/create_donation_complete_fragment"
         android:name="com.mashup.mobalmobal.ui.createdonation.CreateDonationCompleteFragment"
-        android:label="fragment_create_donation_complete"
-        tools:layout="@layout/fragment_create_donation_complete" />
+        android:label="fragment_create_donation_complete" />
 
     <fragment
         android:id="@+id/create_donation_fragment"

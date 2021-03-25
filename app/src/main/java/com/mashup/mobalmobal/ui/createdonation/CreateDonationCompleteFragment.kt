@@ -38,9 +38,9 @@ class CreateDonationCompleteFragment :
             val text = "(손 싹싹) 기부 부탁드립니다."
             startActivity(
                 Intent()
-                .setAction(Intent.ACTION_SEND)
-                .putExtra(Intent.EXTRA_TEXT, text)
-                .setType("text/plain")
+                    .setAction(Intent.ACTION_SEND)
+                    .putExtra(Intent.EXTRA_TEXT, text)
+                    .setType("text/plain")
             )
         }
         binding.createDonationCompleteCustomView.apply {
@@ -50,7 +50,8 @@ class CreateDonationCompleteFragment :
             currentPrice = 25000
             currentPriceText = "25000"
             setDonationImage(
-                glideRequests, "https://blog.kakaocdn.net/dn/lNp7m/btqIvFeQr77/kGEVFLnvqVh80gowQtKn9K/img.png"
+                glideRequests,
+                "https://blog.kakaocdn.net/dn/lNp7m/btqIvFeQr77/kGEVFLnvqVh80gowQtKn9K/img.png"
             )
         }
     }

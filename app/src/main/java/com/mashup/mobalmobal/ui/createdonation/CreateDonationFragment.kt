@@ -32,21 +32,26 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBinding>() {
-    @Inject
-    lateinit var glideRequest: GlideRequests
-    private val createDonationViewModel by activityViewModels<CreateDonationViewModel>()
-
-    private var createDonationProductNameWatcher: TextWatcher? = null
-    private var createDonationDescriptionWatcher: TextWatcher? = null
-    private var createDonationPriceWatcher: TextWatcher? = null
-    private var result = ""
 
     companion object {
         private const val START_PICKER_ID = 1
         private const val END_PICKER_ID = 2
         private const val DAY_DIFF = 7
         private const val HOUR_DIFF = 1
+        private const val START_DATE_TIME_PICKER = 1
+        private const val END_DATE_TIME_PICKER = 2
+        private const val TRANSLATION_Y = "translationY"
     }
+
+    @Inject
+    lateinit var glideRequest: GlideRequests
+    private val createDonationViewModel by activityViewModels<CreateDonationViewModel>()
+
+    private lateinit var createDonationProductNameWatcher: TextWatcher
+    private lateinit var createDonationDescriptionWatcher: TextWatcher
+    private lateinit var createDonationPriceWatcher: TextWatcher
+    private var result = ""
+
 
     override fun setBinding(
         inflater: LayoutInflater,
@@ -91,11 +96,10 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         createDonationPriceWatcher =
             binding.createDonationPriceInput.doOnTextChanged { text, _, _, _ ->
                 if (text.toString().isNotBlank() && text.toString() != result) {
-                    val price =  text.toString().replace(",", "")
-                    createDonationViewModel.setCreateDonationFundAmount(price.toInt())
+                    val price = text.toString().replace(",", "")
+                    createDonationViewModel.setCreateDonationFundAmount(price.toIntOrNull())
                     result =
                         String.format("%,d", price.toLongOrNull() ?: 0L)
-
                     binding.createDonationPriceInput.setText(result)
                     binding.createDonationPriceInput.setSelection(result.length)
                 }
@@ -148,7 +152,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         nextView: View?
     ) {
         setOnEditorActionListener { v, actionId, event ->
-            if (actionId == imeActionId && binding.createDonationProductImageView.visibility != View.VISIBLE) {
+            if (actionId == imeActionId && !binding.createDonationProductImageView.isVisible) {
                 goDownAnimation(viewIndex, nextViewLayout, nextView)
             }
             false
@@ -162,7 +166,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
     ) {
         ObjectAnimator.ofFloat(
             binding.createDonationInputWrapperLayout,
-            "translationY",
+            TRANSLATION_Y,
             binding.createDonationNameTextInputLayout.height.toFloat() * (viewIndex + 1)
         ).apply {
             duration = 300
@@ -184,13 +188,13 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
     }
 
     private fun showDatePickerDialog(viewId: Int) {
-        val c = Calendar.getInstance()
-        if (viewId == 2) {
-            c.add(Calendar.DAY_OF_MONTH, DAY_DIFF)
+        val calendar = Calendar.getInstance()
+        if (viewId == END_DATE_TIME_PICKER) {
+            calendar.add(Calendar.DAY_OF_MONTH, DAY_DIFF)
         }
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
             showTimePickerDialog(viewId, year, month, dayOfMonth)
@@ -200,13 +204,13 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
     }
 
     private fun showTimePickerDialog(viewId: Int, year: Int, month: Int, dayOfMonth: Int) {
-        val c = Calendar.getInstance()
-        if (viewId == 2) {
-            c.add(Calendar.DAY_OF_MONTH, DAY_DIFF)
-            c.add(Calendar.HOUR_OF_DAY, HOUR_DIFF)
+        val calendar = Calendar.getInstance()
+        if (viewId == END_DATE_TIME_PICKER) {
+            calendar.add(Calendar.DAY_OF_MONTH, DAY_DIFF)
+            calendar.add(Calendar.HOUR_OF_DAY, HOUR_DIFF)
         }
-        val hour = c.get(Calendar.HOUR_OF_DAY)
-        val minute = c.get(Calendar.MINUTE)
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
 
         val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
             val calendar = Calendar.getInstance().also {
@@ -218,30 +222,33 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             }
             val formattedDateTime = getFormattedDateTime(calendar.timeInMillis)
 
-            if (viewId == 1) {
+            if (viewId == START_DATE_TIME_PICKER) {
                 createDonationViewModel.setCreateDonationStartDate(calendar.timeInMillis)
                 binding.createDonationStartDateInput.setText(formattedDateTime)
-                goDownAnimation(3,
+                goDownAnimation(
+                    3,
                     binding.createDonationDueDateInputLayout,
                     null
                 )
             } else {
                 createDonationViewModel.setCreateDonationDueDate(calendar.timeInMillis)
                 binding.createDonationDueDateInput.setText(formattedDateTime)
-                goDownAnimation(4,
+                goDownAnimation(
+                    4,
                     binding.createDonationProductImageView,
                     null
                 )
             }
         }
-        TimePickerDialog(activity, timeSetListener, hour, minute, DateFormat.is24HourFormat(activity)).show()
+        TimePickerDialog(
+            activity,
+            timeSetListener,
+            hour,
+            minute,
+            DateFormat.is24HourFormat(activity)
+        ).show()
     }
 
-    private fun getFormattedDateTime(milliSeconds: Long): String{
-        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm")
-        return formatter.format(milliSeconds)
-    }
-
+    private fun getFormattedDateTime(milliSeconds: Long) =
+        SimpleDateFormat("yyyy-MM-dd HH:mm").format(milliSeconds)
 }
-
-

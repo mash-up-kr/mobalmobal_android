@@ -32,19 +32,25 @@ class CreateDonationViewModel @Inject constructor(
 
     fun setCreateDonationProductName(productName: String?) {
         _createDonationInputSubject.onNext(
-            _createDonationInputSubject.value?.copy(productName = productName) ?: CreateDonation(productName = productName)
+            _createDonationInputSubject.value?.copy(productName = productName) ?: CreateDonation(
+                productName = productName
+            )
         )
     }
 
     fun setCreateDonationDescription(description: String?) {
         _createDonationInputSubject.onNext(
-            _createDonationInputSubject.value?.copy(description = description) ?: CreateDonation(description = description)
+            _createDonationInputSubject.value?.copy(description = description) ?: CreateDonation(
+                description = description
+            )
         )
     }
 
     fun setCreateDonationFundAmount(fundAmount: Int?) {
         _createDonationInputSubject.onNext(
-            _createDonationInputSubject.value?.copy(fundAmount = fundAmount) ?: CreateDonation(fundAmount = fundAmount)
+            _createDonationInputSubject.value?.copy(fundAmount = fundAmount) ?: CreateDonation(
+                fundAmount = fundAmount
+            )
         )
     }
 
@@ -56,13 +62,16 @@ class CreateDonationViewModel @Inject constructor(
 
     fun setCreateDonationStartDate(startDate: Long?) {
         _createDonationInputSubject.onNext(
-            _createDonationInputSubject.value?.copy(startDate = startDate) ?: CreateDonation(startDate = startDate)
+            _createDonationInputSubject.value?.copy(startDate = startDate) ?: CreateDonation(
+                startDate = startDate
+            )
         )
     }
 
     fun setCreateDonationDueDate(dueDate: Long?) {
         _createDonationInputSubject.onNext(
-            _createDonationInputSubject.value?.copy(dueDate = dueDate) ?: CreateDonation(dueDate = dueDate)
+            _createDonationInputSubject.value?.copy(dueDate = dueDate)
+                ?: CreateDonation(dueDate = dueDate)
         )
     }
 
@@ -79,8 +88,10 @@ class CreateDonationViewModel @Inject constructor(
         val dueDate: Long? = null
     )
 
-    private fun CreateDonation.isValidate(): Boolean = !productName.isNullOrBlank() && !description.isNullOrBlank() && uri != null
-            && !fundAmount.toString().isNullOrBlank() && !startDate.toString().isNullOrBlank() && !dueDate.toString().isNullOrBlank()
+    private fun CreateDonation.isValidate(): Boolean =
+        !productName.isNullOrBlank() && !description.isNullOrBlank() && uri != null
+                && !fundAmount.toString().isNullOrBlank() && !startDate.toString()
+            .isNullOrBlank() && !dueDate.toString().isNullOrBlank()
 
 
 }

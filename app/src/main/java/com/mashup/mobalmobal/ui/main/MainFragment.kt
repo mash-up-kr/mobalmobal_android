@@ -1,7 +1,6 @@
 package com.mashup.mobalmobal.ui.main
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
@@ -17,9 +16,6 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>() {
 
     override fun setBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentMainBinding {
         return FragmentMainBinding.inflate(inflater, container, false)
-    }
-
-    override fun onSetupViews(view: View) {
     }
 
     private fun navigateMainToDetail(donationId: Int) =

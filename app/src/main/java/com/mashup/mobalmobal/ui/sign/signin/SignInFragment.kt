@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
+import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.funin.base.funinbase.extension.rx.observeOnMain
@@ -49,7 +50,8 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
         setGoogleLogin()
         setFacebookLogin()
 
-        binding.signInGoogle.setOnClickListener { onGoogleClicked() }
+        binding.signInGoogleLayout.setOnClickListener { onGoogleClicked() }
+        binding.signInFacebookLayout.setOnClickListener { onFacebookClicked() }
     }
 
     override fun onBindViewModels() {
@@ -80,12 +82,7 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
     private fun setFacebookLogin() {
         callbackManager = CallbackManager.Factory.create()
 
-        binding.signInFacebook.setPermissions(
-            FACEBOOK_PERMISSION_EMAIL,
-            FACEBOOK_PERMISSION_PUBLIC_PROFILE
-        )
-        binding.signInFacebook.fragment = this
-        binding.signInFacebook.registerCallback(
+        LoginManager.getInstance().registerCallback(
             callbackManager,
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult?) {
@@ -105,6 +102,15 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
 
     private fun onGoogleClicked() {
         googleLoginLauncher.launch(googleSignInClient.signInIntent)
+    }
+
+    private fun onFacebookClicked() {
+        LoginManager.getInstance().logInWithReadPermissions(
+            this, listOf(
+                FACEBOOK_PERMISSION_EMAIL,
+                FACEBOOK_PERMISSION_PUBLIC_PROFILE
+            )
+        )
     }
 
     fun navigateSignInToSignUp() =

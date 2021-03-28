@@ -54,7 +54,7 @@
     <ImageView
         android:id="@+id/create_donation_product_image_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="223dp"
         android:layout_marginTop="16dp"
         android:background="@color/dark_grey_two"
         android:scaleType="center"
@@ -198,16 +198,19 @@
 
     <TextView
         android:id="@+id/create_donation_complete_button"
-        android:layout_width="196dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
+        android:paddingBottom="21dp"
+        android:paddingTop="21dp"
+        android:paddingStart="65dp"
+        android:paddingEnd="65dp"
         android:background="@drawable/create_donation_complete_background"
         android:gravity="center"
         android:text="@string/create_donation_complete"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="normal"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -47,9 +47,9 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
     lateinit var glideRequest: GlideRequests
     private val createDonationViewModel by activityViewModels<CreateDonationViewModel>()
 
-    private lateinit var createDonationProductNameWatcher: TextWatcher
-    private lateinit var createDonationDescriptionWatcher: TextWatcher
-    private lateinit var createDonationPriceWatcher: TextWatcher
+    private var createDonationProductNameWatcher: TextWatcher? = null
+    private var createDonationDescriptionWatcher: TextWatcher? = null
+    private var createDonationPriceWatcher: TextWatcher? = null
     private var result = ""
 
 
@@ -98,8 +98,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
                 if (text.toString().isNotBlank() && text.toString() != result) {
                     val price = text.toString().replace(",", "")
                     createDonationViewModel.setCreateDonationFundAmount(price.toIntOrNull())
-                    result =
-                        String.format("%,d", price.toLongOrNull() ?: 0L)
+                    result = String.format("%,d", price.toLongOrNull() ?: 0L)
                     binding.createDonationPriceInput.setText(result)
                     binding.createDonationPriceInput.setSelection(result.length)
                 }

@@ -21,4 +21,8 @@
     <color name="gray_3">#252525</color>
     <color name="gray_4">#474747</color>
     <color name="lime">#7aff97</color>
+    <color name="dark_black">#151516</color>
+    <color name="bright_yellow_50">#80fff500</color>
+    <color name="bright_yellow">#fff500</color>
+    <color name="dark_grey_two">#202021</color>
 </resources>

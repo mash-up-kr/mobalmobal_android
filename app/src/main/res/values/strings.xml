@@ -34,14 +34,22 @@
     <string name="sign_up_personal_information_policy">개인정보 수집 및 이용</string>
     <string name="sign_up_policy">%1$s, %2$s에 모두 동의 합니다.</string>
     <string name="sign_up_complete">가입완료</string>
-
     <string name="usage_policy_url">https://www.notion.so/26c36382cd8448188c7532519b9019cc</string>
     <string name="personal_information_policy_url">https://www.notion.so/b384c72d60cc4475af49284625f81a0e</string>
     <string name="charge_complete_title">%s\n충전완료</string>
-
     <string name="charge_price">%,d원</string>
-
     <string name="donation">후원</string>
     <string name="donation_hint">후원할 금액을 입력하세요.</string>
     <string name="donate">후원하기</string>
+    <string name="create_donation_title">도네이션 생성</string>
+    <string name="create_donation_product_name_hint">가지고 싶은 물건 이름은?</string>
+    <string name="create_donation_description_hint">하고 싶은 말</string>
+    <string name="create_donation_price_hint">얼마를 모아볼까요?</string>
+    <string name="create_donation_start_date_hint">시작 날짜를 선택해 주세요</string>
+    <string name="create_donation_due_date_hint">종료 날짜를 선택해주세요</string>
+    <string name="create_donation_goal_hint">도네 목표 (가격)</string>
+    <string name="create_donation_complete">생성완료</string>
+    <string name="create_donation_complete_product">%s 가지고싶다</string>
+    <string name="create_donation_complete_title">%s\n생성완료</string>
+    <string name="create_donation_share_button">공유하기</string>
 </resources>

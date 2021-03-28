@@ -25,6 +25,6 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>() {
     private fun navigateMainToProfile() =
         findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
 
-    private fun navigateMainToRegistDonation() =
-        findNavController().navigate(R.id.action_mainFragment_to_registDonationFragment)
+    private fun navigateMainToCreateDonation() =
+        findNavController().navigate(R.id.create_donation_fragment)
 }

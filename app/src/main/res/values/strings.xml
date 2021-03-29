@@ -58,10 +58,9 @@
     <string name="charging">충전</string>
     <string name="charging_hint">충전할 금액을 입력하세요.</string>
     <string name="charge">충전하기</string>
-
-    <string name="charge_1">1000원</string>
-    <string name="charge_2">2000원</string>
-    <string name="charge_5">5000원</string>
+    <string name="charge_1">1,000원</string>
+    <string name="charge_2">2,000원</string>
+    <string name="charge_5">5,000원</string>
     <string name="charge_10">10,000원</string>
     <string name="charge_50">50,000원</string>
     <string name="charge_100">100,000원</string>

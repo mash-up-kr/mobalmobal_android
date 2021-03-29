@@ -1,31 +1,41 @@
 package com.mashup.mobalmobal.extensions
 
-import android.content.Context
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.mashup.base.extensions.show
 import com.mashup.mobalmobal.R
 
 fun Fragment.showChargeBottomSheet(
-    context: Context,
+    title: String,
+    onPriceClick: (Int) -> Unit,
+    onDirectClick: () -> Unit
 ) {
-    BottomSheetDialog(context, R.style.AppBottomSheetDialogTheme).also {
-        it.setContentView(R.layout.bottom_sheet_donate)
-        it.show()
-        it.findViewById<LinearLayout>(R.id.bottom_sheet_charge_1000)?.setOnClickListener {
-            // Do something
+    BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogTheme).show {
+        setContentView(R.layout.bottom_sheet_donate)
+        findViewById<TextView>(R.id.bottom_sheet_title)?.text = title
+        findViewById<LinearLayout>(R.id.bottom_sheet_charge_1000)?.setOnClickListener {
+            onPriceClick(1000)
         }
-        it.findViewById<LinearLayout>(R.id.bottom_sheet_charge_2000)?.setOnClickListener {
+        findViewById<LinearLayout>(R.id.bottom_sheet_charge_2000)?.setOnClickListener {
+            onPriceClick(2000)
         }
-        it.findViewById<LinearLayout>(R.id.bottom_sheet_charge_5000)?.setOnClickListener {
+        findViewById<LinearLayout>(R.id.bottom_sheet_charge_5000)?.setOnClickListener {
+            onPriceClick(5000)
         }
-        it.findViewById<LinearLayout>(R.id.bottom_sheet_charge_10000)?.setOnClickListener {
+        findViewById<LinearLayout>(R.id.bottom_sheet_charge_10000)?.setOnClickListener {
+            onPriceClick(10000)
         }
-        it.findViewById<LinearLayout>(R.id.bottom_sheet_charge_50000)?.setOnClickListener {
+        findViewById<LinearLayout>(R.id.bottom_sheet_charge_50000)?.setOnClickListener {
+            onPriceClick(50000)
         }
-        it.findViewById<LinearLayout>(R.id.bottom_sheet_charge_100000)?.setOnClickListener {
+        findViewById<LinearLayout>(R.id.bottom_sheet_charge_100000)?.setOnClickListener {
+            onPriceClick(100000)
         }
-        it.findViewById<LinearLayout>(R.id.bottom_sheet_charge_writing)?.setOnClickListener {
+        findViewById<LinearLayout>(R.id.bottom_sheet_charge_writing)?.setOnClickListener {
+            onDirectClick()
         }
     }
 }
+

@@ -13,7 +13,7 @@ fun Fragment.showChargeBottomSheet(
     onDirectClick: () -> Unit
 ) {
     BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogTheme).show {
-        setContentView(R.layout.bottom_sheet_donate)
+        setContentView(R.layout.layout_bottom_sheet_donate)
         findViewById<TextView>(R.id.bottom_sheet_title)?.text = title
         findViewById<LinearLayout>(R.id.bottom_sheet_charge_1000)?.setOnClickListener {
             onPriceClick(1000)

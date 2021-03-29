@@ -9,8 +9,11 @@ import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.ItemMainHeaderBinding
 import com.mashup.mobalmobal.databinding.ItemMainMyDonationsBinding
 import com.mashup.mobalmobal.databinding.ItemProgressDonationsBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 class MainAdapter(
+    private val lifecycleCoroutineScope: CoroutineScope,
     private val myDonationAdapter: MyDonationAdapter,
     private val progressDonationAdapter: MainDonationAdapter
 ) : ListAdapter<MainAdapterItem, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
@@ -95,7 +98,9 @@ class MainAdapter(
     }
 
     private fun ProgressDonationViewHolder.bind(item: MainAdapterItem.ProgressDonation) {
-        progressDonationAdapter.submitList(item.donations)
+        lifecycleCoroutineScope.launch {
+            progressDonationAdapter.submitData(item.donations)
+        }
     }
 
     private class MyDonationViewHolder(

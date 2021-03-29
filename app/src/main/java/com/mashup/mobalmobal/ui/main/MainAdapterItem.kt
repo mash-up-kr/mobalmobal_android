@@ -1,5 +1,7 @@
 package com.mashup.mobalmobal.ui.main
 
+import androidx.paging.PagingData
+
 sealed class MainAdapterItem(val id: String) {
     override fun hashCode(): Int = id.hashCode()
     override fun equals(other: Any?): Boolean = false
@@ -13,6 +15,6 @@ sealed class MainAdapterItem(val id: String) {
     ) : MainAdapterItem("Main-Header-$title")
 
     data class ProgressDonation(
-        val donations: List<MainDonationAdapterItem>
+        val donations: PagingData<MainDonationAdapterItem>
     ) : MainAdapterItem("Main-Progress_Donations")
 }

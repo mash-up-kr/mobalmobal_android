@@ -2,9 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bottom_sheet_round_corner"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bottom_sheet_gray">
+    android:id="@+id/bottom_sheet_donation"
+    >
 
     <TextView
         android:id="@+id/textView"
@@ -24,19 +26,22 @@
     <LinearLayout
         android:id="@+id/bottom_sheet_charge_1000"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:layout_marginTop="13dp"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="21dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
             android:text="@string/charge_1"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -51,18 +56,21 @@
     <LinearLayout
         android:id="@+id/bottom_sheet_charge_2000"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_charge_1000">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="21dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
             android:text="@string/charge_2"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -77,18 +85,21 @@
     <LinearLayout
         android:id="@+id/bottom_sheet_charge_5000"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_charge_2000">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="21dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
             android:text="@string/charge_5"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -103,9 +114,10 @@
     <LinearLayout
         android:id="@+id/bottom_sheet_charge_10000"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_charge_5000">
@@ -115,6 +127,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="21dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
             android:text="@string/charge_10"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -129,18 +143,21 @@
     <LinearLayout
         android:id="@+id/bottom_sheet_charge_50000"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_charge_10000">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="21dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
             android:text="@string/charge_50"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -155,17 +172,20 @@
     <LinearLayout
         android:id="@+id/bottom_sheet_charge_100000"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_charge_50000">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
             android:layout_marginStart="21dp"
             android:text="@string/charge_100"
             android:textColor="@color/white"
@@ -181,18 +201,21 @@
     <LinearLayout
         android:id="@+id/bottom_sheet_charge_writing"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_charge_100000">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="21dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
             android:text="@string/write_direct"
             android:textColor="@color/white"
             android:textSize="18sp"

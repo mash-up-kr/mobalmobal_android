@@ -50,8 +50,8 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
         setGoogleLogin()
         setFacebookLogin()
 
-        binding.signInGoogleLayout.setOnClickListener { onGoogleClicked() }
-        binding.signInFacebookLayout.setOnClickListener { onFacebookClicked() }
+        binding.signInGoogleLayout.signInGoogle.setOnClickListener { onGoogleClicked() }
+        binding.signInFacebookLayout.signInFacebook.setOnClickListener { onFacebookClicked() }
     }
 
     override fun onBindViewModels() {

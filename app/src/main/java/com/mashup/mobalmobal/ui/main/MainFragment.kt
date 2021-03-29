@@ -63,4 +63,3 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter
         navigateMainToCreateDonation()
     }
 }
-

@@ -139,7 +139,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             EditorInfo.IME_ACTION_DONE,
             2,
             binding.createDonationStartDateInputLayout,
-            null
+            binding.createDonationStartDateInput
         )
 
     }
@@ -173,7 +173,9 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         }.doOnEnd {
             nextViewLayout.visibility = View.VISIBLE
             nextView?.requestFocus()
-            (nextView as? EditText)?.showSoftInput()
+            if (viewIndex < 2) {
+                (nextView as? EditText)?.showSoftInput()
+            }
         }
     }
 
@@ -224,19 +226,26 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             if (viewId == START_DATE_TIME_PICKER) {
                 createDonationViewModel.setCreateDonationStartDate(calendar.timeInMillis)
                 binding.createDonationStartDateInput.setText(formattedDateTime)
-                goDownAnimation(
-                    3,
-                    binding.createDonationDueDateInputLayout,
-                    null
-                )
+                if (!binding.createDonationProductImageView.isVisible) {
+                    goDownAnimation(
+                        3,
+                        binding.createDonationDueDateInputLayout,
+                        binding.createDonationDueDateInput
+                    )
+                }
+
             } else {
                 createDonationViewModel.setCreateDonationDueDate(calendar.timeInMillis)
                 binding.createDonationDueDateInput.setText(formattedDateTime)
-                goDownAnimation(
-                    4,
-                    binding.createDonationProductImageView,
-                    null
-                )
+
+                if (!binding.createDonationProductImageView.isVisible) {
+                    goDownAnimation(
+                        4,
+                        binding.createDonationProductImageView,
+                        null
+                    )
+                }
+                binding.createDonationDueDateInput.clearFocus()
             }
         }
         TimePickerDialog(

@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/ic_back_navigation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,8 +41,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="@string/create_donation_title"
         android:textColor="@color/white"
@@ -93,7 +91,7 @@
                 android:hint="@string/create_donation_due_date_hint"
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp"
-                android:textColor="@color/white"
+                android:textColor="@color/create_donation_text_color"
                 android:textColorHint="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -117,7 +115,7 @@
                 android:hint="@string/create_donation_start_date_hint"
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp"
-                android:textColor="@color/white"
+                android:textColor="@color/create_donation_text_color"
                 android:textColorHint="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,7 +139,7 @@
                 android:inputType="numberDecimal"
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp"
-                android:textColor="@color/white"
+                android:textColor="@color/create_donation_text_color"
                 android:textColorHint="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -165,7 +163,7 @@
                 android:inputType="text"
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp"
-                android:textColor="@color/white"
+                android:textColor="@color/create_donation_text_color"
                 android:textColorHint="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -191,7 +189,7 @@
                 android:inputType="text"
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp"
-                android:textColor="@color/white"
+                android:textColor="@color/create_donation_text_color"
                 android:textColorHint="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -201,6 +199,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
+        android:visibility="gone"
         android:paddingBottom="21dp"
         android:paddingTop="21dp"
         android:paddingStart="65dp"

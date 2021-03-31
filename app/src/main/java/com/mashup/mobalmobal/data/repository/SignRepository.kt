@@ -3,6 +3,7 @@ package com.mashup.mobalmobal.data.repository
 import com.funin.base.funinbase.extension.requestBodyOf
 import com.mashup.mobalmobal.dto.UserDto
 import com.mashup.mobalmobal.network.Response
+import com.mashup.mobalmobal.network.onErrorResponse
 import com.mashup.mobalmobal.network.service.SignService
 import io.reactivex.Single
 import javax.inject.Inject
@@ -27,5 +28,5 @@ class SignRepository @Inject constructor(private val service: SignService) {
             cellPhone?.let { "cellPhone" to it }
             email?.let { "email" to it }
         }
-    )
+    ).onErrorResponse()
 }

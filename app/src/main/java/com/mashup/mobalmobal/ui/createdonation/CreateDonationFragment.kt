@@ -41,6 +41,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         private const val START_DATE_TIME_PICKER = 1
         private const val END_DATE_TIME_PICKER = 2
         private const val TRANSLATION_Y = "translationY"
+        private const val PRICE_INPUT_VIEW_INDEX = 2
     }
 
     @Inject
@@ -173,7 +174,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         }.doOnEnd {
             nextViewLayout.visibility = View.VISIBLE
             nextView?.requestFocus()
-            if (viewIndex < 2) {
+            if (viewIndex < PRICE_INPUT_VIEW_INDEX) {
                 (nextView as? EditText)?.showSoftInput()
             }
         }

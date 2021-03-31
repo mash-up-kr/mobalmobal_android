@@ -26,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SignUpFragment : BaseViewBindingFragment<FragmentSignUpBinding>() {
 
-    private val signUpViewModel by activityViewModels<SignViewModel>()
+    private val signViewModel by activityViewModels<SignViewModel>()
 
     private var signUpNicknameWatcher: TextWatcher? = null
     private var signUpEmailWatcher: TextWatcher? = null
@@ -40,31 +40,31 @@ class SignUpFragment : BaseViewBindingFragment<FragmentSignUpBinding>() {
     override fun onSetupViews(view: View) {
         setupPolicyTextView()
         signUpNicknameWatcher = binding.signUpNicknameTextInput.doOnTextChanged { text, _, _, _ ->
-            signUpViewModel.setSignUpNickname(text?.toString())
+            signViewModel.setSignUpNickname(text?.toString())
         }
         signUpEmailWatcher = binding.signUpEmailTextInput.doOnTextChanged { text, _, _, _ ->
-            signUpViewModel.setSignUpEmail(text?.toString())
+            signViewModel.setSignUpEmail(text?.toString())
         }
         signUpCellPhoneWatcher = binding.signUpCellPhoneTextInput.doOnTextChanged { text, _, _, _ ->
-            signUpViewModel.setSignUpCellPhone(text?.toString())
+            signViewModel.setSignUpCellPhone(text?.toString())
         }
         binding.signUpPolicyCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            signUpViewModel.setIsSignUpPolicyAgreeChecked(isChecked)
+            signViewModel.setIsSignUpPolicyAgreeChecked(isChecked)
         }
         binding.signUpSignUpButton.setOnClickListener {
-            signUpViewModel.signUp()
+            signViewModel.signUp()
         }
     }
 
     override fun onBindViewModels() {
-        signUpViewModel.isSignUpEnabled
+        signViewModel.isSignUpEnabled
             .observeOnMain()
             .subscribeWithErrorLogger {
                 binding.signUpSignUpButton.isEnabled = it
             }
             .addToDisposables()
 
-        signUpViewModel.signUpErrorMessage
+        signViewModel.signUpErrorMessage
             .observeOnMain()
             .subscribeWithErrorLogger(::showToast)
             .addToDisposables()

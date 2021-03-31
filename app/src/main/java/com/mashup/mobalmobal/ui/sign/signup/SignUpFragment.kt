@@ -20,12 +20,13 @@ import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.extension.showToast
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentSignUpBinding
+import com.mashup.mobalmobal.ui.sign.SignViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SignUpFragment : BaseViewBindingFragment<FragmentSignUpBinding>() {
 
-    private val signUpViewModel by activityViewModels<SignUpViewModel>()
+    private val signUpViewModel by activityViewModels<SignViewModel>()
 
     private var signUpNicknameWatcher: TextWatcher? = null
     private var signUpEmailWatcher: TextWatcher? = null
@@ -63,7 +64,7 @@ class SignUpFragment : BaseViewBindingFragment<FragmentSignUpBinding>() {
             }
             .addToDisposables()
 
-        signUpViewModel.isSignUpErrorMessage
+        signUpViewModel.signUpErrorMessage
             .observeOnMain()
             .subscribeWithErrorLogger(::showToast)
             .addToDisposables()

@@ -8,8 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object MobalRetrofit {
 
-    // TODO Replace end-point
-    const val API_END_POINT = "https://example.com/api"
+    const val API_END_POINT = "http://13.125.168.51:3000/"
 
     fun <T> create(
         service: Class<T>,

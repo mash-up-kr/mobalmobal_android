@@ -1,6 +1,7 @@
 package com.mashup.mobalmobal.di
 
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.ui.main.MainAdapter
 import com.mashup.mobalmobal.ui.main.MainDonationAdapter
@@ -28,7 +29,8 @@ object MainModule {
 
     @Provides
     fun provideMainAdapter(
+        fragment: Fragment,
         myDonationAdapter: MyDonationAdapter,
         mainDonationAdapter: MainDonationAdapter
-    ): MainAdapter = MainAdapter(myDonationAdapter, mainDonationAdapter)
+    ): MainAdapter = MainAdapter(fragment.lifecycleScope, myDonationAdapter, mainDonationAdapter)
 }

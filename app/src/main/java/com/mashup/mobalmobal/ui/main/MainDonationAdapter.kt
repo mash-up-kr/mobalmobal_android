@@ -2,34 +2,29 @@ package com.mashup.mobalmobal.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncDifferConfig
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.databinding.ItemMainDonationBinding
 
 class MainDonationAdapter(
     private val glideRequests: GlideRequests,
-    private val listener: MainAdapter.OnClickListener ?= null
-) : ListAdapter<MainDonationAdapterItem, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+    private val listener: MainAdapter.OnClickListener? = null
+) : PagingDataAdapter<MainDonationAdapterItem, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+
     companion object {
-        private val DIFF_CALLBACK =
-            AsyncDifferConfig.Builder(object : DiffUtil.ItemCallback<MainDonationAdapterItem>() {
-                override fun areItemsTheSame(
-                    oldItem: MainDonationAdapterItem,
-                    newItem: MainDonationAdapterItem
-                ): Boolean = oldItem.donationId == newItem.donationId
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MainDonationAdapterItem>() {
+            override fun areItemsTheSame(
+                oldItem: MainDonationAdapterItem,
+                newItem: MainDonationAdapterItem
+            ): Boolean = oldItem.postId == newItem.postId
 
-                override fun areContentsTheSame(
-                    oldItem: MainDonationAdapterItem,
-                    newItem: MainDonationAdapterItem
-                ): Boolean = oldItem == newItem
-            }).build()
-    }
-
-    init {
-        setHasStableIds(true)
+            override fun areContentsTheSame(
+                oldItem: MainDonationAdapterItem,
+                newItem: MainDonationAdapterItem
+            ): Boolean = oldItem == newItem
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -40,8 +35,9 @@ class MainDonationAdapter(
         )
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is DonationViewHolder) {
-            holder.bind(getItem(position))
+        val item = getItem(position)
+        if (holder is DonationViewHolder && item != null) {
+            holder.bind(item)
         }
     }
 
@@ -53,7 +49,7 @@ class MainDonationAdapter(
             currentPrice = item.currentPrice
             currentPriceText = item.currentPriceText
             setDonationImage(glideRequests, item.donationImageUrl)
-            setOnClickListener { listener?.onDonationClick(item.donationId) }
+            setOnClickListener { listener?.onDonationClick(item.postId) }
         }
     }
 

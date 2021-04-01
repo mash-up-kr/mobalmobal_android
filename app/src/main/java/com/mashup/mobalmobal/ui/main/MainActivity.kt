@@ -1,18 +1,39 @@
 package com.mashup.mobalmobal.ui.main
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.viewModels
+import com.funin.base.funinbase.base.BaseActivity
+import com.funin.base.funinbase.extension.rx.observeOnMain
+import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.mashup.mobalmobal.databinding.ActivityMainBinding
+import com.mashup.mobalmobal.ui.sign.SignActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    private val meViewModel by viewModels<MeViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+        bindViewModels()
+    }
+
+    private fun bindViewModels() {
+        meViewModel.checkSignedIn()
+            .filter { !it }
+            .observeOnMain()
+            .subscribeWithErrorLogger { startSignActivity() }
+            .addToDisposables()
+    }
+
+    private fun startSignActivity() {
+        startActivity(Intent(this, SignActivity::class.java))
+        finish()
     }
 }

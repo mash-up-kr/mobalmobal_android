@@ -23,6 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentSignInBinding
+import com.mashup.mobalmobal.ui.sign.SignViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,7 +34,7 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
         private const val FACEBOOK_PERMISSION_PUBLIC_PROFILE = "public_profile"
     }
 
-    private val viewModel by viewModels<SignInViewModel>()
+    private val viewModel by viewModels<SignViewModel>()
 
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var googleLoginLauncher: ActivityResultLauncher<Intent>
@@ -53,7 +54,7 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
     }
 
     override fun onBindViewModels() {
-        viewModel.toastMessage
+        viewModel.signToastMessage
             .observeOnMain()
             .subscribeWithErrorLogger(::showToast)
             .addToDisposables()

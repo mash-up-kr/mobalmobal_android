@@ -14,10 +14,10 @@ import javax.inject.Inject
 class PostRepository @Inject constructor(private val service: PostService) {
 
     @ExperimentalCoroutinesApi
-    fun getPosts(): Flowable<PagingData<PostDto>> {
+    fun getPosts(initialLoadSize: Int, pageSize: Int): Flowable<PagingData<PostDto>> {
         val config = PagingConfig(
-            initialLoadSize = 30,
-            pageSize = 30
+            initialLoadSize = initialLoadSize,
+            pageSize = pageSize
         )
         return Pager(config) { PostPagingSource(service) }.flowable
     }

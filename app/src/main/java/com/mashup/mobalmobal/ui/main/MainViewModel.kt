@@ -19,9 +19,14 @@ class MainViewModel @Inject constructor(
     postRepository: PostRepository
 ) : BaseViewModel(schedulerProvider) {
 
+    companion object {
+        private const val INITIAL_LOAD_SIZE = 30
+        private const val PAGE_SIZE = 30
+    }
+
     @ExperimentalCoroutinesApi
     private val donationItems: Flowable<PagingData<MainDonationAdapterItem>> =
-        postRepository.getPosts()
+        postRepository.getPosts(INITIAL_LOAD_SIZE, PAGE_SIZE)
             .map { pagingData -> pagingData.map { it.toMainDonationAdapterItem() } }
 
     private val _itemsSubject: BehaviorSubject<List<MainAdapterItem>> = BehaviorSubject.create()

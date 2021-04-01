@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_sheet_donation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bottom_sheet_round_corner">
+    android:background="@drawable/bottom_sheet_round_corner"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/bottom_sheet_title"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="20dp"
@@ -23,7 +24,7 @@
 
     <LinearLayout
         android:id="@+id/bottom_sheet_charge_1000"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:background="?attr/selectableItemBackground"
@@ -34,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_title">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="21dp"
             android:layout_weight="1"
@@ -54,7 +55,7 @@
 
     <LinearLayout
         android:id="@+id/bottom_sheet_charge_2000"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
@@ -84,7 +85,7 @@
 
     <LinearLayout
         android:id="@+id/bottom_sheet_charge_5000"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
@@ -114,7 +115,7 @@
 
     <LinearLayout
         android:id="@+id/bottom_sheet_charge_10000"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
@@ -144,7 +145,7 @@
 
     <LinearLayout
         android:id="@+id/bottom_sheet_charge_50000"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
@@ -174,7 +175,7 @@
 
     <LinearLayout
         android:id="@+id/bottom_sheet_charge_100000"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
@@ -204,7 +205,7 @@
 
     <LinearLayout
         android:id="@+id/bottom_sheet_charge_writing"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
@@ -231,4 +232,4 @@
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_arrow_chevron_big_right" />
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

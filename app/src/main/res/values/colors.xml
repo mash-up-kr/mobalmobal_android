@@ -23,6 +23,9 @@
     <color name="lime">#7aff97</color>
     <color name="dark_black">#151516</color>
     <color name="bright_yellow_50">#80fff500</color>
+    <color name="input_yellow_50">#80ffe487</color>
+    <color name="input_yellow_25">#25ffe487</color>
+    <color name="input_grey">#d8d8d8</color>
     <color name="bright_yellow">#fff500</color>
     <color name="dark_grey_two">#202021</color>
     <color name="neon_purple">#6d39ff</color>

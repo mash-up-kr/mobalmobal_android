@@ -60,6 +60,6 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter
         findNavController().navigate(R.id.create_donation_fragment)
 
     override fun onAddDonationClick() {
-        // Go to CreateDonationShow
+        navigateMainToCreateDonation()
     }
 }

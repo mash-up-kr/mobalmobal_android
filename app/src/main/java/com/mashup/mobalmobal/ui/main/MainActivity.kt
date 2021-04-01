@@ -18,15 +18,14 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        checkSignedId()
 
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        bindViewModels()
     }
 
-    private fun bindViewModels() {
-        meViewModel.checkSignedIn()
-            .filter { !it }
+    private fun checkSignedId() {
+        meViewModel.isSignedIn()
             .observeOnMain()
             .subscribeWithErrorLogger { startSignActivity() }
             .addToDisposables()

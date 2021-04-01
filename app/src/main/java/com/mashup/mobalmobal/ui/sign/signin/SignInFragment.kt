@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -35,7 +35,7 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
         private const val FACEBOOK_PERMISSION_PUBLIC_PROFILE = "public_profile"
     }
 
-    private val viewModel by viewModels<SignViewModel>()
+    private val viewModel by activityViewModels<SignViewModel>()
 
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var googleLoginLauncher: ActivityResultLauncher<Intent>

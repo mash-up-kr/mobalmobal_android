@@ -12,6 +12,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.mashup.base.extensions.combineLatest
 import com.mashup.mobalmobal.data.repository.SignRepository
+import com.mashup.mobalmobal.data.sharedpreferences.MobalSharedPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -23,7 +24,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SignViewModel @Inject constructor(
     schedulerProvider: BaseSchedulerProvider,
-    private val signRepository: SignRepository
+    private val signRepository: SignRepository,
+    private val sharedPreferences: MobalSharedPreferences
 ) : BaseViewModel(schedulerProvider) {
 
     private val auth: FirebaseAuth = Firebase.auth
@@ -49,13 +51,11 @@ class SignViewModel @Inject constructor(
         auth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 auth.currentUser?.let {
-                    signRepository.login()
+                    signRepository.login(
+                        fireStoreId = it.uid
+                    )
                         .flatMap {
-                            if (it.data != null) {
-                                Single.just(true)
-                            } else {
-                                Single.just(false)
-                            }
+                            Single.just(it.data != null)
                         }
                         .subscribeWithErrorLogger {
                             if (it) {
@@ -71,8 +71,9 @@ class SignViewModel @Inject constructor(
                                             fireStoreId = uid
                                         )
                                     )
+                                    sharedPreferences.saveAccessToken(uid)
                                     navigateToSignUp()
-                                } ?: _signUpErrorMessageSubject.onNext("회원가입에 실패했습니다. 다시 시도해 주세요.")
+                                } ?: _signUpErrorMessageSubject.onNext("로그인에 실패했습니다. 다시 시도해 주세요.")
                             }
                         }
                         .addToDisposables()

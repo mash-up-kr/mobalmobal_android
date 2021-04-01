@@ -55,4 +55,14 @@
     <string name="main_my_donation_title">나의 진행</string>
     <string name="google_login">Google로 로그인하기</string>
     <string name="facebook_login">Facebook으로 로그인하기</string>
+    <string name="charging">충전</string>
+    <string name="charging_hint">충전할 금액을 입력하세요.</string>
+    <string name="charge">충전하기</string>
+    <string name="charge_1">1,000원</string>
+    <string name="charge_2">2,000원</string>
+    <string name="charge_5">5,000원</string>
+    <string name="charge_10">10,000원</string>
+    <string name="charge_50">50,000원</string>
+    <string name="charge_100">100,000원</string>
+    <string name="write_direct">직접입력</string>
 </resources>

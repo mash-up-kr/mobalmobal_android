@@ -30,4 +30,5 @@
     <color name="bright_yellow">#fff500</color>
     <color name="dark_grey_two">#202021</color>
     <color name="neon_purple">#6d39ff</color>
+    <color name="bottom_sheet_gray">#29292c</color>
 </resources>

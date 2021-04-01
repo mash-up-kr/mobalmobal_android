@@ -67,7 +67,6 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         setDateTimePickerDialog()
         binding.createDonationCompleteButton.setOnClickListener {
             createDonationViewModel.createDonation()
-            navigateCreateDonationToComplete()
         }
         binding.toolbar.setNavigationOnClickListener {
             navigateToBack()
@@ -79,6 +78,13 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             .observeOnMain()
             .subscribeWithErrorLogger {
                 binding.createDonationCompleteButton.isVisible = it
+            }
+            .addToDisposables()
+
+        createDonationViewModel.completeTrigger
+            .observeOnMain()
+            .subscribeWithErrorLogger {
+                navigateCreateDonationToComplete()
             }
             .addToDisposables()
     }
@@ -117,7 +123,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             TedRxImagePicker.with(requireActivity())
                 .start()
                 .subscribe({ uri ->
-                    createDonationViewModel.setCreateDonationFile(uri)
+                    createDonationViewModel.setCreateDonationUrl(uri)
                     glideRequest.load(uri)
                         .centerCrop()
                         .into(binding.createDonationProductImageView)

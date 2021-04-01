@@ -11,7 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.activityViewModels
 import com.funin.base.funinbase.base.BaseViewBindingFragment
+import com.funin.base.funinbase.extension.rx.observeOnMain
+import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentCreateDonationCompleteBinding
@@ -23,6 +26,7 @@ class CreateDonationCompleteFragment :
     BaseViewBindingFragment<FragmentCreateDonationCompleteBinding>() {
     @Inject
     lateinit var glideRequests: GlideRequests
+    private val createDonationViewModel by activityViewModels<CreateDonationViewModel>()
     private val productName: String by lazy {
         arguments?.getString("KEY_DONATION_PRODUCT") ?: "PS5"
     }
@@ -44,19 +48,25 @@ class CreateDonationCompleteFragment :
                     .setType("text/plain")
             )
         }
-        binding.createDonationCompleteCustomView.apply {
-            title = "티끌모아 닌텐도 스위치"
-            dueDate = "D-12"
-            goalPrice = 30000
-            currentPrice = 25000
-            setDonationImage(
-                glideRequests,
-                "https://blog.kakaocdn.net/dn/lNp7m/btqIvFeQr77/kGEVFLnvqVh80gowQtKn9K/img.png"
-            )
-        }
-        binding.backButton.setOnClickListener {
-            navigateToMain()
-        }
+
+    }
+
+    override fun onBindViewModels() {
+        createDonationViewModel.createCompleteInputSubject
+            .observeOnMain()
+            .subscribeWithErrorLogger {
+                binding.createDonationCompleteCustomView.apply {
+                    title = it.description
+                    dueDate = it.dday
+                    goalPrice = it.goal!!
+                    currentPrice = 0
+                    setDonationImage(
+                        glideRequests,
+                        it.postImage
+                    )
+                }
+            }
+            .addToDisposables()
     }
 
     private fun setupCreatingDonationCompleteTitleView() {

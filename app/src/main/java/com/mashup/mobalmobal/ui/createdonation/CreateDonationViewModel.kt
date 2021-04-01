@@ -11,6 +11,7 @@ import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import java.lang.IllegalArgumentException
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,6 +29,14 @@ class CreateDonationViewModel @Inject constructor(
 
     private val _createDonationErrorMessageSubject: PublishSubject<String> = PublishSubject.create()
     val createDonationErrorMessage: Observable<String> = _createDonationErrorMessageSubject
+
+    private val _navigateToComplete: BehaviorSubject<Boolean> =
+        BehaviorSubject.createDefault(false)
+    val completeTrigger: Observable<Boolean> = _navigateToComplete
+
+    private val _createCompleteInputSubject: BehaviorSubject<CreateCompleteDonation> =
+        BehaviorSubject.createDefault(CreateCompleteDonation())
+    val createCompleteInputSubject = _createCompleteInputSubject
 
     init {
         _createDonationInputSubject
@@ -62,9 +71,9 @@ class CreateDonationViewModel @Inject constructor(
         )
     }
 
-    fun setCreateDonationFile(uri: Uri?) {
+    fun setCreateDonationUrl(postImage: Uri?) {
         _createDonationInputSubject.onNext(
-            _createDonationInputSubject.value?.copy(uri = uri) ?: CreateDonation(uri = uri)
+            _createDonationInputSubject.value?.copy(postImage = postImage) ?: CreateDonation(postImage = postImage)
         )
     }
 
@@ -90,14 +99,14 @@ class CreateDonationViewModel @Inject constructor(
                 if (!createDonationInput.description.isNullOrBlank() &&
                     !createDonationInput.productName.isNullOrBlank() &&
                     createDonationInput.fundAmount != null &&
-                    createDonationInput.uri != null &&
+                    createDonationInput.postImage != null &&
                     createDonationInput.startDate != null &&
                     createDonationInput.dueDate != null
                 ) {
                     createDonationRepository.createDonation(
                         title = createDonationInput.productName,
                         description = createDonationInput.description,
-                        post_image = createDonationInput.uri.toString(),
+                        post_image = createDonationInput.postImage.toString(),
                         goal = createDonationInput.fundAmount,
                         started_at = createDonationInput.startDate,
                         end_at = createDonationInput.dueDate
@@ -108,7 +117,7 @@ class CreateDonationViewModel @Inject constructor(
                             _createDonationErrorMessageSubject.onNext("description이 비었습니다.")
                         createDonationInput.productName.isNullOrBlank() ->
                             _createDonationErrorMessageSubject.onNext("productName이 비었습니다.")
-                        createDonationInput.uri == null ->
+                        createDonationInput.postImage == null ->
                             _createDonationErrorMessageSubject.onNext("이미지 uri가 비었습니다.")
                         createDonationInput.fundAmount == null ->
                             _createDonationErrorMessageSubject.onNext("fundAmount가 비었습니다.")
@@ -124,9 +133,19 @@ class CreateDonationViewModel @Inject constructor(
                     )
                 }
             }
-            .subscribeWithErrorLogger {  response ->
+            .subscribeWithErrorLogger { response ->
                 if (response.data != null) {
-                    // Complete화면으로 이동
+                    navigateToComplete()
+
+                    _createCompleteInputSubject.onNext(
+                        CreateCompleteDonation(
+                            title = response.data.title,
+                            description = response.data.description,
+                            goal = response.data.goalPrice,
+                            postImage = response.data.postImage,
+                            dday = getDDay(response.data.startedAt, response.data.endAt)
+                        )
+                    )
                 } else {
                     response.message?.let { _createDonationErrorMessageSubject.onNext(it) }
                 }
@@ -135,17 +154,45 @@ class CreateDonationViewModel @Inject constructor(
             .addToDisposables()
     }
 
+    private fun getDDay(startAt:Long, endAt: Long): String {
+        val dday = getIgnoredTimeDays(endAt) - getIgnoredTimeDays(startAt)
+
+        return (dday / (24*60*60*1000)).toString()
+    }
+
+    private fun getIgnoredTimeDays(time: Long): Long {
+        return Calendar.getInstance().apply {
+            timeInMillis = time
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.timeInMillis
+    }
+
+    private fun navigateToComplete() {
+        _navigateToComplete.onNext(true)
+    }
+
     data class CreateDonation(
         val productName: String? = null,
         val description: String? = null,
         val fundAmount: Int? = null,
-        val uri: Uri? = null,
+        val postImage: Uri? = null,
         val startDate: Long? = null,
         val dueDate: Long? = null
     )
 
+    data class CreateCompleteDonation(
+        val title: String? = null,
+        val description: String? = null,
+        val goal: Int? = null,
+        val postImage: String? = null,
+        val dday: String? = null
+    )
+
     private fun CreateDonation.isValidate(): Boolean =
-        !productName.isNullOrBlank() && !description.isNullOrBlank() && uri != null
+        !productName.isNullOrBlank() && !description.isNullOrBlank() && postImage != null
                 && !fundAmount.toString().isNullOrBlank() && !startDate.toString()
             .isNullOrBlank() && !dueDate.toString().isNullOrBlank()
 

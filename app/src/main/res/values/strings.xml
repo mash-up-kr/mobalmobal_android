@@ -53,4 +53,6 @@
     <string name="create_donation_complete_title">%s\n생성완료</string>
     <string name="create_donation_share_button">공유하기</string>
     <string name="main_my_donation_title">나의 진행</string>
+    <string name="google_login">Google로 로그인하기</string>
+    <string name="facebook_login">Facebook으로 로그인하기</string>
 </resources>

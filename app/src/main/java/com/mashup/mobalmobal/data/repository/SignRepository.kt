@@ -1,6 +1,7 @@
 package com.mashup.mobalmobal.data.repository
 
 import com.funin.base.funinbase.extension.requestBodyOf
+import com.mashup.mobalmobal.data.sharedpreferences.MobalSharedPreferences
 import com.mashup.mobalmobal.dto.LoginDto
 import com.mashup.mobalmobal.dto.UserDto
 import com.mashup.mobalmobal.network.Response
@@ -9,14 +10,20 @@ import com.mashup.mobalmobal.network.service.SignService
 import io.reactivex.Single
 import javax.inject.Inject
 
-class SignRepository @Inject constructor(private val service: SignService) {
-    fun login(
-        fireStoreId: String
-    ): Single<Response<LoginDto>> = service.login(
-        requestBodyOf {
-            "fireStoreId" to fireStoreId
+class SignRepository @Inject constructor(
+    private val service: SignService,
+    private val sharedPreferences: MobalSharedPreferences
+) {
+    fun login(fireStoreId: String): Single<Response<LoginDto>> =
+        service.login(
+            requestBodyOf {
+                "fireStoreId" to fireStoreId
+            }
+        ).doOnSuccess {
+            if (it.data != null) {
+                sharedPreferences.saveAccessToken(it.data.token.userToken)
+            }
         }
-    ).onErrorResponse()
 
     fun signUp(
         provider: String,

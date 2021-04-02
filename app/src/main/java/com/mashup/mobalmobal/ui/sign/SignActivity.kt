@@ -42,6 +42,11 @@ class SignActivity : BaseActivity() {
             .observeOnMain()
             .subscribeWithErrorLogger(::showToast)
             .addToDisposables()
+
+        signViewModel.signInErrorMessage
+            .observeOnMain()
+            .subscribeWithErrorLogger(::showToast)
+            .addToDisposables()
     }
 
     private fun navigate(signStep: SignStep) {

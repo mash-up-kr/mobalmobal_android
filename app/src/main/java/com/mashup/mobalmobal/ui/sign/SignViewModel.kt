@@ -11,8 +11,8 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.mashup.base.extensions.combineLatest
+import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.data.repository.SignRepository
-import com.mashup.mobalmobal.data.sharedpreferences.MobalSharedPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -25,7 +25,6 @@ import javax.inject.Inject
 class SignViewModel @Inject constructor(
     schedulerProvider: BaseSchedulerProvider,
     private val signRepository: SignRepository,
-    private val sharedPreferences: MobalSharedPreferences
 ) : BaseViewModel(schedulerProvider) {
 
     private val auth: FirebaseAuth = Firebase.auth
@@ -54,11 +53,8 @@ class SignViewModel @Inject constructor(
                     signRepository.login(
                         fireStoreId = it.uid
                     )
-                        .flatMap {
-                            Single.just(it.data != null)
-                        }
-                        .subscribeWithErrorLogger {
-                            if (it) {
+                        .subscribeWithErrorLogger { response ->
+                            if (response.data != null) {
                                 navigateToMain()
                             } else {
                                 task.result?.user?.uid?.let { uid ->
@@ -71,9 +67,8 @@ class SignViewModel @Inject constructor(
                                             fireStoreId = uid
                                         )
                                     )
-                                    sharedPreferences.saveAccessToken(uid)
                                     navigateToSignUp()
-                                } ?: _signUpErrorMessageSubject.onNext("로그인에 실패했습니다. 다시 시도해 주세요.")
+                                } ?: _signInErrorMessageSubject.onNext(R.string.sign_in_error_message)
                             }
                         }
                         .addToDisposables()
@@ -98,6 +93,9 @@ class SignViewModel @Inject constructor(
 
     private val _signUpErrorMessageSubject: PublishSubject<String> = PublishSubject.create()
     val signUpErrorMessage: Observable<String> = _signUpErrorMessageSubject
+
+    private val _signInErrorMessageSubject: PublishSubject<Int> = PublishSubject.create()
+    val signInErrorMessage: Observable<Int> = _signInErrorMessageSubject
 
     private val _isSignUpEnabledSubject: BehaviorSubject<Boolean> =
         BehaviorSubject.createDefault(false)

@@ -24,7 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SignViewModel @Inject constructor(
     schedulerProvider: BaseSchedulerProvider,
-    private val signRepository: SignRepository,
+    private val signRepository: SignRepository
 ) : BaseViewModel(schedulerProvider) {
 
     private val auth: FirebaseAuth = Firebase.auth
@@ -35,6 +35,9 @@ class SignViewModel @Inject constructor(
     private val _signStepSubject: BehaviorSubject<SignStep> =
         BehaviorSubject.createDefault(SignStep.SIGN_IN)
     val signStep: Observable<SignStep> = _signStepSubject
+
+    private val _signInErrorMessageSubject: PublishSubject<Int> = PublishSubject.create()
+    val signInErrorMessage: Observable<Int> = _signInErrorMessageSubject
 
     fun handleGoogleAccessToken(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
@@ -50,11 +53,9 @@ class SignViewModel @Inject constructor(
         auth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 auth.currentUser?.let {
-                    signRepository.login(
-                        fireStoreId = it.uid
-                    )
-                        .subscribeWithErrorLogger { response ->
-                            if (response.data != null) {
+                    signRepository.login(fireStoreId = it.uid)
+                        .subscribeWithErrorLogger { isSuccess ->
+                            if (isSuccess) {
                                 navigateToMain()
                             } else {
                                 task.result?.user?.uid?.let { uid ->
@@ -93,9 +94,6 @@ class SignViewModel @Inject constructor(
 
     private val _signUpErrorMessageSubject: PublishSubject<String> = PublishSubject.create()
     val signUpErrorMessage: Observable<String> = _signUpErrorMessageSubject
-
-    private val _signInErrorMessageSubject: PublishSubject<Int> = PublishSubject.create()
-    val signInErrorMessage: Observable<Int> = _signInErrorMessageSubject
 
     private val _isSignUpEnabledSubject: BehaviorSubject<Boolean> =
         BehaviorSubject.createDefault(false)

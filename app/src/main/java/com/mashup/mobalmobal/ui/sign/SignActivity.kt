@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import com.funin.base.funinbase.base.BaseActivity
 import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
+import com.funin.base.funinbase.extension.showToast
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.ActivitySignBinding
 import com.mashup.mobalmobal.ui.main.MainActivity
@@ -35,6 +36,16 @@ class SignActivity : BaseActivity() {
         signViewModel.mainTrigger
             .observeOnMain()
             .subscribeWithErrorLogger { navigateToMain() }
+            .addToDisposables()
+
+        signViewModel.signUpErrorMessage
+            .observeOnMain()
+            .subscribeWithErrorLogger(::showToast)
+            .addToDisposables()
+
+        signViewModel.signInErrorMessage
+            .observeOnMain()
+            .subscribeWithErrorLogger(::showToast)
             .addToDisposables()
     }
 

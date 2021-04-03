@@ -11,6 +11,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.mashup.base.extensions.combineLatest
+import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.data.repository.SignRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
@@ -35,6 +36,9 @@ class SignViewModel @Inject constructor(
         BehaviorSubject.createDefault(SignStep.SIGN_IN)
     val signStep: Observable<SignStep> = _signStepSubject
 
+    private val _signInErrorMessageSubject: PublishSubject<Int> = PublishSubject.create()
+    val signInErrorMessage: Observable<Int> = _signInErrorMessageSubject
+
     fun handleGoogleAccessToken(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         signInFirebase(credential)
@@ -49,16 +53,9 @@ class SignViewModel @Inject constructor(
         auth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 auth.currentUser?.let {
-                    signRepository.login()
-                        .flatMap {
-                            if (it.data != null) {
-                                Single.just(true)
-                            } else {
-                                Single.just(false)
-                            }
-                        }
-                        .subscribeWithErrorLogger {
-                            if (it) {
+                    signRepository.login(fireStoreId = it.uid)
+                        .subscribeWithErrorLogger { isSuccess ->
+                            if (isSuccess) {
                                 navigateToMain()
                             } else {
                                 task.result?.user?.uid?.let { uid ->
@@ -72,7 +69,7 @@ class SignViewModel @Inject constructor(
                                         )
                                     )
                                     navigateToSignUp()
-                                } ?: _signUpErrorMessageSubject.onNext("회원가입에 실패했습니다. 다시 시도해 주세요.")
+                                } ?: _signInErrorMessageSubject.onNext(R.string.sign_in_error_message)
                             }
                         }
                         .addToDisposables()

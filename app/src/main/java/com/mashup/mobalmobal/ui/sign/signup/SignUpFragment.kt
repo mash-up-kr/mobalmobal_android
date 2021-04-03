@@ -17,7 +17,6 @@ import androidx.fragment.app.activityViewModels
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
-import com.funin.base.funinbase.extension.showToast
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentSignUpBinding
 import com.mashup.mobalmobal.ui.sign.SignViewModel
@@ -62,11 +61,6 @@ class SignUpFragment : BaseViewBindingFragment<FragmentSignUpBinding>() {
             .subscribeWithErrorLogger {
                 binding.signUpSignUpButton.isEnabled = it
             }
-            .addToDisposables()
-
-        signViewModel.signUpErrorMessage
-            .observeOnMain()
-            .subscribeWithErrorLogger(::showToast)
             .addToDisposables()
     }
 

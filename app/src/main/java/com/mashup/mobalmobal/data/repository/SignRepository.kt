@@ -2,7 +2,7 @@ package com.mashup.mobalmobal.data.repository
 
 import com.funin.base.funinbase.extension.requestBodyOf
 import com.mashup.mobalmobal.data.sharedpreferences.MobalSharedPreferences
-import com.mashup.mobalmobal.dto.UserDto
+import com.mashup.mobalmobal.dto.LoginDto
 import com.mashup.mobalmobal.network.Response
 import com.mashup.mobalmobal.network.onErrorResponse
 import com.mashup.mobalmobal.network.service.SignService
@@ -14,15 +14,11 @@ class SignRepository @Inject constructor(
     private val sharedPreferences: MobalSharedPreferences
 ) {
     fun login(fireStoreId: String): Single<Boolean> =
-        service.login(
-            requestBodyOf {
-                "fireStoreId" to fireStoreId
-            }
-        ).doOnSuccess {
-            if (it.data != null) {
-                sharedPreferences.saveAccessToken(it.data.token.userToken)
-            }
-        }.map { it.data != null }
+        service.login(requestBodyOf { "fireStoreId" to fireStoreId })
+            .doOnSuccess {
+                it.data?.token?.userToken?.let { token -> sharedPreferences.saveAccessToken(token) }
+            }.onErrorResponse()
+            .map { it.data != null }
 
     fun signUp(
         provider: String,
@@ -30,7 +26,7 @@ class SignRepository @Inject constructor(
         nickname: String,
         cellPhone: String? = null,
         email: String? = null
-    ): Single<Response<UserDto>> = service.signUp(
+    ): Single<Response<LoginDto>> = service.signUp(
         requestBodyOf {
             "provider" to provider
             "fireStoreId" to fireStoreId
@@ -38,5 +34,7 @@ class SignRepository @Inject constructor(
             cellPhone?.let { "cellPhone" to it }
             email?.let { "email" to it }
         }
-    ).onErrorResponse()
+    ).doOnSuccess {
+        it.data?.token?.userToken?.let { token -> sharedPreferences.saveAccessToken(token) }
+    }.onErrorResponse()
 }

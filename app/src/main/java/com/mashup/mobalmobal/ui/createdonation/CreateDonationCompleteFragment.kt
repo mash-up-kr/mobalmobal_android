@@ -58,7 +58,7 @@ class CreateDonationCompleteFragment :
                 binding.createDonationCompleteCustomView.apply {
                     title = it.description
                     dueDate = it.dday
-                    goalPrice = it.goal!!
+                    goalPrice = it.goal ?: 0
                     currentPrice = 0
                     setDonationImage(
                         glideRequests,

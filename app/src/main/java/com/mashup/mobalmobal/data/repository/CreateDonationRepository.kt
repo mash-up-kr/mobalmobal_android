@@ -10,19 +10,19 @@ class CreateDonationRepository(private val service: CreateDonationService) {
     fun createDonation(
         title: String,
         description: String?,
-        post_image: String?,
+        postImage: String?,
         goal: Int,
-        started_at: Long,
-        end_at: Long
+        startedAt: Long,
+        endAt: Long
     ): Single<Response<PostDto>> {
          return service.createDonation(
             requestBodyOf {
                 "title" to title
                 description?.let { "post_description" to it }
-                post_image?.let { "post_image" to it }
+                postImage?.let { "post_image" to it }
                 "goal" to goal
-                "started_at" to started_at
-                "end_at" to end_at
+                "startedAt" to startedAt
+                "endAt" to endAt
             }
         )
     }

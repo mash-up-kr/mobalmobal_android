@@ -4,13 +4,13 @@ import android.net.Uri
 import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
+import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.data.repository.CreateDonationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
-import java.lang.IllegalArgumentException
 import java.util.*
 import javax.inject.Inject
 
@@ -26,6 +26,9 @@ class CreateDonationViewModel @Inject constructor(
     private val _isCreateDonationInputEnableSubject: BehaviorSubject<Boolean> =
         BehaviorSubject.createDefault(false)
     val isCreateDonationEnabled: Observable<Boolean> = _isCreateDonationInputEnableSubject
+
+    private val _createDonationErrorIdSubject: PublishSubject<Int> = PublishSubject.create()
+    val createDonationErrorIdSubject: Observable<Int> = _createDonationErrorIdSubject
 
     private val _createDonationErrorMessageSubject: PublishSubject<String> = PublishSubject.create()
     val createDonationErrorMessage: Observable<String> = _createDonationErrorMessageSubject
@@ -73,7 +76,9 @@ class CreateDonationViewModel @Inject constructor(
 
     fun setCreateDonationUrl(postImage: Uri?) {
         _createDonationInputSubject.onNext(
-            _createDonationInputSubject.value?.copy(postImage = postImage) ?: CreateDonation(postImage = postImage)
+            _createDonationInputSubject.value?.copy(postImage = postImage) ?: CreateDonation(
+                postImage = postImage
+            )
         )
     }
 
@@ -106,25 +111,25 @@ class CreateDonationViewModel @Inject constructor(
                     createDonationRepository.createDonation(
                         title = createDonationInput.productName,
                         description = createDonationInput.description,
-                        post_image = createDonationInput.postImage.toString(),
+                        postImage = createDonationInput.postImage.toString(),
                         goal = createDonationInput.fundAmount,
-                        started_at = createDonationInput.startDate,
-                        end_at = createDonationInput.dueDate
+                        startedAt = createDonationInput.startDate,
+                        endAt = createDonationInput.dueDate
                     )
                 } else {
                     when {
                         createDonationInput.description.isNullOrBlank() ->
-                            _createDonationErrorMessageSubject.onNext("description이 비었습니다.")
+                            _createDonationErrorIdSubject.onNext(R.string.void_description)
                         createDonationInput.productName.isNullOrBlank() ->
-                            _createDonationErrorMessageSubject.onNext("productName이 비었습니다.")
+                            _createDonationErrorIdSubject.onNext(R.string.void_product_name)
                         createDonationInput.postImage == null ->
-                            _createDonationErrorMessageSubject.onNext("이미지 uri가 비었습니다.")
+                            _createDonationErrorIdSubject.onNext(R.string.void_post_image)
                         createDonationInput.fundAmount == null ->
-                            _createDonationErrorMessageSubject.onNext("fundAmount가 비었습니다.")
+                            _createDonationErrorIdSubject.onNext(R.string.void_fund_amount)
                         createDonationInput.startDate == null ->
-                            _createDonationErrorMessageSubject.onNext("startDate가 비었습니다.")
+                            _createDonationErrorIdSubject.onNext(R.string.void_start_date)
                         else ->
-                            _createDonationErrorMessageSubject.onNext("dueDate가 비었습니다.")
+                            _createDonationErrorIdSubject.onNext(R.string.void_due_date)
                     }
                     Single.error(
                         IllegalArgumentException(
@@ -154,10 +159,10 @@ class CreateDonationViewModel @Inject constructor(
             .addToDisposables()
     }
 
-    private fun getDDay(startAt:Long, endAt: Long): String {
+    private fun getDDay(startAt: Long, endAt: Long): String {
         val dday = getIgnoredTimeDays(endAt) - getIgnoredTimeDays(startAt)
 
-        return (dday / (24*60*60*1000)).toString()
+        return (dday / (24 * 60 * 60 * 1000)).toString()
     }
 
     private fun getIgnoredTimeDays(time: Long): Long {

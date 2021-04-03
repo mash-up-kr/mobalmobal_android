@@ -81,4 +81,10 @@
     <string name="donation_price">%,d</string>
     <string name="donation_percent">%.1f%%</string>
     <string name="main_user_name">Hi, %s</string>
+    <string name="void_description">description이 비었습니다.</string>
+    <string name="void_product_name">productName이 비었습니다.</string>
+    <string name="void_post_image">이미지 uri가 비었습니다.</string>
+    <string name="void_fund_amount">fundAmount가 비었습니다.</string>
+    <string name="void_start_date">startDate가 비었습니다.</string>
+    <string name="void_due_date">dueDate가 비었습니다.</string>
 </resources>

@@ -22,7 +22,6 @@ class CreateDonationViewModel @Inject constructor(
     private val createDonationRepository: CreateDonationRepository,
     private val fileRepository: FileRepository
 ) : BaseViewModel(schedulerProvider) {
-    private lateinit var context: Context
 
     private val _createDonationInputSubject: BehaviorSubject<CreateDonation> =
         BehaviorSubject.createDefault(CreateDonation())
@@ -44,10 +43,6 @@ class CreateDonationViewModel @Inject constructor(
     private val _createCompleteInputSubject: BehaviorSubject<CreateCompleteDonation> =
         BehaviorSubject.createDefault(CreateCompleteDonation())
     val createCompleteInput = _createCompleteInputSubject.distinctUntilChanged()
-
-    fun setContext(fragmentContext: Context) {
-        context = fragmentContext
-    }
 
     init {
         _createDonationInputSubject
@@ -100,7 +95,7 @@ class CreateDonationViewModel @Inject constructor(
         )
     }
 
-    fun createDonation() {
+    fun createDonation(context: Context) {
         _createDonationInputSubject.firstOrError()
             .subscribeOnIO()
             .flatMap { createDonationInput ->

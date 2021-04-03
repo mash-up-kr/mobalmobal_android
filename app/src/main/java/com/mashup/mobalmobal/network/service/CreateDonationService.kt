@@ -8,6 +8,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface CreateDonationService {
+
     @POST("/posts")
     fun createDonation(@Body body: RequestBody): Single<Response<PostDto>>
 }

@@ -5,8 +5,9 @@ import com.mashup.mobalmobal.data.dto.PostDto
 import com.mashup.mobalmobal.network.Response
 import com.mashup.mobalmobal.network.service.CreateDonationService
 import io.reactivex.Single
+import javax.inject.Inject
 
-class CreateDonationRepository(private val service: CreateDonationService) {
+class CreateDonationRepository @Inject constructor(private val service: CreateDonationService) {
     fun createDonation(
         title: String,
         description: String?,

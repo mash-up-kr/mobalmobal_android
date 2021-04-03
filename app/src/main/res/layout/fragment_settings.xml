@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/dark_grey">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_start"
@@ -18,35 +20,60 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="20dp" />
 
+    <ImageView
+        android:id="@+id/iv_previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back_navigation" />
+
     <TextView
-        android:id="@+id/settings_profile_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="@string/profile_setting"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_previous"
+        app:layout_constraintStart_toEndOf="@id/iv_previous"
+        app:layout_constraintTop_toTopOf="@id/iv_previous" />
+
+    <TextView
+        android:id="@+id/settings_my_account"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingVertical="20dp"
-        android:text="@string/settings_profile_edit"
-        android:textColor="@color/black"
+        android:layout_marginTop="41dp"
+        android:paddingVertical="15dp"
+        android:text="@string/settings_my_account"
+        android:textColor="@color/white"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="@id/guide_end"
         app:layout_constraintStart_toStartOf="@id/guide_start"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/iv_previous" />
 
     <TextView
         android:id="@+id/settings_open_source"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingVertical="20dp"
+        android:paddingVertical="15dp"
         android:text="@string/settings_open_source"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="@id/guide_end"
         app:layout_constraintStart_toStartOf="@id/guide_start"
-        app:layout_constraintTop_toBottomOf="@id/settings_profile_edit" />
+        app:layout_constraintTop_toBottomOf="@id/settings_my_account" />
 
     <TextView
         android:id="@+id/settings_terms_of_service"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingVertical="20dp"
+        android:paddingVertical="15dp"
         android:text="@string/settings_terms_of_service"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="@id/guide_end"
         app:layout_constraintStart_toStartOf="@id/guide_start"
         app:layout_constraintTop_toBottomOf="@id/settings_open_source" />
@@ -55,33 +82,35 @@
         android:id="@+id/settings_notification"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingVertical="20dp"
+        android:paddingVertical="15dp"
         android:text="@string/settings_notification"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@id/guide_end"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@id/settings_notification_switch"
         app:layout_constraintStart_toStartOf="@id/guide_start"
         app:layout_constraintTop_toBottomOf="@id/settings_terms_of_service" />
+
+    <Switch
+        android:id="@+id/settings_notification_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/SwitchStyle"
+        app:layout_constraintBottom_toBottomOf="@id/settings_notification"
+        app:layout_constraintEnd_toEndOf="@id/guide_end"
+        app:layout_constraintStart_toEndOf="@id/settings_notification"
+        app:layout_constraintTop_toTopOf="@id/settings_notification"
+        tools:checked="true" />
 
     <TextView
         android:id="@+id/settings_inquiry"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingVertical="20dp"
+        android:paddingVertical="15dp"
         android:text="@string/settings_inquiry"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="@id/guide_end"
         app:layout_constraintStart_toStartOf="@id/guide_start"
         app:layout_constraintTop_toBottomOf="@id/settings_notification" />
-
-    <TextView
-        android:id="@+id/settings_my_account"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingVertical="20dp"
-        android:text="@string/settings_my_account"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@id/guide_end"
-        app:layout_constraintStart_toStartOf="@id/guide_start"
-        app:layout_constraintTop_toBottomOf="@id/settings_inquiry" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

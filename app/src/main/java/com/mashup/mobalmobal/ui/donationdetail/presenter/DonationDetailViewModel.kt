@@ -1,4 +1,4 @@
-package com.mashup.mobalmobal.ui.donationdetail
+package com.mashup.mobalmobal.ui.donationdetail.presenter
 
 import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
@@ -14,16 +14,16 @@ import javax.inject.Inject
 class DonationDetailViewModel @Inject constructor(
     schedulerProvider: BaseSchedulerProvider,
     private val donationDetailRepository: DonationDetailRepository
-) : BaseViewModel(schedulerProvider){
+) : BaseViewModel(schedulerProvider) {
 
     private val _donationSubject: PublishSubject<DonationItem> = PublishSubject.create()
     val donatinSubject get() = _donationSubject
 
-    fun requestDonationDetail(donationId: String) {
-        donationDetailRepository.getDonationDetail(donationId)
+    fun requestDonationDetail(donationId: Int) {
+        donationDetailRepository.getDonationDetail(donationId.toString())
             .toFlowable()
             .subscribeOnIO()
-            .doOnSubscribe{}
+            .doOnSubscribe {}
             .subscribeWithErrorLogger { _donationSubject.onNext(it.data.toDonationItem()) }
             .addToDisposables()
     }

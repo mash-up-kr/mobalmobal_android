@@ -4,9 +4,8 @@ import com.google.gson.annotations.SerializedName
 import com.mashup.mobalmobal.dto.DonationDto
 import com.mashup.mobalmobal.ui.donationdetail.domain.DonationItem
 import com.mashup.mobalmobal.ui.donationdetail.domain.User
-import com.mashup.mobalmobal.ui.profile.data.dto.ProfileDetailDto
 
-data class DonationDetailResultDto (
+data class DonationDetailResultDto(
     @SerializedName("result")
     val result: Int,
     @SerializedName("data")
@@ -25,7 +24,7 @@ fun DonationDto.toDonationItem(): DonationItem =
         ),
         goalPrice = goalPrice,
         donatedPrice = donatedPrice,
-        donators = mutableListOf<User>().also{
+        donators = mutableListOf<User>().also {
             it.addAll(donateUsers.map { donator ->
                 User(
                     userId = donator.userId,

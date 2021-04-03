@@ -1,5 +1,6 @@
 package com.mashup.mobalmobal.ui.main
 
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.funin.base.funinbase.base.BaseViewModel
@@ -26,7 +27,7 @@ class MainViewModel @Inject constructor(
 
     @ExperimentalCoroutinesApi
     private val donationItems: Flowable<PagingData<MainDonationAdapterItem>> =
-        postRepository.getPosts(INITIAL_LOAD_SIZE, PAGE_SIZE)
+        postRepository.getPosts(viewModelScope, INITIAL_LOAD_SIZE, PAGE_SIZE)
             .map { pagingData -> pagingData.map { it.toMainDonationAdapterItem() } }
 
     private val _itemsSubject: BehaviorSubject<List<MainAdapterItem>> = BehaviorSubject.create()

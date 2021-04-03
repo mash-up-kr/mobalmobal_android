@@ -51,7 +51,7 @@ class SignUpFragment : BaseViewBindingFragment<FragmentSignUpBinding>() {
             signViewModel.setIsSignUpPolicyAgreeChecked(isChecked)
         }
         binding.signUpSignUpButton.setOnClickListener {
-            signViewModel.signUp()
+            signViewModel.signUp(requireContext())
         }
     }
 

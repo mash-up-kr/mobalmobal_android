@@ -2,6 +2,7 @@ package com.mashup.mobalmobal.di
 
 import com.mashup.mobalmobal.network.MobalRetrofit
 import com.mashup.mobalmobal.network.service.CreateDonationService
+import com.mashup.mobalmobal.network.service.FileService
 import com.mashup.mobalmobal.network.service.PostService
 import com.mashup.mobalmobal.network.service.SignService
 import com.mashup.mobalmobal.network.service.UserService
@@ -39,5 +40,9 @@ object ServiceModule {
 
     @Provides
     fun provideCreateDonationService(okHttpClient: OkHttpClient): CreateDonationService =
+        MobalRetrofit.create(okHttpClient)
+
+    @Provides
+    fun provideFileService(okHttpClient: OkHttpClient): FileService =
         MobalRetrofit.create(okHttpClient)
 }

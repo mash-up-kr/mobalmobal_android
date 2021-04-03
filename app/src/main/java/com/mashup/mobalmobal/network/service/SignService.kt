@@ -1,7 +1,6 @@
 package com.mashup.mobalmobal.network.service
 
 import com.mashup.mobalmobal.dto.LoginDto
-import com.mashup.mobalmobal.dto.UserDto
 import com.mashup.mobalmobal.network.Response
 import io.reactivex.Single
 import okhttp3.RequestBody
@@ -13,5 +12,5 @@ interface SignService {
     fun login(@Body body: RequestBody): Single<Response<LoginDto>>
 
     @POST("users")
-    fun signUp(@Body body: RequestBody): Single<Response<UserDto>>
+    fun signUp(@Body body: RequestBody): Single<Response<LoginDto>>
 }

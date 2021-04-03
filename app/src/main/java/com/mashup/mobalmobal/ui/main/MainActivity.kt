@@ -27,7 +27,11 @@ class MainActivity : BaseActivity() {
     private fun checkSignedId() {
         meViewModel.isSignedIn()
             .observeOnMain()
-            .subscribeWithErrorLogger { startSignActivity() }
+            .subscribeWithErrorLogger { isSignedId ->
+                if (!isSignedId) {
+                    startSignActivity()
+                }
+            }
             .addToDisposables()
     }
 

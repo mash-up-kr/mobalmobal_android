@@ -1,5 +1,6 @@
 package com.mashup.mobalmobal.ui.sign
 
+import android.content.Context
 import com.facebook.AccessToken
 import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
@@ -14,6 +15,7 @@ import com.mashup.base.extensions.combineLatest
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.data.repository.SignRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.rxkotlin.zipWith
@@ -27,7 +29,7 @@ class SignViewModel @Inject constructor(
     private val signRepository: SignRepository
 ) : BaseViewModel(schedulerProvider) {
 
-    private val auth: FirebaseAuth = Firebase.auth
+    private val auth: FirebaseAuth by lazy { Firebase.auth }
 
     private val _signToastMessageSubject: PublishSubject<String> = PublishSubject.create()
     val signToastMessage: Observable<String> = _signToastMessageSubject
@@ -51,31 +53,28 @@ class SignViewModel @Inject constructor(
 
     private fun signInFirebase(credential: AuthCredential) {
         auth.signInWithCredential(credential).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                auth.currentUser?.let {
-                    signRepository.login(fireStoreId = it.uid)
-                        .subscribeWithErrorLogger { isSuccess ->
-                            if (isSuccess) {
-                                navigateToMain()
-                            } else {
-                                task.result?.user?.uid?.let { uid ->
-                                    _signUpInputSubject.onNext(
-                                        _signUpInputSubject.value?.copy(
-                                            provider = credential.provider,
-                                            fireStoreId = uid
-                                        ) ?: SignUp(
-                                            provider = credential.provider,
-                                            fireStoreId = uid
-                                        )
-                                    )
-                                    navigateToSignUp()
-                                } ?: _signInErrorMessageSubject.onNext(R.string.sign_in_error_message)
-                            }
-                        }
-                        .addToDisposables()
+            if (!task.isSuccessful) return@addOnCompleteListener
+            val uid = task.result?.user?.uid ?: return@addOnCompleteListener
+            loginWithFirebase(uid, credential)
+        }
+    }
+
+    private fun loginWithFirebase(uid: String, credential: AuthCredential) {
+        signRepository.login(uid)
+            .subscribeWithErrorLogger { isSuccess ->
+                if (isSuccess) {
+                    navigateToMain()
+                } else {
+                    _signUpInputSubject.onNext(
+                        _signUpInputSubject.value?.copy(
+                            provider = credential.provider,
+                            fireStoreId = uid
+                        ) ?: SignUp(provider = credential.provider, fireStoreId = uid)
+                    )
+                    navigateToSignUp()
                 }
             }
-        }
+            .addToDisposables()
     }
 
     private fun navigateToMain() {
@@ -133,14 +132,23 @@ class SignViewModel @Inject constructor(
     private val _mainTriggerSubject: PublishSubject<Boolean> = PublishSubject.create()
     val mainTrigger: Observable<Boolean> = _mainTriggerSubject
 
-    fun signUp() {
+    fun signUp(context: Context) {
         _signUpInputSubject.firstOrError()
             .zipWith(_isSignUpPolicyAgreeCheckedSubject.firstOrError())
             .subscribeOnIO()
             .flatMap { (signUpInput, isPolicyAgreeChecked) ->
                 if (!isPolicyAgreeChecked) {
-                    _signUpErrorMessageSubject.onNext("개인 정보 수집 및 동의를 체크해 주세요.")
-                    Single.error(IllegalArgumentException("sign up failed isPolicyAgreeChecked: $isPolicyAgreeChecked"))
+                    Completable.fromAction {
+                        _signUpErrorMessageSubject.onNext(
+                            context.getString(R.string.sign_up_error_check_personal_policy)
+                        )
+                    }.andThen(
+                        Single.error(
+                            IllegalArgumentException(
+                                "sign up failed isPolicyAgreeChecked: $isPolicyAgreeChecked"
+                            )
+                        )
+                    )
                 } else {
                     Single.just(signUpInput)
                 }
@@ -158,22 +166,28 @@ class SignViewModel @Inject constructor(
                         email = signUpInput.email
                     )
                 } else {
-                    when {
-                        signUpInput.provider.isNullOrBlank() ->
-                            _signUpErrorMessageSubject.onNext("provider가 비어있어요")
-                        signUpInput.fireStoreId.isNullOrBlank() ->
-                            _signUpErrorMessageSubject.onNext("fireStoreId가 비어있어요")
-                        else ->
-                            _signUpErrorMessageSubject.onNext("nickname이 비어있어요")
-                    }
-                    Single.error(
-                        IllegalArgumentException("signup failed: signUpInput: $signUpInput")
+                    Completable.fromAction {
+                        when {
+                            signUpInput.provider.isNullOrBlank() ||
+                                    signUpInput.fireStoreId.isNullOrBlank() ->
+                                _signUpErrorMessageSubject.onNext(
+                                    context.getString(R.string.sign_up_error_sns)
+                                )
+                            else ->
+                                _signUpErrorMessageSubject.onNext(
+                                    context.getString(R.string.sign_up_error_empty_nickname)
+                                )
+                        }
+                    }.andThen(
+                        Single.error(
+                            IllegalArgumentException("signup failed: signUpInput: $signUpInput")
+                        )
                     )
                 }
             }
             .subscribeWithErrorLogger { response ->
                 if (response.data != null) {
-                    // Main 으로 이동
+                    navigateToMain()
                 } else {
                     response.message?.let { _signUpErrorMessageSubject.onNext(it) }
                 }

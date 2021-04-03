@@ -9,8 +9,8 @@ data class PostDto(
     @SerializedName("title") val title: String,
     @SerializedName("post_description") val description: String? = null,
     @SerializedName("goal") val goalPrice: Int,
-    @SerializedName("created_at") val createdAt: Long? = null,
-    @SerializedName("update_at") val updatedAt: Long? = null,
-    @SerializedName("started_at") val startedAt: Long,
-    @SerializedName("end_at") val endAt: Long
+    @SerializedName("created_at") val createdAt: String? = null,
+    @SerializedName("update_at") val updatedAt: String? = null,
+    @SerializedName("started_at") val startedAt: String? = null,
+    @SerializedName("end_at") val endAt: String? = null
 )

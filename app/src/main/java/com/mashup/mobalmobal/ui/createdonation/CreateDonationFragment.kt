@@ -74,6 +74,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
     }
 
     override fun onBindViewModels() {
+        createDonationViewModel.setContext(requireContext())
         createDonationViewModel.isCreateDonationEnabled
             .observeOnMain()
             .subscribeWithErrorLogger {

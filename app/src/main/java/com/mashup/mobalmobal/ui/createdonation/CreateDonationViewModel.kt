@@ -1,11 +1,13 @@
 package com.mashup.mobalmobal.ui.createdonation
 
+import android.content.Context
 import android.net.Uri
 import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.data.repository.CreateDonationRepository
+import com.mashup.mobalmobal.data.repository.FileRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -17,8 +19,10 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateDonationViewModel @Inject constructor(
     schedulerProvider: BaseSchedulerProvider,
-    private val createDonationRepository: CreateDonationRepository
+    private val createDonationRepository: CreateDonationRepository,
+    private val fileRepository: FileRepository
 ) : BaseViewModel(schedulerProvider) {
+    private lateinit var context: Context
 
     private val _createDonationInputSubject: BehaviorSubject<CreateDonation> =
         BehaviorSubject.createDefault(CreateDonation())
@@ -33,13 +37,17 @@ class CreateDonationViewModel @Inject constructor(
     private val _createDonationErrorMessageSubject: PublishSubject<String> = PublishSubject.create()
     val createDonationErrorMessage: Observable<String> = _createDonationErrorMessageSubject
 
-    private val _navigateToComplete: BehaviorSubject<Boolean> =
+    private val _navigateToCompleteSubject: BehaviorSubject<Boolean> =
         BehaviorSubject.createDefault(false)
-    val completeTrigger: Observable<Boolean> = _navigateToComplete
+    val completeTrigger: Observable<Boolean> = _navigateToCompleteSubject
 
     private val _createCompleteInputSubject: BehaviorSubject<CreateCompleteDonation> =
         BehaviorSubject.createDefault(CreateCompleteDonation())
-    val createCompleteInputSubject = _createCompleteInputSubject
+    val createCompleteInput = _createCompleteInputSubject.distinctUntilChanged()
+
+    fun setContext(fragmentContext: Context) {
+        context = fragmentContext
+    }
 
     init {
         _createDonationInputSubject
@@ -52,41 +60,36 @@ class CreateDonationViewModel @Inject constructor(
 
     fun setCreateDonationProductName(productName: String?) {
         _createDonationInputSubject.onNext(
-            _createDonationInputSubject.value?.copy(productName = productName) ?: CreateDonation(
-                productName = productName
-            )
+            _createDonationInputSubject.value?.copy(productName = productName)
+                ?: CreateDonation(productName = productName)
         )
     }
 
     fun setCreateDonationDescription(description: String?) {
         _createDonationInputSubject.onNext(
-            _createDonationInputSubject.value?.copy(description = description) ?: CreateDonation(
-                description = description
-            )
+            _createDonationInputSubject.value?.copy(description = description)
+                ?: CreateDonation(description = description)
         )
     }
 
     fun setCreateDonationFundAmount(fundAmount: Int?) {
         _createDonationInputSubject.onNext(
-            _createDonationInputSubject.value?.copy(fundAmount = fundAmount) ?: CreateDonation(
-                fundAmount = fundAmount
-            )
+            _createDonationInputSubject.value?.copy(fundAmount = fundAmount)
+                ?: CreateDonation(fundAmount = fundAmount)
         )
     }
 
     fun setCreateDonationUrl(postImage: Uri?) {
         _createDonationInputSubject.onNext(
-            _createDonationInputSubject.value?.copy(postImage = postImage) ?: CreateDonation(
-                postImage = postImage
-            )
+            _createDonationInputSubject.value?.copy(postImage = postImage)
+                ?: CreateDonation(postImage = postImage)
         )
     }
 
     fun setCreateDonationStartDate(startDate: Long?) {
         _createDonationInputSubject.onNext(
-            _createDonationInputSubject.value?.copy(startDate = startDate) ?: CreateDonation(
-                startDate = startDate
-            )
+            _createDonationInputSubject.value?.copy(startDate = startDate)
+                ?: CreateDonation(startDate = startDate)
         )
     }
 
@@ -108,14 +111,17 @@ class CreateDonationViewModel @Inject constructor(
                     createDonationInput.startDate != null &&
                     createDonationInput.dueDate != null
                 ) {
-                    createDonationRepository.createDonation(
-                        title = createDonationInput.productName,
-                        description = createDonationInput.description,
-                        postImage = createDonationInput.postImage.toString(),
-                        goal = createDonationInput.fundAmount,
-                        startedAt = createDonationInput.startDate,
-                        endAt = createDonationInput.dueDate
-                    )
+                    fileRepository.uploadImage(context, createDonationInput.postImage).flatMap {
+                        createDonationRepository.createDonation(
+                            title = createDonationInput.productName,
+                            description = createDonationInput.description,
+                            postImage = it,
+                            goal = createDonationInput.fundAmount,
+                            startedAt = createDonationInput.startDate,
+                            endAt = createDonationInput.dueDate
+                        )
+                    }
+
                 } else {
                     when {
                         createDonationInput.description.isNullOrBlank() ->
@@ -140,8 +146,6 @@ class CreateDonationViewModel @Inject constructor(
             }
             .subscribeWithErrorLogger { response ->
                 if (response.data != null) {
-                    navigateToComplete()
-
                     _createCompleteInputSubject.onNext(
                         CreateCompleteDonation(
                             title = response.data.title,
@@ -151,6 +155,7 @@ class CreateDonationViewModel @Inject constructor(
                             dday = getDDay(response.data.startedAt, response.data.endAt)
                         )
                     )
+                    navigateToComplete()
                 } else {
                     response.message?.let { _createDonationErrorMessageSubject.onNext(it) }
                 }
@@ -176,7 +181,7 @@ class CreateDonationViewModel @Inject constructor(
     }
 
     private fun navigateToComplete() {
-        _navigateToComplete.onNext(true)
+        _navigateToCompleteSubject.onNext(true)
     }
 
     data class CreateDonation(

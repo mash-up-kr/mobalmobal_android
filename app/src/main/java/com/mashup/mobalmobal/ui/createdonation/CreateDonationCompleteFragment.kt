@@ -52,7 +52,7 @@ class CreateDonationCompleteFragment :
     }
 
     override fun onBindViewModels() {
-        createDonationViewModel.createCompleteInputSubject
+        createDonationViewModel.createCompleteInput
             .observeOnMain()
             .subscribeWithErrorLogger {
                 binding.createDonationCompleteCustomView.apply {

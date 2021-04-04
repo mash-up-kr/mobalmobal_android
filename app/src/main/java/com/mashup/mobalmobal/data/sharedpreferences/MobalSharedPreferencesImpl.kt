@@ -20,6 +20,10 @@ object MobalSharedPreferencesImpl : MobalSharedPreferences {
         sharedPreferences =
             applicationContext.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
 
+        sharedPreferences.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
+            emitValue(sharedPreferences, key)
+        }
+
         emitInitialValue()
     }
 

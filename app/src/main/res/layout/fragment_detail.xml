@@ -52,9 +52,9 @@
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
+                android:max="100"
                 android:progressBackgroundTint="@color/gray_61"
                 android:progressTint="@color/light_yellow"
-                android:max="100"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -238,5 +238,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/donation_detail_funding" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>>
+    </LinearLayout>
+    >
 </ScrollView>

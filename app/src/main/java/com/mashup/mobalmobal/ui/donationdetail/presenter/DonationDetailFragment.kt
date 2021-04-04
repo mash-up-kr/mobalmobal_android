@@ -1,14 +1,9 @@
 package com.mashup.mobalmobal.ui.donationdetail.presenter
 
-import android.annotation.SuppressLint
-import android.graphics.Typeface
 import android.text.Spannable
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
-import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
-import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -98,9 +93,9 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
         tvDonationEndDate.text = donation.dueDate.toString()
         tvDonationPercent.text = getString(R.string.donation_percent, donation.donatePercent)
         progressDonating.progress = donation.donatePercent.toInt()
-        tvDonator.text = if(donation.donators.isNotEmpty()) {
+        tvDonator.text = if (donation.donators.isNotEmpty()) {
             getString(R.string.donation_detail_donator, donation.donators.size)
-        }else {
+        } else {
             getString(R.string.donation_detail_donator_empty)
         }
         tvFunding.text = getString(R.string.donation_detail_funding, donation.author.nickName)

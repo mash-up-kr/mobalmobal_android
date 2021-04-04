@@ -8,7 +8,9 @@ import com.mashup.mobalmobal.network.onErrorResponse
 import com.mashup.mobalmobal.network.service.SignService
 import io.reactivex.Single
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class SignRepository @Inject constructor(
     private val service: SignService,
     private val sharedPreferences: MobalSharedPreferences

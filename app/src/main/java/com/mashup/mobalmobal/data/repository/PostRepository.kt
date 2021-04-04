@@ -12,7 +12,9 @@ import io.reactivex.Flowable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class PostRepository @Inject constructor(private val service: PostService) {
 
     @ExperimentalCoroutinesApi

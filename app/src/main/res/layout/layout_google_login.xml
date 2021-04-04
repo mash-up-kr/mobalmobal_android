@@ -4,7 +4,7 @@
     android:id="@+id/sign_in_google"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_rounded_100"
+    android:background="@drawable/sign_in_login_button_background"
     android:backgroundTint="@color/gray_5">
 
     <ImageView

@@ -21,6 +21,7 @@
     <color name="gray_3">#252525</color>
     <color name="gray_4">#474747</color>
     <color name="gray_5">#33ffffff</color>
+    <color name="gray_6">#d8d8d8</color>
     <color name="lime">#7aff97</color>
     <color name="dark_black">#151516</color>
     <color name="bright_yellow_50">#80fff500</color>
@@ -36,4 +37,5 @@
     <color name="purple_1">#6D39FF</color>
     <color name="light_green_1">#7AFF97</color>
     <color name="list_background">#222222</color>
+    <color name="white_50">#80ffffff</color>
 </resources>

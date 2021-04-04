@@ -29,9 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="26dp"
                 android:layout_marginBottom="16dp"
-                android:textColor="@color/white"
-                android:textSize="14dp"
-                android:textStyle="normal"
+                android:textAppearance="@style/ModalComponent.DonationDetailPercent"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_product"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="12%" />
@@ -51,11 +49,13 @@
 
             <ProgressBar
                 android:id="@+id/progress_donating"
-                android:layout_width="0dp"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="2dp"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_product"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                android:progressBackgroundTint="@color/gray_61"
+                android:progressTint="@color/light_yellow"
+                android:max="100"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -141,11 +141,11 @@
                 app:layout_constraintGuide_end="21dp" />
 
             <TextView
-                android:id="@+id/tv_donation_current"
+                android:id="@+id/tv_goal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
-                android:text="@string/donation_detail_current_price"
+                android:text="@string/donation_detail_goal_price"
                 android:textAppearance="@style/ModalComponent.DonationDetailInfo"
                 app:layout_constraintStart_toStartOf="@+id/guide_start_second"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -161,23 +161,23 @@
                 tools:text="2,000,000" />
 
             <TextView
-                android:id="@+id/tv_goal"
+                android:id="@+id/tv_donation_current"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
-                android:text="@string/donation_detail_goal_price"
+                android:text="@string/donation_detail_current_price"
                 android:textAppearance="@style/ModalComponent.DonationDetailInfo"
                 app:layout_constraintStart_toStartOf="@+id/guide_start_second"
-                app:layout_constraintTop_toBottomOf="@+id/tv_donation_current" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_goal" />
 
             <TextView
                 android:id="@+id/tv_donation_currnet_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
-                android:textAppearance="@style/ModalComponent.DonationDetailInfoCount"
+                android:textAppearance="@style/ModalComponent.DonationDetailInfoCurrentPrice"
                 app:layout_constraintEnd_toStartOf="@+id/guide_end_second"
-                app:layout_constraintTop_toBottomOf="@+id/tv_donation_current"
+                app:layout_constraintTop_toBottomOf="@+id/tv_goal"
                 tools:text="153,000" />
 
             <TextView
@@ -187,7 +187,7 @@
                 android:layout_marginTop="50dp"
                 android:textAppearance="@style/ModalComponent.DonationDetailInfo"
                 app:layout_constraintStart_toStartOf="@+id/guide_start_second"
-                app:layout_constraintTop_toBottomOf="@+id/tv_goal"
+                app:layout_constraintTop_toBottomOf="@+id/tv_donation_current"
                 tools:text="@string/donation_detail_donator" />
 
             <com.mashup.mobalmobal.customview.DonatorView
@@ -196,7 +196,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@+id/tv_donation_end"
                 app:layout_constraintEnd_toStartOf="@+id/guide_end_second"
-                app:layout_constraintTop_toBottomOf="@+id/tv_goal" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_donation_current" />
 
             <TextView
                 android:id="@+id/tv_donation_end"
@@ -215,7 +215,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:layout_marginTop="50dp"
-                android:textAppearance="@style/ModalComponent.DonationDetailInfoCount"
+                android:textAppearance="@style/ModalComponent.DonationDetailEndDay"
                 app:layout_constraintEnd_toStartOf="@+id/guide_end_second"
                 app:layout_constraintTop_toBottomOf="@+id/tv_donator"
                 tools:text="2021.03.01" />

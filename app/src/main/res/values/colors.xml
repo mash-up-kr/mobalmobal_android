@@ -31,4 +31,6 @@
     <color name="dark_grey_two">#202021</color>
     <color name="neon_purple">#6d39ff</color>
     <color name="bottom_sheet_gray">#29292c</color>
+    <color name="pink">#ff38b0</color>
+    <color name="bright_grey">#e0e0e0</color>
 </resources>

@@ -40,7 +40,7 @@
         <item name="android:background">@drawable/bottom_sheet_round_corner</item>
     </style>
     <style name="SwitchStyle" parent="Theme.AppCompat.Light">
-        <item name="colorControlActivated">#ff38b0</item>
-        <item name="colorSwitchThumbNormal">#e0e0e0</item>
+        <item name="colorControlActivated">@color/pink</item>
+        <item name="colorSwitchThumbNormal">@color/bright_grey</item>
     </style>
 </resources>

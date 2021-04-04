@@ -19,26 +19,23 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="20dp" />
 
-    <ImageView
-        android:id="@+id/iv_previous"
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/settings_app_bar_layout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:background="@color/dark_grey"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back_navigation" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:text="@string/profile_setting"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/iv_previous"
-        app:layout_constraintStart_toEndOf="@id/iv_previous"
-        app:layout_constraintTop_toTopOf="@id/iv_previous" />
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_navigation_24dp"
+            app:title="@string/profile_setting"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
         android:id="@+id/settings_open_source"
@@ -51,7 +48,7 @@
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="@id/guide_end"
         app:layout_constraintStart_toStartOf="@id/guide_start"
-        app:layout_constraintTop_toBottomOf="@id/iv_previous" />
+        app:layout_constraintTop_toBottomOf="@id/settings_app_bar_layout" />
 
     <TextView
         android:id="@+id/settings_terms_of_service"

@@ -1,67 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_product"
-            android:layout_width="0dp"
-            android:layout_height="230dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_donation_percent"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
-            android:layout_marginBottom="16dp"
-            android:textColor="@color/white"
-            android:textSize="14dp"
-            android:textStyle="normal"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_product"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="12%" />
+            android:background="@color/black">
 
-        <TextView
-            android:id="@+id/tv_donation_d_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="21dp"
-            android:layout_marginBottom="17dp"
-            android:textColor="#d8d8d8"
-            android:textSize="13sp"
-            android:textStyle="normal"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_product"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="D-12" />
+            <ImageView
+                android:id="@+id/iv_product"
+                android:layout_width="0dp"
+                android:layout_height="230dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ProgressBar
-            android:id="@+id/progress_donating"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_product"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/tv_donation_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_product"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="12%" />
+
+            <TextView
+                android:id="@+id/tv_donation_d_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="21dp"
+                android:layout_marginBottom="17dp"
+                android:textColor="#d8d8d8"
+                android:textSize="13sp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_product"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="D-12" />
+
+            <ProgressBar
+                android:id="@+id/progress_donating"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_product"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_donation_info"
-            android:layout_width="0dp"
-            android:layout_height="230dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/black"
             android:paddingTop="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_product">
 
             <androidx.constraintlayout.widget.Guideline
@@ -102,8 +107,9 @@
             <TextView
                 android:id="@+id/tv_donation_description"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="normal"
@@ -116,15 +122,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_donation_detail_info"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/list_background"
-            app:layout_constraintBottom_toTopOf="@+id/cl_funding"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_donation_info"
-            app:layout_constraintVertical_bias="0.0">
+            android:background="@color/list_background">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guide_start_second"
@@ -151,14 +151,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_donation_currnet_price"
+                android:id="@+id/tv_goal_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="35dp"
                 android:textAppearance="@style/ModalComponent.DonationDetailInfoCount"
                 app:layout_constraintEnd_toStartOf="@+id/guide_end_second"
-                app:layout_constraintTop_toBottomOf="@+id/tv_donation_current"
-                tools:text="153,000" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="2,000,000" />
 
             <TextView
                 android:id="@+id/tv_goal"
@@ -171,14 +171,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_donation_current" />
 
             <TextView
-                android:id="@+id/tv_goal_price"
+                android:id="@+id/tv_donation_currnet_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="50dp"
                 android:textAppearance="@style/ModalComponent.DonationDetailInfoCount"
                 app:layout_constraintEnd_toStartOf="@+id/guide_end_second"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="2,000,000" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_donation_current"
+                tools:text="153,000" />
 
             <TextView
                 android:id="@+id/tv_donator"
@@ -188,7 +188,15 @@
                 android:textAppearance="@style/ModalComponent.DonationDetailInfo"
                 app:layout_constraintStart_toStartOf="@+id/guide_start_second"
                 app:layout_constraintTop_toBottomOf="@+id/tv_goal"
-                tools:text="@string/donation_detial_donator" />
+                tools:text="@string/donation_detail_donator" />
+
+            <com.mashup.mobalmobal.customview.DonatorView
+                android:id="@+id/v_donator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/tv_donation_end"
+                app:layout_constraintEnd_toStartOf="@+id/guide_end_second"
+                app:layout_constraintTop_toBottomOf="@+id/tv_goal" />
 
             <TextView
                 android:id="@+id/tv_donation_end"
@@ -215,12 +223,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_funding"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="85dp"
-            android:background="@color/purple_1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:background="@color/purple_1">
 
             <TextView
                 android:id="@+id/tv_funding"
@@ -233,5 +238,5 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/donation_detail_funding" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    </LinearLayout>>
+</ScrollView>

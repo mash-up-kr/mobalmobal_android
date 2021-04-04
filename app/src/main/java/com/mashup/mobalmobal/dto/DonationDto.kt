@@ -16,9 +16,9 @@ data class DonationDto(
     @SerializedName("image")
     val imageUrl: String,
     @SerializedName("goal_price")
-    val goalPrice: Double,
+    val goalPrice: Long,
     @SerializedName("donated_price")
-    val donatedPrice: Double,
+    val donatedPrice: Long,
     @SerializedName("start_date")
     val startDate: Long,
     @SerializedName("due_date")

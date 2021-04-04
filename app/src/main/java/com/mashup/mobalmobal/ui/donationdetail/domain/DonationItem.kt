@@ -5,12 +5,15 @@ data class DonationItem(
     val productName: String,
     val description: String,
     val author: User,
-    val goalPrice: Double,
-    val donatedPrice: Double,
+    val goalPrice: Long,
+    val donatedPrice: Long,
     val donators: List<User>,
     val startDate: Long,
     val dueDate: Long
-)
+) {
+    val donatePercent: Double
+        get() = donatedPrice.toDouble().div(goalPrice.toDouble()) * 100
+}
 
 data class User(
     val userId: String,

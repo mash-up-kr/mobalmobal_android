@@ -1,5 +1,6 @@
 package com.mashup.mobalmobal.ui.donationdetail.presenter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
@@ -30,7 +31,7 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
     private val donationId by lazy { arguments?.getInt(KEY_SELECTED_DONATION_ID) ?: -1 }
 
     init {
-        checkVerifyDonationId()
+//        checkVerifyDonationId()
     }
 
     private fun checkVerifyDonationId() {
@@ -40,23 +41,24 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
     override fun setBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentDetailBinding = FragmentDetailBinding.inflate(inflater, container, false)
+    ): FragmentDetailBinding {
+        val view = FragmentDetailBinding.inflate(inflater, container, false)
+        requestDonationDetail(1)
+        return view
+    }
 
     override fun onBindViewModels() {
         donationDetailViewModel.donatinSubject.observeOnMain()
-            .subscribeWithErrorLogger {
-                bindDonation(it)
-            }.addToDisposables()
-        requestDonationDetail(donationId)
+            .subscribeWithErrorLogger { bindDonation(it) }
+            .addToDisposables()
     }
 
     private fun bindDonation(donation: DonationItem) = with(binding) {
         glideRequests.load(donation.imageUrl)
-            .centerCrop()
             .into(ivProduct)
 
         glideRequests.load(donation.author.profileUrl)
-            .centerCrop()
+            .circleCrop()
             .into(ivProfile)
 
         tvDonationTitle.text = getString(
@@ -68,6 +70,22 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
         tvGoalPrice.text = getString(R.string.donation_price, donation.goalPrice)
         tvDonationCurrnetPrice.text = getString(R.string.donation_price, donation.donatedPrice)
         tvDonationEndDate.text = donation.dueDate.toString()
+        tvDonationPercent.text = getString(R.string.donation_percent, donation.donatePercent)
+
+        tvDonator.text = if(donation.donators.isNotEmpty()) {
+            getString(R.string.donation_detail_donator, donation.donators.size)
+        }else {
+            getString(R.string.donation_detail_donator_empty)
+        }
+        tvFunding.text = getString(R.string.donation_detail_funding, donation.author.nickName)
+
+        vDonator.apply {
+            setDonatorProfiles(
+                glideRequests,
+                donation.donators.map { it.profileUrl }
+            )
+        }
+
     }
 
     private fun requestDonationDetail(donationId: Int) =

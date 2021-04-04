@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.R
@@ -54,6 +55,9 @@ class CreateDonationCompleteFragment :
                 "https://blog.kakaocdn.net/dn/lNp7m/btqIvFeQr77/kGEVFLnvqVh80gowQtKn9K/img.png"
             )
         }
+        binding.backButton.setOnClickListener {
+            navigateToMain()
+        }
     }
 
     private fun setupCreatingDonationCompleteTitleView() {
@@ -82,4 +86,7 @@ class CreateDonationCompleteFragment :
             TextView.BufferType.SPANNABLE
         )
     }
+
+    private fun navigateToMain() =
+        findNavController().navigate(R.id.action_create_donation_complete_fragment_to_mainFragment)
 }

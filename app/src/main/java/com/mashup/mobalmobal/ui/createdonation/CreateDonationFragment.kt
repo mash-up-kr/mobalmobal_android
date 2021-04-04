@@ -69,6 +69,9 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             createDonationViewModel.createDonation()
             navigateCreateDonationToComplete()
         }
+        binding.toolbar.setNavigationOnClickListener {
+            navigateToBack()
+        }
     }
 
     override fun onBindViewModels() {
@@ -82,6 +85,9 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
 
     private fun navigateCreateDonationToComplete() =
         findNavController().navigate(R.id.create_donation_complete_fragment)
+
+    private fun navigateToBack() =
+        findNavController().popBackStack()
 
     private fun setInputTextWatcher() {
         createDonationProductNameWatcher =

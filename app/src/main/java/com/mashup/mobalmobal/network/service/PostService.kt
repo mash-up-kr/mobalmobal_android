@@ -14,4 +14,7 @@ interface PostService {
         @Query("limit") limit: Int? = null,
         @Query("order") order: String? = "ASC"
     ): Single<Response<PostsDto>>
+
+    @GET("posts/my")
+    fun getMyPosts(): Single<Response<PostsDto>>
 }

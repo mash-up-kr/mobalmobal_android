@@ -2,6 +2,7 @@ package com.mashup.mobalmobal.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
@@ -69,7 +70,7 @@ class MyDonationAdapter(
             item is MyDonationAdapterItem.Donation && holder is MyDonationViewHolder ->
                 holder.bind(item)
             item is MyDonationAdapterItem.Addition && holder is MyAdditionViewHolder ->
-                holder.itemView.setOnClickListener { listener?.onAddDonationClick() }
+                holder.addView.setOnClickListener { listener?.onAddDonationClick() }
         }
     }
 
@@ -90,5 +91,7 @@ class MyDonationAdapter(
 
     private class MyAdditionViewHolder(
         binding: ItemMyDonationAddBinding
-    ) : RecyclerView.ViewHolder(binding.root)
+    ) : RecyclerView.ViewHolder(binding.root) {
+        val addView: FrameLayout = binding.myDonationAddContainer
+    }
 }

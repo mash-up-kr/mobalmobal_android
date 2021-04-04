@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_grey">
@@ -42,29 +41,17 @@
         app:layout_constraintTop_toTopOf="@id/iv_previous" />
 
     <TextView
-        android:id="@+id/settings_my_account"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="41dp"
-        android:paddingVertical="15dp"
-        android:text="@string/settings_my_account"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@id/guide_end"
-        app:layout_constraintStart_toStartOf="@id/guide_start"
-        app:layout_constraintTop_toBottomOf="@id/iv_previous" />
-
-    <TextView
         android:id="@+id/settings_open_source"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"
         android:paddingVertical="15dp"
         android:text="@string/settings_open_source"
         android:textColor="@color/white"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="@id/guide_end"
         app:layout_constraintStart_toStartOf="@id/guide_start"
-        app:layout_constraintTop_toBottomOf="@id/settings_my_account" />
+        app:layout_constraintTop_toBottomOf="@id/iv_previous" />
 
     <TextView
         android:id="@+id/settings_terms_of_service"
@@ -79,29 +66,6 @@
         app:layout_constraintTop_toBottomOf="@id/settings_open_source" />
 
     <TextView
-        android:id="@+id/settings_notification"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingVertical="15dp"
-        android:text="@string/settings_notification"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@id/settings_notification_switch"
-        app:layout_constraintStart_toStartOf="@id/guide_start"
-        app:layout_constraintTop_toBottomOf="@id/settings_terms_of_service" />
-
-    <Switch
-        android:id="@+id/settings_notification_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:theme="@style/SwitchStyle"
-        app:layout_constraintBottom_toBottomOf="@id/settings_notification"
-        app:layout_constraintEnd_toEndOf="@id/guide_end"
-        app:layout_constraintStart_toEndOf="@id/settings_notification"
-        app:layout_constraintTop_toTopOf="@id/settings_notification"
-        tools:checked="true" />
-
-    <TextView
         android:id="@+id/settings_inquiry"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -111,6 +75,6 @@
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="@id/guide_end"
         app:layout_constraintStart_toStartOf="@id/guide_start"
-        app:layout_constraintTop_toBottomOf="@id/settings_notification" />
+        app:layout_constraintTop_toBottomOf="@id/settings_terms_of_service" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

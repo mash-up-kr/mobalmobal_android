@@ -75,6 +75,7 @@ fun ProfileDetailDto.toProfileItems(): List<ProfileItem> =
                 it.addAll(requestDonations.map { donation ->
                     ProfileItem.Donation(
                         donationId = donation.donationId,
+                        imageUrl = donation.image,
                         author = donation.author,
                         title = donation.title,
                         description = donation.description,
@@ -96,6 +97,7 @@ fun ProfileDetailDto.toProfileItems(): List<ProfileItem> =
                 it.addAll(donations.map { donation ->
                     ProfileItem.Donation(
                         donationId = donation.donationId,
+                        imageUrl = donation.image,
                         author = donation.author,
                         title = donation.title,
                         description = donation.description,
@@ -117,6 +119,7 @@ fun ProfileDetailDto.toProfileItems(): List<ProfileItem> =
                 it.addAll(closedDonations.map { donation ->
                     ProfileItem.Donation(
                         donationId = donation.donationId,
+                        imageUrl = donation.image,
                         author = donation.author,
                         title = donation.title,
                         description = donation.description,

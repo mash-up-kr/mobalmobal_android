@@ -100,8 +100,8 @@
 
             <TextView
                 android:id="@+id/tv_closed_donation"
-                android:layout_width="33dp"
-                android:layout_height="23dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text="@string/profile_donation_summary_closed"
                 android:textAppearance="@style/ModalComponent.ProfileDonationSummary"

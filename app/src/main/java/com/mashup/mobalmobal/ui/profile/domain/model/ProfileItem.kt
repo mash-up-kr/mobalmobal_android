@@ -35,6 +35,7 @@ sealed class ProfileItem(
 
     data class Donation(
         val donationId: String,
+        val imageUrl: String,
         val author: UserDto,
         val title: String,
         val description: String,

@@ -1,10 +1,12 @@
 package com.mashup.mobalmobal.ui.donationdetail.presenter
 
+import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -16,6 +18,7 @@ import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentDetailBinding
 import com.mashup.mobalmobal.ui.donationdetail.domain.DonationItem
+import com.mashup.mobalmobal.ui.main.MainFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -26,20 +29,26 @@ import javax.inject.Inject
 class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() {
     companion object {
         private const val TAG = "DetailFragment"
-        private const val KEY_SELECTED_DONATION_ID = "key_selected_donation_id"
+        const val KEY_SELECTED_DONATION_ID = "key_selected_donation_id"
+        private const val INVALID_ID = -1
     }
 
     @Inject
     lateinit var glideRequests: GlideRequests
     private val donationDetailViewModel: DonationDetailViewModel by viewModels()
-    private val donationId by lazy { arguments?.getInt(KEY_SELECTED_DONATION_ID) ?: -1 }
+    private val donationId: Int by lazy { arguments?.getInt(KEY_SELECTED_DONATION_ID) ?: INVALID_ID }
 
-    init {
-//        checkVerifyDonationId()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        checkVerifyDonationId()
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     private fun checkVerifyDonationId() {
-        if (donationId != -1) findNavController().popBackStack()
+        if (donationId == INVALID_ID) findNavController().popBackStack()
     }
 
     override fun setBinding(
@@ -47,7 +56,7 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
         container: ViewGroup?
     ): FragmentDetailBinding {
         val view = FragmentDetailBinding.inflate(inflater, container, false)
-        requestDonationDetail(1)
+        requestDonationDetail(donationId)
         return view
     }
 

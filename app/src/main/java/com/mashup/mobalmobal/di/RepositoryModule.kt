@@ -22,5 +22,5 @@ object RepositoryModule {
 
     @Provides
     fun provideDonationDetailRepository(donationDetailService: DonationDetailService) : DonationDetailRepository =
-        MockDonationDetailRepositoryImpl()
+        DonationDetailRepositoryImpl(donationDetailService)
 }

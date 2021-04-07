@@ -3,6 +3,7 @@ package com.mashup.mobalmobal.ui.main
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentMainBinding
+import com.mashup.mobalmobal.ui.donationdetail.presenter.DonationDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -58,8 +60,10 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter
     }
 
     private fun navigateMainToDetail(donationId: Int) =
-        MainFragmentDirections.actionMainFragmentToDetailFragment(donationId)
-            .also { action -> findNavController().navigate(action) }
+        findNavController().navigate(
+            R.id.action_mainFragment_to_detailFragment,
+            bundleOf(DonationDetailFragment.KEY_SELECTED_DONATION_ID to donationId)
+        )
 
     override fun onDonationClick(donationId: Int) {
         navigateMainToDetail(donationId)

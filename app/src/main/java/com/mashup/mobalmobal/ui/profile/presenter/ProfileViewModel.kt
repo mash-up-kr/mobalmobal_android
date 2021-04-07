@@ -31,7 +31,8 @@ class ProfileViewModel @Inject constructor(
     val profileSubject get() = _profileSubject
 
     init {
-        MobalSharedPreferencesImpl.getUserId()?.let { requestProfile(it) }
+//        MobalSharedPreferencesImpl.getUserId()?.let { requestProfile(it) }
+        requestProfile("")
     }
 
     fun requestProfile(userId: String) {

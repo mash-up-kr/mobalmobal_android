@@ -9,7 +9,7 @@ class MockDonationDetailRepositoryImpl : DonationDetailRepository {
     override fun getDonationDetail(donationId: String): Single<DonationDetailResultDto> =
         Single.just(
             Gson().fromJson(
-                MockDonationData.donationData,
+                MockDonationData.postData,
                 DonationDetailResultDto::class.java
             )
         )

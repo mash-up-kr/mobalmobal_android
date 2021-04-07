@@ -89,8 +89,8 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
 
         tvDonationDescription.text = donation.description
         tvGoalPrice.text = getString(R.string.donation_price, donation.goalPrice)
-        tvDonationCurrnetPrice.text = getString(R.string.donation_price, donation.donatedPrice)
-        tvDonationEndDate.text = donation.dueDate.toString()
+        tvDonationCurrnetPrice.text = getString(R.string.donation_price, donation.currentPrice)
+        tvDonationEndDate.text = donation.endAt
         tvDonationPercent.text = getString(R.string.donation_percent, donation.donatePercent)
         progressDonating.progress = donation.donatePercent.toInt()
         tvDonator.text = if (donation.donators.isNotEmpty()) {
@@ -105,6 +105,7 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
                 donation.donators.map { it.profileUrl }
             )
         }
+        tvDonationDDay.text = donation.dueDateText
     }
 
     private fun requestDonationDetail(donationId: Int) =

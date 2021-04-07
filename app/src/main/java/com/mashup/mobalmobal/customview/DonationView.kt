@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.use
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.mashup.base.extensions.forEach
 import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.R
@@ -70,6 +71,7 @@ class DonationView @JvmOverloads constructor(
         val donationRadius = resources.getDimensionPixelSize(R.dimen.donation_radius)
         glideRequests.load(imageUrl)
             .transform(
+                CenterCrop(),
                 RoundedCornersTransformation(
                     donationRadius,
                     0,

@@ -54,19 +54,19 @@
         android:scaleType="center"
         android:src="@drawable/ic_camera_create_donation_imageview"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/guide_horizontal_middle"
+        app:layout_constraintBottom_toTopOf="@id/guide_horizontal_middle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_app_bar_layout" />
+        app:layout_constraintTop_toBottomOf="@id/sign_up_app_bar_layout" />
 
     <LinearLayout
         android:id="@+id/create_donation_input_wrapper_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/guide_horizontal_middle"
-        app:layout_constraintEnd_toStartOf="@+id/guide_end"
-        app:layout_constraintStart_toStartOf="@+id/guide_start">
+        app:layout_constraintBottom_toTopOf="@id/guide_horizontal_middle"
+        app:layout_constraintEnd_toStartOf="@id/guide_end"
+        app:layout_constraintStart_toStartOf="@id/guide_start">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/create_donation_due_date_input_layout"

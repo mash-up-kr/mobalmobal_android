@@ -42,7 +42,7 @@ fun PostDto.toDonationItem(): DonationItem =
                     nickName = donator.nickName,
                     profileUrl = donator.profileUrl
                 )
-            }?: emptyList())
+            } ?: emptyList())
         },
         dueDateText = "endAt - startedAt",
         endAt = endAt ?: ""

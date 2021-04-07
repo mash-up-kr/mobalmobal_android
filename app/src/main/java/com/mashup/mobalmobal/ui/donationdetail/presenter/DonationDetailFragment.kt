@@ -18,7 +18,6 @@ import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentDetailBinding
 import com.mashup.mobalmobal.ui.donationdetail.domain.DonationItem
-import com.mashup.mobalmobal.ui.main.MainFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -36,7 +35,9 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
     @Inject
     lateinit var glideRequests: GlideRequests
     private val donationDetailViewModel: DonationDetailViewModel by viewModels()
-    private val donationId: Int by lazy { arguments?.getInt(KEY_SELECTED_DONATION_ID) ?: INVALID_ID }
+    private val donationId: Int by lazy {
+        arguments?.getInt(KEY_SELECTED_DONATION_ID) ?: INVALID_ID
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

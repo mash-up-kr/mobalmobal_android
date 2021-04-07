@@ -1,6 +1,6 @@
 package com.mashup.mobalmobal.ui.main
 
-import androidx.paging.PagingData
+import com.mashup.mobalmobal.data.dto.PostDto
 import com.mashup.mobalmobal.data.dto.PostsDto
 
 sealed class MainAdapterItem(val id: String) {
@@ -16,12 +16,34 @@ sealed class MainAdapterItem(val id: String) {
     ) : MainAdapterItem("Main-Header-$title")
 
     data class ProgressDonation(
-        val donations: PagingData<MainDonationAdapterItem>
-    ) : MainAdapterItem("Main-Progress_Donations")
+        val postId: Int,
+        val dueDateText: String,
+        val currentPrice: Int,
+        val goalPrice: Int,
+        val title: String,
+        val donationImageUrl: String?
+    ) : MainAdapterItem(postId.toString())
 }
 
-fun PostsDto.toMainAdapterItem(): MainAdapterItem.MyDonation =
-    MainAdapterItem.MyDonation(donations = toMyDonationAdapterItems())
+fun PostsDto.toMyDonationItem(): MainAdapterItem.MyDonation =
+    MainAdapterItem.MyDonation(donations = toMyDonationAdapterItems().distinct())
 
-fun createEmptyMainAdapterItem(): MainAdapterItem.MyDonation =
+fun createEmptyMyDonationItem(): MainAdapterItem.MyDonation =
     MainAdapterItem.MyDonation(donations = listOf(MyDonationAdapterItem.Addition))
+
+fun createEmptyMainAdapterItem(): List<MainAdapterItem> =
+    listOf(createEmptyMyDonationItem(), MainAdapterItem.Header("진행중"))
+
+fun PostsDto.toMainAdapterItems(): List<MainAdapterItem.ProgressDonation> =
+    posts.map { it.toMainAdapterItem() }
+
+fun PostDto.toMainAdapterItem(): MainAdapterItem.ProgressDonation {
+    return MainAdapterItem.ProgressDonation(
+        postId = postId,
+        dueDateText = "TODO $endAt - $startedAt",
+        currentPrice = currentAmount,
+        goalPrice = goalPrice,
+        title = title,
+        donationImageUrl = postImage
+    )
+}

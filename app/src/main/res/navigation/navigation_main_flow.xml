@@ -80,12 +80,18 @@
     <fragment
         android:id="@+id/create_donation_complete_fragment"
         android:name="com.mashup.mobalmobal.ui.createdonation.CreateDonationCompleteFragment"
-        android:label="fragment_create_donation_complete" />
+        android:label="fragment_create_donation_complete">
+        <action
+            android:id="@+id/action_create_donation_complete_fragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/create_donation_fragment"
         android:name="com.mashup.mobalmobal.ui.createdonation.CreateDonationFragment"
-        android:label="CreateDonationFragment" >
+        android:label="CreateDonationFragment">
         <action
             android:id="@+id/action_CreateDonationFragment_to_createDonationCompleteFragment"
             app:destination="@id/create_donation_complete_fragment" />

@@ -63,7 +63,7 @@
             app:srcCompat="@drawable/icon_broken_buy" />
 
         <EditText
-            android:id="@+id/donate_price"
+            android:id="@+id/donate_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"

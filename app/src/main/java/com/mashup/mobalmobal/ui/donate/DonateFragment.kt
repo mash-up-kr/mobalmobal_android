@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DonateFragment : BaseViewBindingFragment<FragmentDonateBinding>() {
     private val donateViewModel by viewModels<DonateViewModel>()
+    private var formatAmount = ""
 
     override fun setBinding(
         inflater: LayoutInflater,
@@ -27,13 +28,19 @@ class DonateFragment : BaseViewBindingFragment<FragmentDonateBinding>() {
         super.onSetupViews(view)
 
         binding.donateButton.setOnClickListener {
-            val amount = binding.donatePrice.text.toString()
+            val amount = formatAmount.replace(",", "")
             donateViewModel.requestDonation(amount)
         }
 
-        binding.donatePrice.doOnTextChanged { text, _, _, _ ->
-            text.toString().isNotBlank().let {
-                binding.donateButton.isEnabled = it
+        binding.donateAmount.doOnTextChanged { text, _, _, _ ->
+            if (text.toString().isNotBlank() && text.toString() != formatAmount) {
+                val amount = text.toString().replace(",", "")
+                formatAmount = String.format("%,d", amount.toLongOrNull() ?: 0L)
+                binding.donateAmount.setText(formatAmount)
+                binding.donateAmount.setSelection(formatAmount.length)
+                binding.donateButton.isEnabled = true
+            } else {
+                binding.donateButton.isEnabled = false
             }
         }
     }

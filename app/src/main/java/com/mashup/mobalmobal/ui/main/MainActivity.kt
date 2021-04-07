@@ -25,7 +25,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun checkSignedId() {
-        meViewModel.isSignedIn()
+        meViewModel.isSignedInSingle
             .observeOnMain()
             .subscribeWithErrorLogger { isSignedId ->
                 if (!isSignedId) {

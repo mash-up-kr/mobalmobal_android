@@ -41,6 +41,9 @@ class MainAdapter(
         setHasStableIds(true)
     }
 
+    override fun getItemId(position: Int): Long =
+        getItem(position)?.hashCode()?.toLong() ?: Long.MAX_VALUE
+
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
             is MainAdapterItem.MyDonation -> VIEW_TYPE_MY_DONATION

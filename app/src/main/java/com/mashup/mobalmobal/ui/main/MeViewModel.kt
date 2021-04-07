@@ -4,6 +4,7 @@ import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
 import com.mashup.mobalmobal.data.sharedpreferences.MobalSharedPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Flowable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -13,7 +14,9 @@ class MeViewModel @Inject constructor(
     private val sharedPreferences: MobalSharedPreferences
 ) : BaseViewModel(schedulerProvider) {
 
-    fun isSignedIn(): Single<Boolean> = sharedPreferences.getAccessTokenFlowable().firstOrError()
+    private fun isSignedIn(): Flowable<Boolean> = sharedPreferences.getAccessTokenFlowable()
         .map { it.isNotBlank() }
 
+    val isSignedInSingle: Single<Boolean>
+        get() = isSignedIn().firstOrError()
 }

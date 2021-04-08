@@ -69,6 +69,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             createDonationViewModel.createDonation(requireContext())
         }
         binding.toolbar.setNavigationOnClickListener {
+            createDonationViewModel.clearData()
             navigateToBack()
         }
     }

@@ -54,6 +54,10 @@ class CreateDonationViewModel @Inject constructor(
             .addToDisposables()
     }
 
+    fun clearData() {
+        _createDonationInputSubject.onNext(CreateDonation())
+    }
+
     fun setCreateDonationProductName(productName: String?) {
         _createDonationInputSubject.onNext(
             _createDonationInputSubject.value?.copy(productName = productName)

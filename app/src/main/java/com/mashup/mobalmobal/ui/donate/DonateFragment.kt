@@ -1,9 +1,11 @@
 package com.mashup.mobalmobal.ui.donate
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,6 +15,7 @@ import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.extension.showToast
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentDonateBinding
+import com.mashup.mobalmobal.extensions.showChargeBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,6 +52,22 @@ class DonateFragment : BaseViewBindingFragment<FragmentDonateBinding>() {
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
         bindDonation()
+
+        showChargeBottomSheet(
+            "후원",
+            onPriceClick,
+            onDirectClick
+        )
+    }
+
+    private val onPriceClick: (Int) -> Unit = { price ->
+        binding.donateAmount.setText(String.format("%,d", price.toLong()))
+    }
+
+    private val onDirectClick: () -> Unit = {
+        binding.donateAmount.requestFocus()
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
     }
 
     private fun bindDonation() = with(binding) {

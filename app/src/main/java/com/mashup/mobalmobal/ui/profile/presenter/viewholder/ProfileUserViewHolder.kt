@@ -19,7 +19,7 @@ class ProfileUserViewHolder(
 
     fun bind(item: ProfileItem.User) {
         with(binding) {
-            tvProfileName.text = item.name
+            tvProfileName.text = item.nickName
             tvProfilePoint.text = root.context.getString(R.string.profile_user_point, item.point)
 
             glideRequests.load(item.profileUrl)

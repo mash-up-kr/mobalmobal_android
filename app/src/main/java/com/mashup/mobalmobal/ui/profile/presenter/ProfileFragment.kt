@@ -40,10 +40,7 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
     ): FragmentProfileBinding = FragmentProfileBinding.inflate(inflater, container, false)
 
     override fun onSetupViews(view: View) {
-        binding.recyclerViewProfile.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = profileAdapter
-        }
+        binding.recyclerViewProfile.adapter = profileAdapter
     }
 
     override fun onBindViewModels() {

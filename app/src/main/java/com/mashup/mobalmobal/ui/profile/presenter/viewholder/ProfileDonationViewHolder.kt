@@ -6,7 +6,6 @@ import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.HolderProfileDonationBinding
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 import com.mashup.mobalmobal.ui.profile.presenter.ProfileAdapter
-import javax.inject.Inject
 
 class ProfileDonationViewHolder (
     private val binding: HolderProfileDonationBinding,
@@ -28,7 +27,7 @@ class ProfileDonationViewHolder (
         binding.donation.apply {
             goalPrice = item.goalPrice.toInt()
             currentPrice = item.donatedPrice.toInt()
-            dueDate = item.dueDate.toString()
+            dueDate = item.endAt.toString()
             currentPriceText = context.getString(
                 R.string.profile_user_point,
                 item.donatedPrice.toInt()

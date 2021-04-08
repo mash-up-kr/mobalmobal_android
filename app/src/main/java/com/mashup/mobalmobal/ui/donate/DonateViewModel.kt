@@ -17,39 +17,23 @@ class DonateViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val donateRepository: DonateRepository
 ) : BaseViewModel(schedulerProvider) {
-
-    companion object {
-        private const val KEY_POST_ID = "postId"
-    }
-
     private val _donationDetailTriggerSubject: PublishSubject<Boolean> = PublishSubject.create()
     val donationDetailTrigger: Observable<Boolean> = _donationDetailTriggerSubject
 
     private val _donateErrorMessageSubject: PublishSubject<Int> = PublishSubject.create()
     val donateErrorMessage: Observable<Int> = _donateErrorMessageSubject
 
-    private val postId = savedStateHandle.get<String>(KEY_POST_ID)
-
-    init {
-        if (postId == null) {
-            _donateErrorMessageSubject.onNext(R.string.donate_error_post_id)
-            navigateToDonationDetail()
-        }
-    }
-
-    fun requestDonation(amount: String) {
-        postId?.let {
-            donateRepository.donate(postId, amount)
-                .subscribeWithErrorLogger { isSuccess ->
-                    if (isSuccess) {
-                        navigateToDonationDetail()
-                    } else {
-                        _donateErrorMessageSubject.onNext(
-                            R.string.donate_error_message
-                        )
-                    }
-                }.addToDisposables()
-        }
+    fun requestDonation(postId: Int, amount: String) {
+        donateRepository.donate(postId.toString(), amount)
+            .subscribeWithErrorLogger { isSuccess ->
+                if (isSuccess) {
+                    navigateToDonationDetail()
+                } else {
+                    _donateErrorMessageSubject.onNext(
+                        R.string.donate_error_message
+                    )
+                }
+            }.addToDisposables()
     }
 
     private fun navigateToDonationDetail() {

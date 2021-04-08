@@ -87,7 +87,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:background="@drawable/donate_complete_selector"
-        android:backgroundTint="@color/gray_4"
         android:enabled="false"
         android:paddingHorizontal="65dp"
         android:paddingVertical="20dp"

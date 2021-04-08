@@ -1,5 +1,6 @@
 package com.mashup.mobalmobal.ui.donate
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +17,29 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DonateFragment : BaseViewBindingFragment<FragmentDonateBinding>() {
+    companion object {
+        const val KEY_SELECTED_POST_ID = "key_selected_donation_id"
+        private const val INVALID_ID = -1
+    }
+
     private val donateViewModel by viewModels<DonateViewModel>()
+    private val postId: Int by lazy {
+        arguments?.getInt(KEY_SELECTED_POST_ID) ?: INVALID_ID
+    }
     private var formatAmount = ""
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        checkVerifyPostId()
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    private fun checkVerifyPostId() {
+        if (postId == INVALID_ID) findNavController().popBackStack()
+    }
 
     override fun setBinding(
         inflater: LayoutInflater,
@@ -26,21 +48,24 @@ class DonateFragment : BaseViewBindingFragment<FragmentDonateBinding>() {
 
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
+        bindDonation()
+    }
 
-        binding.donateButton.setOnClickListener {
+    private fun bindDonation() = with(binding) {
+        donateButton.setOnClickListener {
             val amount = formatAmount.replace(",", "")
-            donateViewModel.requestDonation(amount)
+            donateViewModel.requestDonation(postId, amount)
         }
 
-        binding.donateAmount.doOnTextChanged { text, _, _, _ ->
+        donateAmount.doOnTextChanged { text, _, _, _ ->
             if (text.toString().isNotBlank() && text.toString() != formatAmount) {
                 val amount = text.toString().replace(",", "")
                 formatAmount = String.format("%,d", amount.toLongOrNull() ?: 0L)
-                binding.donateAmount.setText(formatAmount)
-                binding.donateAmount.setSelection(formatAmount.length)
-                binding.donateButton.isEnabled = true
+                donateAmount.setText(formatAmount)
+                donateAmount.setSelection(formatAmount.length)
+                donateButton.isEnabled = true
             } else {
-                binding.donateButton.isEnabled = false
+                donateButton.isEnabled = false
             }
         }
     }

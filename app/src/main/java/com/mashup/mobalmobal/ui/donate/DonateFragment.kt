@@ -55,19 +55,21 @@ class DonateFragment : BaseViewBindingFragment<FragmentDonateBinding>() {
 
         showChargeBottomSheet(
             "후원",
-            onPriceClick,
-            onDirectClick
+            onPriceClick = { price ->
+                binding.donateAmount.setText(String.format("%,d", price.toLong()))
+                true
+            },
+            onDirectClick = {
+                binding.donateAmount.requestFocus()
+                val imm =
+                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.toggleSoftInput(
+                    InputMethodManager.SHOW_FORCED,
+                    InputMethodManager.HIDE_IMPLICIT_ONLY
+                )
+                true
+            }
         )
-    }
-
-    private val onPriceClick: (Int) -> Unit = { price ->
-        binding.donateAmount.setText(String.format("%,d", price.toLong()))
-    }
-
-    private val onDirectClick: () -> Unit = {
-        binding.donateAmount.requestFocus()
-        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
     }
 
     private fun bindDonation() = with(binding) {

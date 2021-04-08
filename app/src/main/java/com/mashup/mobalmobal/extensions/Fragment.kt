@@ -8,8 +8,8 @@ import com.mashup.mobalmobal.databinding.LayoutBottomSheetDonateBinding
 
 fun Fragment.showChargeBottomSheet(
     title: String,
-    onPriceClick: (Int) -> Unit,
-    onDirectClick: () -> Unit
+    onPriceClick: ((Int) -> Boolean)? = null,
+    onDirectClick: (() -> Boolean)? = null
 ) {
     val binding = LayoutBottomSheetDonateBinding.inflate(layoutInflater)
 
@@ -17,32 +17,39 @@ fun Fragment.showChargeBottomSheet(
         setContentView(binding.root)
         binding.bottomSheetTitle.text = title
         binding.bottomSheetCharge1000.setOnClickListener {
-            onPriceClick(1000)
-            dismiss()
+            if (onPriceClick?.invoke(1000) == true) {
+                dismiss()
+            }
         }
         binding.bottomSheetCharge2000.setOnClickListener {
-            onPriceClick(2000)
-            dismiss()
+            if (onPriceClick?.invoke(2000) == true) {
+                dismiss()
+            }
         }
         binding.bottomSheetCharge5000.setOnClickListener {
-            onPriceClick(5000)
-            dismiss()
+            if (onPriceClick?.invoke(5000) == true) {
+                dismiss()
+            }
         }
         binding.bottomSheetCharge10000.setOnClickListener {
-            onPriceClick(10000)
-            dismiss()
+            if (onPriceClick?.invoke(10000) == true) {
+                dismiss()
+            }
         }
         binding.bottomSheetCharge50000.setOnClickListener {
-            onPriceClick(50000)
-            dismiss()
+            if (onPriceClick?.invoke(50000) == true) {
+                dismiss()
+            }
         }
         binding.bottomSheetCharge100000.setOnClickListener {
-            onPriceClick(100000)
-            dismiss()
+            if (onPriceClick?.invoke(100000) == true) {
+                dismiss()
+            }
         }
         binding.bottomSheetChargeWriting.setOnClickListener {
-            onDirectClick()
-            dismiss()
+            if (onDirectClick?.invoke() == true) {
+                dismiss()
+            }
         }
     }
 }

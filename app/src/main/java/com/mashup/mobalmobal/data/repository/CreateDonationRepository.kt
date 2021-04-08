@@ -13,8 +13,8 @@ class CreateDonationRepository @Inject constructor(private val service: CreateDo
         description: String?,
         postImage: String?,
         goal: Int,
-        startedAt: Long,
-        endAt: Long
+        startedAt: String?,
+        endAt: String?
     ): Single<Response<PostDto>> {
          return service.createDonation(
             requestBodyOf {
@@ -22,8 +22,8 @@ class CreateDonationRepository @Inject constructor(private val service: CreateDo
                 description?.let { "post_description" to it }
                 postImage?.let { "post_image" to it }
                 "goal" to goal
-                "startedAt" to startedAt
-                "endAt" to endAt
+                startedAt?.let { "startedAt" to it }
+                endAt?.let { "endAt" to it }
             }
         )
     }

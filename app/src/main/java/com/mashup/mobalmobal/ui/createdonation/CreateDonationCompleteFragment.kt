@@ -49,6 +49,10 @@ class CreateDonationCompleteFragment :
             )
         }
 
+        binding.backButton.setOnClickListener {
+            navigateToMain()
+        }
+
     }
 
     override fun onBindViewModels() {

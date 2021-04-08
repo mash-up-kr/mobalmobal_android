@@ -14,6 +14,7 @@ class FileRepository @Inject constructor(private val service: FileService) {
         uri: Uri
     ): Single<String> {
         val multipartBody = uri.toMultipartBody(context, "file") ?: return Single.error(IllegalStateException("upload image failed: multipartBody"))
+
         return service.uploadImage(
             MultipartBody.Builder().addPart(multipartBody).build()
         ).map { it.data ?: "" }

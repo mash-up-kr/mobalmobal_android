@@ -186,7 +186,8 @@
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp"
                 android:textColor="@color/create_donation_text_color"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:shadowColor=""/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 

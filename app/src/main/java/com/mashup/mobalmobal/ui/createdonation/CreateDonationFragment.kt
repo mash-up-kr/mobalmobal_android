@@ -83,8 +83,10 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
 
         createDonationViewModel.completeTrigger
             .observeOnMain()
-            .subscribeWithErrorLogger {
-                navigateCreateDonationToComplete()
+            .subscribeWithErrorLogger { complete ->
+                if (complete) {
+                    navigateCreateDonationToComplete()
+                }
             }
             .addToDisposables()
     }
@@ -235,9 +237,10 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
                 it.set(Calendar.MINUTE, minute)
             }
             val formattedDateTime = getFormattedDateTime(calendar.timeInMillis)
+            val formattedDateTimeForAPI = getFomattedDateTimeForAPI(calendar.timeInMillis)
 
             if (viewId == START_DATE_TIME_PICKER) {
-                createDonationViewModel.setCreateDonationStartDate(calendar.timeInMillis)
+                createDonationViewModel.setCreateDonationStartDate(formattedDateTimeForAPI)
                 binding.createDonationStartDateInput.setText(formattedDateTime)
                 if (!binding.createDonationProductImageView.isVisible) {
                     goDownAnimation(
@@ -248,7 +251,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
                 }
 
             } else {
-                createDonationViewModel.setCreateDonationDueDate(calendar.timeInMillis)
+                createDonationViewModel.setCreateDonationDueDate(formattedDateTimeForAPI)
                 binding.createDonationDueDateInput.setText(formattedDateTime)
 
                 if (!binding.createDonationProductImageView.isVisible) {
@@ -272,4 +275,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
 
     private fun getFormattedDateTime(milliSeconds: Long) =
         SimpleDateFormat("yyyy-MM-dd HH:mm").format(milliSeconds)
+
+    private fun getFomattedDateTimeForAPI(milliSeconds: Long) =
+        SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(milliSeconds)
 }

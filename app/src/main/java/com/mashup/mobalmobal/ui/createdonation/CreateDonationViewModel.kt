@@ -2,6 +2,7 @@ package com.mashup.mobalmobal.ui.createdonation
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
@@ -81,14 +82,14 @@ class CreateDonationViewModel @Inject constructor(
         )
     }
 
-    fun setCreateDonationStartDate(startDate: Long?) {
+    fun setCreateDonationStartDate(startDate: String?) {
         _createDonationInputSubject.onNext(
             _createDonationInputSubject.value?.copy(startDate = startDate)
                 ?: CreateDonation(startDate = startDate)
         )
     }
 
-    fun setCreateDonationDueDate(dueDate: Long?) {
+    fun setCreateDonationDueDate(dueDate: String?) {
         _createDonationInputSubject.onNext(
             _createDonationInputSubject.value?.copy(dueDate = dueDate)
                 ?: CreateDonation(dueDate = dueDate)
@@ -103,8 +104,8 @@ class CreateDonationViewModel @Inject constructor(
                     !createDonationInput.productName.isNullOrBlank() &&
                     createDonationInput.fundAmount != null &&
                     createDonationInput.postImage != null &&
-                    createDonationInput.startDate != null &&
-                    createDonationInput.dueDate != null
+                    createDonationInput.startDate.isNullOrBlank() &&
+                    createDonationInput.dueDate.isNullOrBlank()
                 ) {
                     fileRepository.uploadImage(context, createDonationInput.postImage).flatMap {
                         createDonationRepository.createDonation(
@@ -147,7 +148,8 @@ class CreateDonationViewModel @Inject constructor(
                             description = response.data.description,
                             goal = response.data.goalPrice,
                             postImage = response.data.postImage,
-                            dday = getDDay(response.data.startedAt, response.data.endAt)
+                            dday = "D-12"
+//                            dday = getDDay(response.data.startedAt, response.data.endAt)
                         )
                     )
                     navigateToComplete()
@@ -184,8 +186,8 @@ class CreateDonationViewModel @Inject constructor(
         val description: String? = null,
         val fundAmount: Int? = null,
         val postImage: Uri? = null,
-        val startDate: Long? = null,
-        val dueDate: Long? = null
+        val startDate: String? = null,
+        val dueDate: String? = null
     )
 
     data class CreateCompleteDonation(
@@ -198,8 +200,8 @@ class CreateDonationViewModel @Inject constructor(
 
     private fun CreateDonation.isValidate(): Boolean =
         !productName.isNullOrBlank() && !description.isNullOrBlank() && postImage != null
-                && !fundAmount.toString().isNullOrBlank() && !startDate.toString()
-            .isNullOrBlank() && !dueDate.toString().isNullOrBlank()
+                && !fundAmount.toString().isNullOrBlank() && !startDate
+            .isNullOrBlank() && !dueDate.isNullOrBlank()
 
 
 }

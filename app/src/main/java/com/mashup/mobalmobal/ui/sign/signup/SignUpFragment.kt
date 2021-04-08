@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
@@ -53,15 +54,23 @@ class SignUpFragment : BaseViewBindingFragment<FragmentSignUpBinding>() {
         binding.signUpSignUpButton.setOnClickListener {
             signViewModel.signUp(requireContext())
         }
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     override fun onBindViewModels() {
         signViewModel.isSignUpEnabled
             .observeOnMain()
-            .subscribeWithErrorLogger {
-                binding.signUpSignUpButton.isEnabled = it
-            }
+            .subscribeWithErrorLogger { binding.signUpSignUpButton.isEnabled = it }
             .addToDisposables()
+    }
+
+    override fun onDestroyView() {
+        binding.signUpNicknameTextInput.removeTextChangedListener(signUpNicknameWatcher)
+        binding.signUpEmailTextInput.removeTextChangedListener(signUpEmailWatcher)
+        binding.signUpCellPhoneTextInput.removeTextChangedListener(signUpCellPhoneWatcher)
+        super.onDestroyView()
     }
 
     private fun setupPolicyTextView() {

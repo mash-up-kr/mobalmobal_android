@@ -65,6 +65,10 @@ class DonateFragment : BaseViewBindingFragment<FragmentDonateBinding>() {
     }
 
     private fun bindDonation() = with(binding) {
+        donateToolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
         donateButton.setOnClickListener {
             donateViewModel.requestDonation()
         }

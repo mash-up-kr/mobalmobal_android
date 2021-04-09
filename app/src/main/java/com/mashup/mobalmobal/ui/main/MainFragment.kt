@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
-import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,9 +22,6 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter
     private val viewModel by viewModels<MainViewModel>()
 
     @Inject
-    lateinit var glideRequests: GlideRequests
-
-    @Inject
     lateinit var mainAdapter: MainAdapter
 
     override fun setBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentMainBinding {
@@ -30,7 +29,7 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter
     }
 
     override fun onSetupViews(view: View) {
-        binding.mainRecycler.adapter = mainAdapter
+        binding.mainRecycler.setup()
         binding.mainProfile.setOnClickListener {
             // TODO go to ProfileShow
         }
@@ -39,11 +38,21 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter
         }
     }
 
+    private fun RecyclerView.setup() {
+        val gridLayoutManager = GridLayoutManager(requireContext(), 2)
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int =
+                if (position == 0 || position == 1) 2 else 1
+        }
+        layoutManager = gridLayoutManager
+        adapter = mainAdapter
+    }
+
     override fun onBindViewModels() {
         viewModel.items
             .observeOnMain()
             .subscribeWithErrorLogger {
-                mainAdapter.submitList(it)
+                lifecycleScope.launchWhenCreated { mainAdapter.submitData(it) }
             }
             .addToDisposables()
     }

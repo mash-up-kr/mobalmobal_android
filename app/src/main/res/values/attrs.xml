@@ -5,6 +5,5 @@
         <attr name="donationDueDate" format="string" />
         <attr name="donationGoalPrice" format="integer" />
         <attr name="donationCurrentPrice" format="integer" />
-        <attr name="donationCurrentPriceText" format="string" />
     </declare-styleable>
 </resources>

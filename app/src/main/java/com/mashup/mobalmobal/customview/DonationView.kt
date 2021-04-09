@@ -32,8 +32,6 @@ class DonationView @JvmOverloads constructor(
                     R.styleable.DonationView_donationGoalPrice -> goalPrice = it.getInteger(attr, 0)
                     R.styleable.DonationView_donationCurrentPrice ->
                         currentPrice = it.getInteger(attr, 0)
-                    R.styleable.DonationView_donationCurrentPriceText ->
-                        currentPriceText = it.getString(attr)
                 }
             }
         }
@@ -61,12 +59,7 @@ class DonationView @JvmOverloads constructor(
         get() = binding.donationProgressbar.progress
         set(value) {
             binding.donationProgressbar.progress = value
-        }
-
-    var currentPriceText: String?
-        get() = binding.donationCurrentPrice.text.toString()
-        set(value) {
-            binding.donationCurrentPrice.text = value
+            binding.donationCurrentPrice.text = String.format("%,d", value)
         }
 
     init {

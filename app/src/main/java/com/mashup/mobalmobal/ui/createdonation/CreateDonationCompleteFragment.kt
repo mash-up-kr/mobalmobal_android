@@ -49,7 +49,6 @@ class CreateDonationCompleteFragment :
             dueDate = "D-12"
             goalPrice = 30000
             currentPrice = 25000
-            currentPriceText = "25000"
             setDonationImage(
                 glideRequests,
                 "https://blog.kakaocdn.net/dn/lNp7m/btqIvFeQr77/kGEVFLnvqVh80gowQtKn9K/img.png"

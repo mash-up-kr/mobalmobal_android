@@ -77,7 +77,7 @@
     </style>
     <style name="AppModalStyle"
         parent="Widget.Design.BottomSheet.Modal">
-    <item name="android:background">@drawable/bottom_sheet_round_corner</item>
+        <item name="android:background">@drawable/bottom_sheet_round_corner</item>
     </style>
     <style name="SwitchStyle" parent="Theme.AppCompat.Light">
         <item name="colorControlActivated">@color/pink</item>

@@ -21,7 +21,6 @@ class DonationDetailViewModel @Inject constructor(
 
     fun requestDonationDetail(donationId: Int) {
         donationDetailRepository.getDonationDetail(donationId.toString())
-            .toFlowable()
             .subscribeOnIO()
             .subscribeWithErrorLogger { _donationSubject.onNext(it.data.post.toDonationItem()) }
             .addToDisposables()

@@ -21,9 +21,6 @@ import com.mashup.mobalmobal.ui.donationdetail.domain.DonationItem
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-/**
- * 도네 상세페이지
- */
 @AndroidEntryPoint
 class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() {
     companion object {

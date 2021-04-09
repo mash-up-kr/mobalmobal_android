@@ -17,12 +17,6 @@ data class DonationItem(
         get() = currentPrice.toDouble().div(goalPrice.toDouble()) * 100
 }
 
-data class User(
-    val userId: String,
-    val nickName: String,
-    val profileUrl: String
-)
-
 fun PostDto.toDonationItem(): DonationItem =
     DonationItem(
         imageUrl = postImage ?: "",
@@ -47,3 +41,9 @@ fun PostDto.toDonationItem(): DonationItem =
         dueDateText = "endAt - startedAt",
         endAt = endAt ?: ""
     )
+
+data class User(
+    val userId: String,
+    val nickName: String,
+    val profileUrl: String
+)

@@ -20,9 +20,9 @@ data class DonationDto(
     @SerializedName("donated_price")
     val donatedPrice: Long,
     @SerializedName("start_date")
-    val startDate: Long,
+    val startDate: String,
     @SerializedName("due_date")
-    val dueDate: Long,
+    val dueDate: String,
     @SerializedName("donate_users")
     val donateUsers: List<UserDto>
 )

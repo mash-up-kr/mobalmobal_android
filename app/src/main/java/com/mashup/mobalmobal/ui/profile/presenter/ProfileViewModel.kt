@@ -4,6 +4,7 @@ import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
 import com.mashup.mobalmobal.R
+import com.mashup.mobalmobal.data.sharedpreferences.MobalSharedPreferencesImpl
 import com.mashup.mobalmobal.ui.profile.data.dto.MyPostDto
 import com.mashup.mobalmobal.ui.profile.data.dto.toProfileItem
 import com.mashup.mobalmobal.ui.profile.data.dto.toProfileItems
@@ -39,7 +40,7 @@ class ProfileViewModel @Inject constructor(
     val userNickSubject get() = _userNickSubject
 
     init {
-        requestProfile()
+        MobalSharedPreferencesImpl.getUserId()?.let { requestProfile() }
     }
 
     private fun requestProfile() {

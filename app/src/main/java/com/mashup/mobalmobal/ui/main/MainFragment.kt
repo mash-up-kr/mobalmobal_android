@@ -43,8 +43,7 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter
         binding.mainSwipeRefreshLayout.setOnRefreshListener {
             mainAdapter.refresh()
             viewModel.refresh()
-        binding.mainRecycler.adapter = mainAdapter
-        binding.mainProfile.setOnClickListener { navigateMainToProfile() }
+        }
     }
 
     private fun RecyclerView.setup() {
@@ -90,9 +89,6 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter
     override fun onDonationClick(donationId: Int) {
         navigateMainToDetail(donationId)
     }
-
-    private fun navigateMainToProfile() =
-        findNavController().navigate(R.id.profileFragment)
 
     private fun navigateMainToCreateDonation() =
         findNavController().navigate(R.id.create_donation_fragment)

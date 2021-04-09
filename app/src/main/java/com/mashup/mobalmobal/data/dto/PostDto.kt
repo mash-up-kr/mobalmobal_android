@@ -8,7 +8,7 @@ data class PostDto(
     @SerializedName("user") val user: UserDto? = null,
     @SerializedName("post_image") val postImage: String? = null,
     @SerializedName("title") val title: String,
-    @SerializedName("post_description") val description: String? = null,
+    @SerializedName("description") val description: String? = null,
     @SerializedName("goal") val goalPrice: Int,
     @SerializedName("current_amount") val currentAmount: Int,
     @SerializedName("created_at") val createdAt: String? = null,

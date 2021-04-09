@@ -2,12 +2,14 @@ package com.mashup.mobalmobal.ui.createdonation
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.data.repository.CreateDonationRepository
 import com.mashup.mobalmobal.data.repository.FileRepository
+import com.mashup.mobalmobal.util.DateTimeUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -56,6 +58,7 @@ class CreateDonationViewModel @Inject constructor(
 
     fun clearData() {
         _createDonationInputSubject.onNext(CreateDonation())
+        _createCompleteInputSubject.onNext(CreateCompleteDonation())
     }
 
     fun setCreateDonationProductName(productName: String?) {
@@ -117,8 +120,7 @@ class CreateDonationViewModel @Inject constructor(
                         startedAt = createDonationInput.startDate,
                         endAt = createDonationInput.dueDate
                     )
-//                    fileRepository.uploadImage(context, createDonationInput.postImage).flatMap {
-//                    }
+
 
                 } else {
                     when {
@@ -143,14 +145,18 @@ class CreateDonationViewModel @Inject constructor(
                 }
             }
             .subscribeWithErrorLogger { response ->
+                Log.d("res des", response.data?.post?.description.toString())
                 if (response.data != null) {
                     _createCompleteInputSubject.onNext(
                         CreateCompleteDonation(
-                            title = response.data.data.post.title,
-                            description = response.data.data.post.description,
-                            goal = response.data.data.post.goalPrice,
-                            postImage = response.data.data.post.postImage,
-                            dday = "D-12"
+                            title = response.data.post.title,
+                            description = response.data.post.description,
+                            goal = response.data.post.goalPrice,
+                            postImage = response.data.post.postImage,
+                            dday = DateTimeUtils.calculateDecimalDayText(
+                                response.data.post.startedAt,
+                                response.data.post.endAt
+                            )
                         )
                     )
                     navigateToComplete()
@@ -160,22 +166,6 @@ class CreateDonationViewModel @Inject constructor(
 
             }
             .addToDisposables()
-    }
-
-    private fun getDDay(startAt: Long, endAt: Long): String {
-        val dday = getIgnoredTimeDays(endAt) - getIgnoredTimeDays(startAt)
-
-        return (dday / (24 * 60 * 60 * 1000)).toString()
-    }
-
-    private fun getIgnoredTimeDays(time: Long): Long {
-        return Calendar.getInstance().apply {
-            timeInMillis = time
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }.timeInMillis
     }
 
     private fun navigateToComplete() {

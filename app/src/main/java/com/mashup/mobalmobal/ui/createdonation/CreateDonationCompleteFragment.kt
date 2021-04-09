@@ -6,6 +6,7 @@ import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,9 +28,7 @@ class CreateDonationCompleteFragment :
     @Inject
     lateinit var glideRequests: GlideRequests
     private val createDonationViewModel by activityViewModels<CreateDonationViewModel>()
-    private val productName: String by lazy {
-        arguments?.getString("KEY_DONATION_PRODUCT") ?: "PS5"
-    }
+    private var productName: String? = null
 
     override fun setBinding(
         inflater: LayoutInflater,
@@ -38,7 +37,6 @@ class CreateDonationCompleteFragment :
         FragmentCreateDonationCompleteBinding.inflate(inflater, container, false)
 
     override fun onSetupViews(view: View) {
-        setupCreatingDonationCompleteTitleView()
         binding.createDonationCompleteShareButton.setOnClickListener {
             val text = "(손 싹싹) 기부 부탁드립니다."
             startActivity(
@@ -50,6 +48,7 @@ class CreateDonationCompleteFragment :
         }
 
         binding.backButton.setOnClickListener {
+            createDonationViewModel.clearData()
             navigateToMain()
         }
 
@@ -60,6 +59,7 @@ class CreateDonationCompleteFragment :
             .observeOnMain()
             .subscribeWithErrorLogger {
                 binding.createDonationCompleteCustomView.apply {
+                    productName = it.title
                     title = it.description
                     dueDate = it.dday
                     goalPrice = it.goal ?: 0
@@ -69,8 +69,10 @@ class CreateDonationCompleteFragment :
                         it.postImage
                     )
                 }
+                setupCreatingDonationCompleteTitleView()
             }
             .addToDisposables()
+
     }
 
     private fun setupCreatingDonationCompleteTitleView() {

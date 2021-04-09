@@ -227,7 +227,8 @@
             android:id="@+id/cl_funding"
             android:layout_width="match_parent"
             android:layout_height="85dp"
-            android:background="@color/purple_1">
+            android:background="@color/purple_1"
+            android:foreground="?attr/selectableItemBackground">
 
             <TextView
                 android:id="@+id/tv_funding"

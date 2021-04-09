@@ -1,6 +1,7 @@
 package com.mashup.mobalmobal.ui.donate
 
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +11,9 @@ import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
-import com.funin.base.funinbase.extension.showSoftInput
 import com.funin.base.funinbase.extension.showToast
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentDonateBinding
-import com.mashup.mobalmobal.extensions.showChargeBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,22 +32,10 @@ class DonateFragment : BaseViewBindingFragment<FragmentDonateBinding>() {
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
         bindDonation()
-
-        showChargeBottomSheet(
-            "후원",
-            onPriceClick = { price ->
-                binding.donateAmount.setText(String.format("%,d", price.toLong()))
-                true
-            },
-            onDirectClick = {
-                binding.donateAmount.showSoftInput()
-                true
-            }
-        )
     }
 
     override fun onBindViewModels() {
-        donateViewModel.donationDetailTrigger
+        donateViewModel.donateSuccessTrigger
             .observeOnMain()
             .subscribeWithErrorLogger { navigateDonationDetail() }
             .addToDisposables()

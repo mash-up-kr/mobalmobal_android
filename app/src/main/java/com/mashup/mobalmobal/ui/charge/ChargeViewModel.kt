@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
 import com.mashup.mobalmobal.R
+import com.mashup.mobalmobal.constant.Constants.KEY_USER_NAME
 import com.mashup.mobalmobal.data.repository.ChargeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
@@ -18,10 +19,6 @@ class ChargeViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val chargeRepository: ChargeRepository
 ) : BaseViewModel(schedulerProvider) {
-
-    companion object {
-        private const val KEY_USER_NAME = "userName"
-    }
 
     private val _donateTriggerSubject: PublishSubject<Boolean> = PublishSubject.create()
     val donateTrigger: Observable<Boolean> = _donateTriggerSubject

@@ -3,9 +3,8 @@ package com.mashup.mobalmobal.ui.donationdetail.data.repository
 import com.mashup.mobalmobal.ui.donationdetail.data.dto.DonationDetailResultDto
 import com.mashup.mobalmobal.ui.donationdetail.data.service.DonationDetailService
 import io.reactivex.Single
-import javax.inject.Inject
 
-class DonationDetailRepositoryImpl (
+class DonationDetailRepositoryImpl(
     private val donationDetailService: DonationDetailService
 ) : DonationDetailRepository {
 

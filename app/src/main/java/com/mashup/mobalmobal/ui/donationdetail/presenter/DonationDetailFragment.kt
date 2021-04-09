@@ -1,12 +1,10 @@
 package com.mashup.mobalmobal.ui.donationdetail.presenter
 
-import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -24,43 +22,27 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() {
     companion object {
-        private const val TAG = "DetailFragment"
-        const val KEY_SELECTED_DONATION_ID = "key_selected_donation_id"
-        private const val INVALID_ID = -1
+        const val KEY_SELECTED_POST_ID = "key_selected_post_id"
     }
 
     @Inject
     lateinit var glideRequests: GlideRequests
     private val donationDetailViewModel: DonationDetailViewModel by viewModels()
-    private val donationId: Int by lazy {
-        arguments?.getInt(KEY_SELECTED_DONATION_ID) ?: INVALID_ID
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        checkVerifyDonationId()
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    private fun checkVerifyDonationId() {
-        if (donationId == INVALID_ID) findNavController().popBackStack()
-    }
 
     override fun setBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentDetailBinding {
-        val view = FragmentDetailBinding.inflate(inflater, container, false)
-        requestDonationDetail(donationId)
-        return view
+        return FragmentDetailBinding.inflate(inflater, container, false)
     }
 
     override fun onBindViewModels() {
         donationDetailViewModel.donatinSubject.observeOnMain()
             .subscribeWithErrorLogger { bindDonation(it) }
+            .addToDisposables()
+
+        donationDetailViewModel.backTriggerSubject.observeOnMain()
+            .subscribeWithErrorLogger { findNavController().popBackStack() }
             .addToDisposables()
     }
 
@@ -114,9 +96,6 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
         }
         tvDonationDDay.text = donation.dueDateText
     }
-
-    private fun requestDonationDetail(donationId: Int) =
-        donationDetailViewModel.requestDonationDetail(donationId)
 
     private fun navigateDetailToDonate() =
         findNavController().navigate(R.id.action_detailFragment_to_donateFragment)

@@ -62,7 +62,7 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter
     private fun navigateMainToDetail(donationId: Int) =
         findNavController().navigate(
             R.id.action_mainFragment_to_detailFragment,
-            bundleOf(DonationDetailFragment.KEY_SELECTED_DONATION_ID to donationId)
+            bundleOf(DonationDetailFragment.KEY_SELECTED_POST_ID to donationId)
         )
 
     override fun onDonationClick(donationId: Int) {

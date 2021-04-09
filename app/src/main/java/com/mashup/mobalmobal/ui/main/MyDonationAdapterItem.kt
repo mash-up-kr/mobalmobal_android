@@ -23,7 +23,7 @@ fun PostsDto.toMyDonationAdapterItems(): List<MyDonationAdapterItem> =
 fun PostDto.toMyDonationAdapterItem(): MyDonationAdapterItem {
     return MyDonationAdapterItem.Donation(
         donationId = postId,
-        title = title,
+        title = description ?: title,
         currentPrice = currentAmount,
         donationRatio = currentAmount.toFloat() / goalPrice
     )

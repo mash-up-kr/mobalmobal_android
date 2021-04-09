@@ -44,7 +44,7 @@ fun PostDto.toMainAdapterItem(): MainAdapterItem.ProgressDonation {
         dueDateText = DateTimeUtils.calculateDecimalDayText(startedAt, endAt) ?: "",
         currentPrice = currentAmount,
         goalPrice = goalPrice,
-        title = title,
+        title = description ?: title,
         donationImageUrl = postImage
     )
 }

@@ -29,7 +29,7 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
     lateinit var profileAdapter: ProfileAdapter
 
     init {
-//        checkVerifyUserId()
+        checkVerifyUserId()
     }
 
     private fun checkVerifyUserId() {

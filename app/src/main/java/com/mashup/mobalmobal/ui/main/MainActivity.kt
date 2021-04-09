@@ -29,7 +29,7 @@ class MainActivity : BaseActivity() {
             .observeOnMain()
             .subscribeWithErrorLogger { isSignedId ->
                 if (!isSignedId) {
-//                    startSignActivity()
+                    startSignActivity()
                 }
             }
             .addToDisposables()

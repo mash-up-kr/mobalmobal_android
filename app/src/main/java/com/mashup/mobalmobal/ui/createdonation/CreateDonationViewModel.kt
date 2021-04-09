@@ -2,7 +2,6 @@ package com.mashup.mobalmobal.ui.createdonation
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
@@ -16,6 +15,7 @@ import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import java.util.*
 import javax.inject.Inject
+
 
 @HiltViewModel
 class CreateDonationViewModel @Inject constructor(
@@ -107,20 +107,18 @@ class CreateDonationViewModel @Inject constructor(
                 if (!createDonationInput.description.isNullOrBlank() &&
                     !createDonationInput.productName.isNullOrBlank() &&
                     createDonationInput.fundAmount != null &&
-                    createDonationInput.postImage != null &&
-                    createDonationInput.startDate.isNullOrBlank() &&
-                    createDonationInput.dueDate.isNullOrBlank()
+                    !createDonationInput.startDate.isNullOrBlank() &&
+                    !createDonationInput.dueDate.isNullOrBlank()
                 ) {
-                    fileRepository.uploadImage(context, createDonationInput.postImage).flatMap {
-                        createDonationRepository.createDonation(
-                            title = createDonationInput.productName,
-                            description = createDonationInput.description,
-                            postImage = it,
-                            goal = createDonationInput.fundAmount,
-                            startedAt = createDonationInput.startDate,
-                            endAt = createDonationInput.dueDate
-                        )
-                    }
+                    createDonationRepository.createDonation(
+                        title = createDonationInput.productName,
+                        description = createDonationInput.description,
+                        goal = createDonationInput.fundAmount,
+                        startedAt = createDonationInput.startDate,
+                        endAt = createDonationInput.dueDate
+                    )
+//                    fileRepository.uploadImage(context, createDonationInput.postImage).flatMap {
+//                    }
 
                 } else {
                     when {
@@ -153,7 +151,6 @@ class CreateDonationViewModel @Inject constructor(
                             goal = response.data.goalPrice,
                             postImage = response.data.postImage,
                             dday = "D-12"
-//                            dday = getDDay(response.data.startedAt, response.data.endAt)
                         )
                     )
                     navigateToComplete()
@@ -206,6 +203,5 @@ class CreateDonationViewModel @Inject constructor(
         !productName.isNullOrBlank() && !description.isNullOrBlank() && postImage != null
                 && !fundAmount.toString().isNullOrBlank() && !startDate
             .isNullOrBlank() && !dueDate.isNullOrBlank()
-
 
 }

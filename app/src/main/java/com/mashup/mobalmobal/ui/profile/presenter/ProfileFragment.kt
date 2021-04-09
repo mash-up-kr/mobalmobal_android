@@ -33,7 +33,7 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
     }
 
     private fun checkVerifyUserId() {
-        if (userId.isEmpty()) findNavController().popBackStack()
+        if (userId.isEmpty()) navigateToBack()
     }
 
     override fun setBinding(
@@ -43,6 +43,9 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
 
     override fun onSetupViews(view: View) {
         with(binding) {
+            ivBack.setOnClickListener { navigateToBack() }
+            ivEdit.setOnClickListener { navigateToEditProfile() }
+            ivSetting.setOnClickListener { navigateProfileToSettings() }
             recyclerViewProfile.adapter = profileAdapter
 
             recyclerViewProfile.addItemDecoration(object : RecyclerView.ItemDecoration() {
@@ -71,7 +74,6 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
                 }
             })
         }
-        binding.recyclerViewProfile.adapter = profileAdapter
     }
 
     override fun onBindViewModels() {
@@ -83,13 +85,22 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
             profileSubject.observeOnMain()
                 .subscribeWithErrorLogger { profileAdapter.submitList(it) }
                 .addToDisposables()
+
+            userNickSubject.observeOnMain()
+                .subscribeWithErrorLogger { binding.tvTitle.text = it }
+                .addToDisposables()
         }
     }
 
-    override fun onProfileItemClick(view: View, position: Int) {}
+    override fun onProfileItemClick(view: View, position: Int) {
 
-    private fun navigateProfileToMyDonations() =
-        findNavController().navigate(R.id.action_profileFragment_to_myDonationsFragment)
+    }
+
+    private fun navigateToBack() =
+        findNavController().popBackStack()
+
+    private fun navigateToEditProfile() =
+        findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
 
     private fun navigateProfileToSettings() =
         findNavController().navigate(R.id.action_profileFragment_to_settingsFragment)

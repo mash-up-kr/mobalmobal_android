@@ -31,12 +31,12 @@ class ProfileViewModel @Inject constructor(
     private val _toastSubject: PublishSubject<String> = PublishSubject.create()
     val toastSubject get() = _toastSubject
 
-    private val _loadingSubject: PublishSubject<Boolean> = PublishSubject.create()
-    val loadingSubject get() = _loadingSubject
-
     private val _profileSubject: BehaviorSubject<List<ProfileItem>> =
         BehaviorSubject.createDefault(emptyList())
     val profileSubject get() = _profileSubject
+
+    private val _userNickSubject: BehaviorSubject<String> = BehaviorSubject.create()
+    val userNickSubject get() = _userNickSubject
 
     init {
         requestProfile()
@@ -46,7 +46,6 @@ class ProfileViewModel @Inject constructor(
         profileRepository.getUserInfo()
             .zipWith(requestDonations())
             .subscribeOnIO()
-            .doOnSubscribe { _loadingSubject.onNext(true) }
             .subscribeWithErrorLogger { response ->
                 val userDto = response.first.data.user
                 val donations = response.second
@@ -56,8 +55,8 @@ class ProfileViewModel @Inject constructor(
                         userDto.toProfileItem()
                     ) + donations
 
+                _userNickSubject.onNext(userDto.nickName)
                 _profileSubject.onNext(profileModel)
-                _loadingSubject.onNext(false)
             }
             .addToDisposables()
     }
@@ -77,9 +76,9 @@ class ProfileViewModel @Inject constructor(
                 mutableListOf<ProfileItem>().apply {
                     addAll(
                         Triple(
-                            createDonations.size,
-                            donatedDoantions.size,
-                            closedDonations.size
+                            createDonations.lastIndex ,
+                            donatedDoantions.lastIndex,
+                            closedDonations.lastIndex
                         ).toSummaryProfileItem()
                     )
 

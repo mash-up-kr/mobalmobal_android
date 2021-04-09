@@ -1,5 +1,6 @@
 package com.mashup.mobalmobal.ui.sign.signin
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,7 +9,6 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -114,19 +114,14 @@ class SignInFragment : BaseViewBindingFragment<FragmentSignInBinding>() {
         )
     }
 
-    fun navigateSignInToSignUp() =
-        findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
-
     private class GoogleLoginResultContract : ActivityResultContract<Intent, String>() {
         override fun createIntent(context: Context, input: Intent): Intent = input
 
         override fun parseResult(resultCode: Int, intent: Intent?): String? {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(intent)
-            val account = task.getResult(ApiException::class.java)
-
-            return try {
-                account?.idToken ?: throw IllegalStateException("Account token must be not null")
-            } catch (exception: IllegalStateException) {
+            return if (resultCode == Activity.RESULT_OK) {
+                GoogleSignIn.getSignedInAccountFromIntent(intent)
+                    .getResult(ApiException::class.java)?.idToken
+            } else {
                 null
             }
         }

@@ -1,6 +1,7 @@
 package com.mashup.mobalmobal.ui.donationdetail.domain
 
 import com.mashup.mobalmobal.data.dto.PostDto
+import com.mashup.mobalmobal.util.DateTimeUtils
 
 data class DonationItem(
     val imageUrl: String?,
@@ -38,7 +39,7 @@ fun PostDto.toDonationItem(): DonationItem =
                 )
             } ?: emptyList())
         },
-        dueDateText = "endAt - startedAt",
+        dueDateText = DateTimeUtils.calculateDecimalDayText(startedAt, endAt) ?: "",
         endAt = endAt ?: ""
     )
 

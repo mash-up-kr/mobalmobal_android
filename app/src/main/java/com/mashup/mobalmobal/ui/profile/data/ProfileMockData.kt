@@ -1,6 +1,36 @@
 package com.mashup.mobalmobal.ui.profile.data
 
 object ProfileMockData {
+    val donateData = """
+        {
+        	"code": 200,
+        	"data": {
+        		"donate": [{
+        			"donate_id": 3,
+        			"user_id": 193,
+        			"post_id": 39,
+        			"amount": 19000,
+        			"createdAt": "2021-03-29: 01:01:01",
+        			"updatedAt": "2021-03-29: 01:01:01",
+        			"deletedAt": "2021-03-29: 01:01:01",
+        			"post": {
+        				"post_id": 39,
+        				"user_id": 193,
+        				"title": "내가 후원한 타이틀",
+        				"post_description": "ㅅㅓ서서서서설며여여여영",
+        				"goal": 2000000,
+        				"started_at": "2021-03-29: 01:01:01",
+        				"end_at": "2021-03-29: 01:01:01",
+        				"post_image": "http://pht.qoo-static.com/VHB9bVB8cTcnqwnu0nJqKYbiutRclnbGxTpwnayKB4vMxZj8pk1220Rg-6oQ68DwAkqO=w300",
+        				"created_at": "2021-03-29: 01:01:01",
+        				"updated_at": "2021-03-29: 01:01:01",
+        				"current_amount": 2000
+        			}
+        		}]
+        	}
+        }
+    """.trimIndent()
+
     val userData = """
     {
       "code": 1,
@@ -15,7 +45,7 @@ object ProfileMockData {
     }
     """.trimIndent()
 
-    val donationData = """
+    val postData = """
     {
       "code": 1,
       "data": {
@@ -44,4 +74,7 @@ object ProfileMockData {
       }
     }
     """.trimIndent()
+
+
+
 }

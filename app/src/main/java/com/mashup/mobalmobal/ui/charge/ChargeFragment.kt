@@ -8,18 +8,30 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
+import com.funin.base.funinbase.extension.rx.observeOnMain
+import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.extension.showSoftInput
+import com.funin.base.funinbase.extension.showToast
+import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentChargeBinding
 import com.mashup.mobalmobal.extensions.showChargeBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class ChargeFragment : BaseViewBindingFragment<FragmentChargeBinding>() {
+
+    companion object {
+        private const val DATE_FORMAT = "yyyy-MM-dd hh:mm:ss"
+    }
 
     private val chargeViewModel by viewModels<ChargeViewModel>()
 
     private var chargePriceWatcher: TextWatcher? = null
     private var formatAmount = ""
+
+    private val dateFormat = SimpleDateFormat(DATE_FORMAT)
 
     override fun setBinding(
         inflater: LayoutInflater,
@@ -43,6 +55,23 @@ class ChargeFragment : BaseViewBindingFragment<FragmentChargeBinding>() {
         )
     }
 
+    override fun onBindViewModels() {
+        chargeViewModel.donateTrigger
+            .observeOnMain()
+            .subscribeWithErrorLogger { navigateDonate() }
+            .addToDisposables()
+
+        chargeViewModel.chargeCompleteTriggerSubject
+            .observeOnMain()
+            .subscribeWithErrorLogger { navigateChargeComplete() }
+            .addToDisposables()
+
+        chargeViewModel.chargeErrorMessage
+            .observeOnMain()
+            .subscribeWithErrorLogger(::showToast)
+            .addToDisposables()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         chargePriceWatcher = null
@@ -51,6 +80,12 @@ class ChargeFragment : BaseViewBindingFragment<FragmentChargeBinding>() {
     private fun bindCharge() = with(binding) {
         chargeToolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
+        }
+
+        chargeButton.setOnClickListener {
+            val date = Date(System.currentTimeMillis())
+            chargeViewModel.setChargedAt(dateFormat.format(date))
+            chargeViewModel.requestCharge()
         }
 
         chargePriceWatcher = chargeAmount.doOnTextChanged { text, _, _, _ ->
@@ -66,5 +101,11 @@ class ChargeFragment : BaseViewBindingFragment<FragmentChargeBinding>() {
             }
         }
     }
+
+    private fun navigateDonate() =
+        findNavController().popBackStack()
+
+    private fun navigateChargeComplete() =
+        findNavController().navigate(R.id.action_donateFragment_to_chargeFragment)
 
 }

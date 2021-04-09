@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="28dp"
-    android:paddingBottom="46dp"
+    android:paddingBottom="22dp"
     tools:background="@color/dark_grey">
 
     <ImageView

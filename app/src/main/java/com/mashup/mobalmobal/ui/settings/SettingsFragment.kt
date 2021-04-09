@@ -15,6 +15,7 @@ class SettingsFragment : BaseViewBindingFragment<FragmentSettingsBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentSettingsBinding = FragmentSettingsBinding.inflate(inflater, container, false)
+
     override fun onSetupViews(view: View) {
         binding.settingsOpenSource.setOnClickListener {
             onWebLinkClick(getString(R.string.open_source_url))

@@ -187,7 +187,7 @@
         android:paddingEnd="65dp"
         android:paddingBottom="21dp"
         android:text="@string/sign_up_complete"
-        android:textColor="@color/sign_up_complete_text_color_selector"
+        android:textColor="@color/complete_text_color_selector"
         android:textSize="18sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"

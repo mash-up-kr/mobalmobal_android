@@ -16,8 +16,8 @@ import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.extension.showToast
 import com.mashup.mobalmobal.R
+import com.mashup.mobalmobal.constant.Constants.KEY_POST_ID
 import com.mashup.mobalmobal.databinding.FragmentMainBinding
-import com.mashup.mobalmobal.ui.donationdetail.presenter.DonationDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
@@ -83,7 +83,7 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter
     private fun navigateMainToDetail(donationId: Int) =
         findNavController().navigate(
             R.id.action_mainFragment_to_detailFragment,
-            bundleOf(DonationDetailFragment.KEY_SELECTED_POST_ID to donationId)
+            bundleOf(KEY_POST_ID to donationId)
         )
 
     override fun onDonationClick(donationId: Int) {

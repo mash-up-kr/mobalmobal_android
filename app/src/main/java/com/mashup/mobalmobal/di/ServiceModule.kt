@@ -1,11 +1,7 @@
 package com.mashup.mobalmobal.di
 
 import com.mashup.mobalmobal.network.MobalRetrofit
-import com.mashup.mobalmobal.network.service.CreateDonationService
-import com.mashup.mobalmobal.network.service.FileService
-import com.mashup.mobalmobal.network.service.PostService
-import com.mashup.mobalmobal.network.service.SignService
-import com.mashup.mobalmobal.network.service.UserService
+import com.mashup.mobalmobal.network.service.*
 import com.mashup.mobalmobal.ui.donationdetail.data.service.DonationDetailService
 import com.mashup.mobalmobal.ui.profile.data.service.ProfileService
 import dagger.Module
@@ -45,4 +41,13 @@ object ServiceModule {
     @Provides
     fun provideFileService(okHttpClient: OkHttpClient): FileService =
         MobalRetrofit.create(okHttpClient)
+
+    @Provides
+    fun provideDonateService(okHttpClient: OkHttpClient): DonateService =
+        MobalRetrofit.create(okHttpClient)
+
+    @Provides
+    fun provideChargeService(okHttpClient: OkHttpClient): ChargeService =
+        MobalRetrofit.create(okHttpClient)
+
 }

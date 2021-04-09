@@ -7,14 +7,20 @@ import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
+import com.funin.base.funinbase.extension.getIntOrNull
 import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
+import com.funin.base.funinbase.extension.showToast
 import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.R
+import com.mashup.mobalmobal.constant.Constants.KEY_POST_ID
 import com.mashup.mobalmobal.databinding.FragmentDetailBinding
+import com.mashup.mobalmobal.extensions.showChargeBottomSheet
+import com.mashup.mobalmobal.ui.donate.DonateViewModel
 import com.mashup.mobalmobal.ui.donationdetail.domain.DonationItem
 import com.mashup.mobalmobal.util.DateTimeUtils
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,13 +28,14 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() {
-    companion object {
-        const val KEY_SELECTED_POST_ID = "key_selected_post_id"
-    }
 
     @Inject
     lateinit var glideRequests: GlideRequests
+
     private val donationDetailViewModel: DonationDetailViewModel by viewModels()
+    private val donateVieWModel: DonateViewModel by viewModels()
+
+    private val postId by lazy { arguments?.getIntOrNull(KEY_POST_ID) }
 
     override fun setBinding(
         inflater: LayoutInflater,
@@ -38,12 +45,22 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
     }
 
     override fun onBindViewModels() {
-        donationDetailViewModel.donatinSubject.observeOnMain()
+        donationDetailViewModel.donationSubject.observeOnMain()
             .subscribeWithErrorLogger { bindDonation(it) }
             .addToDisposables()
 
         donationDetailViewModel.backTriggerSubject.observeOnMain()
             .subscribeWithErrorLogger { findNavController().popBackStack() }
+            .addToDisposables()
+
+        donateVieWModel.donateSuccessTrigger
+            .observeOnMain()
+            .subscribeWithErrorLogger { donationDetailViewModel.requestDonationDetail() }
+            .addToDisposables()
+
+        donateVieWModel.donateToastMessage
+            .observeOnMain()
+            .subscribeWithErrorLogger { showToast(it) }
             .addToDisposables()
     }
 
@@ -98,8 +115,24 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
             )
         }
         tvDonationDDay.text = donation.dueDateText
+        clFunding.setOnClickListener {
+            showChargeBottomSheet(
+                title = getString(R.string.donation),
+                onPriceClick = { price ->
+                    donateVieWModel.donate(price.toString())
+                    true
+                },
+                onDirectClick = {
+                    postId?.let { navigateDetailToDonate(it) }
+                    true
+                }
+            )
+        }
     }
 
-    private fun navigateDetailToDonate() =
-        findNavController().navigate(R.id.action_detailFragment_to_donateFragment)
+    private fun navigateDetailToDonate(postId: Int) =
+        findNavController().navigate(
+            R.id.action_detailFragment_to_donateFragment,
+            bundleOf(KEY_POST_ID to postId)
+        )
 }

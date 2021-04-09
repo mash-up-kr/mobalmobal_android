@@ -19,39 +19,36 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="20dp" />
 
-    <ImageView
-        android:id="@+id/donate_previous"
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/donate_app_bar_layout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:background="@color/dark_grey"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_back_arrow" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/donate_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:text="@string/donation"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/donate_previous"
-        app:layout_constraintStart_toEndOf="@id/donate_previous"
-        app:layout_constraintTop_toTopOf="@id/donate_previous" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/donate_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_navigation_24dp"
+            app:title="@string/donation"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/donate_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:background="@drawable/sign_in_login_button_background_shape"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/amount_background_shape"
         android:backgroundTint="@color/gray_1"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="@id/guide_end_20"
         app:layout_constraintStart_toStartOf="@id/guide_start_20"
-        app:layout_constraintTop_toBottomOf="@id/donate_title">
+        app:layout_constraintTop_toBottomOf="@id/donate_app_bar_layout">
 
         <ImageView
             android:id="@+id/donate_cart_icon"
@@ -63,7 +60,7 @@
             app:srcCompat="@drawable/icon_broken_buy" />
 
         <EditText
-            android:id="@+id/donate_price"
+            android:id="@+id/donate_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
@@ -86,12 +83,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:background="@drawable/sign_in_login_button_background_shape"
-        android:backgroundTint="@color/gray_4"
+        android:background="@drawable/complete_button_selector"
+        android:enabled="false"
         android:paddingHorizontal="65dp"
         android:paddingVertical="20dp"
         android:text="@string/donate"
-        android:textColor="@color/gray_2"
+        android:textColor="@color/complete_text_color_selector"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

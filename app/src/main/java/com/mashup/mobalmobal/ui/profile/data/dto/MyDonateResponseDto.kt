@@ -13,11 +13,13 @@ data class MyDonateResponseDto (
 
 data class MyDonateDto (
     @SerializedName("donate")
-    val donates: List<DonateDto>
+    val donates: List<DonateDto>?
 )
 
 fun MyDonateDto.toProfileItems(headerStringId: Int): List<ProfileItem> {
     return mutableListOf<ProfileItem>().also {
+        if(donates.isNullOrEmpty()) return emptyList()
+
         it.add(
             ProfileItem.Header(
                 titleId = headerStringId

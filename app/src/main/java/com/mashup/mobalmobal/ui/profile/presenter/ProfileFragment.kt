@@ -23,18 +23,9 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
     ProfileAdapter.ProfileClickListener {
 
     private val profileViewModel: ProfileViewModel by viewModels()
-    private val userId: String by lazy { MobalSharedPreferencesImpl.getUserId() ?: "" }
 
     @Inject
     lateinit var profileAdapter: ProfileAdapter
-
-    init {
-        checkVerifyUserId()
-    }
-
-    private fun checkVerifyUserId() {
-        if (userId.isEmpty()) navigateToBack()
-    }
 
     override fun setBinding(
         inflater: LayoutInflater,
@@ -88,6 +79,10 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
 
             userNickSubject.observeOnMain()
                 .subscribeWithErrorLogger { binding.tvTitle.text = it }
+                .addToDisposables()
+
+            backTriggerSubject.observeOnMain()
+                .subscribeWithErrorLogger { findNavController().popBackStack() }
                 .addToDisposables()
         }
     }

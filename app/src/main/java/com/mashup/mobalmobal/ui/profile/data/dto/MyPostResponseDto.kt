@@ -15,11 +15,13 @@ data class MyPostResponseDto (
 
 data class MyPostDto (
     @SerializedName("post")
-    val posts: List<PostDto>
+    val posts: List<PostDto>?
 )
 
 fun MyPostDto.toProfileItems(headerStringId: Int): List<ProfileItem> {
     return mutableListOf<ProfileItem>().also {
+        if(posts.isNullOrEmpty()) return emptyList()
+
         it.add(
             ProfileItem.Header(
                 titleId = headerStringId

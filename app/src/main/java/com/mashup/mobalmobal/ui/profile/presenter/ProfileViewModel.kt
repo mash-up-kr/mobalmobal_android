@@ -4,11 +4,9 @@ import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
 import com.mashup.mobalmobal.R
+import com.mashup.mobalmobal.data.dto.PostDto
 import com.mashup.mobalmobal.data.sharedpreferences.MobalSharedPreferencesImpl
-import com.mashup.mobalmobal.ui.profile.data.dto.MyPostDto
-import com.mashup.mobalmobal.ui.profile.data.dto.toProfileItem
-import com.mashup.mobalmobal.ui.profile.data.dto.toProfileItems
-import com.mashup.mobalmobal.ui.profile.data.dto.toSummaryProfileItem
+import com.mashup.mobalmobal.ui.profile.data.dto.*
 import com.mashup.mobalmobal.ui.profile.data.repository.ProfileRepository
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,11 +37,19 @@ class ProfileViewModel @Inject constructor(
     private val _userNickSubject: BehaviorSubject<String> = BehaviorSubject.create()
     val userNickSubject get() = _userNickSubject
 
+    private val _backTriggerSubject: PublishSubject<Unit> = PublishSubject.create()
+    val backTriggerSubject get() = _backTriggerSubject
+
     init {
-        MobalSharedPreferencesImpl.getUserId()?.let { requestProfile() }
+        requestProfile("34")
     }
 
-    private fun requestProfile() {
+    private fun requestProfile(userId: String?) {
+        if(userId.isNullOrBlank()) {
+            backTriggerSubject.onNext(Unit)
+            return
+        }
+
         profileRepository.getUserInfo()
             .zipWith(requestDonations())
             .subscribeOnIO()
@@ -77,9 +83,9 @@ class ProfileViewModel @Inject constructor(
                 mutableListOf<ProfileItem>().apply {
                     addAll(
                         Triple(
-                            createDonations.lastIndex ,
-                            donatedDoantions.lastIndex,
-                            closedDonations.lastIndex
+                            createDonations.getDonationCount() ,
+                            donatedDoantions.getDonationCount(),
+                            closedDonations.getDonationCount()
                         ).toSummaryProfileItem()
                     )
 
@@ -90,15 +96,40 @@ class ProfileViewModel @Inject constructor(
     private fun requestMyCreateDonations() =
         profileRepository.getMyPosts(STATUS_DONATION_BEFORE)
             .zipWith(profileRepository.getMyPosts(STATUS_DONATION_INPROGRESS))
-            .map{
-                MyPostDto(it.first.data.posts + it.second.data.posts)
+            .map{pair ->
+                val beforeDonation = pair.first.data.posts
+                val inProgressDonation = pair.second.data.posts
+                val list = mutableListOf<PostDto>().also {
+                    if(!beforeDonation.isNullOrEmpty()) it.addAll(beforeDonation)
+                    if(!inProgressDonation.isNullOrEmpty()) it.addAll(inProgressDonation)
+                }
+                MyPostDto(list)
             }
 
     private fun requestMyDonated() =
         profileRepository.getMyDonations()
-            .map { it.data }
+            .map {
+                if(it.data.donates.isNullOrEmpty()){
+                    MyDonateDto(emptyList())
+                }else{
+                    it.data
+                }
+            }
 
     private fun reuqestMyClosed() =
         profileRepository.getMyPosts(STATUS_DONATION_EXPIRED)
-            .map { it.data }
+            .map {
+                if(it.data.posts.isNullOrEmpty()){
+                    MyPostDto(emptyList())
+                }else{
+                    it.data
+                }
+            }
+
+    private fun List<ProfileItem>.getDonationCount() =
+        if(isNullOrEmpty()) {
+            0
+        }else{
+            size - 1
+        }
 }

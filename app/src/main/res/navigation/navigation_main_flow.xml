@@ -53,14 +53,9 @@
             android:id="@+id/action_profileFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_myDonationsFragment"
-            app:destination="@id/myDonationsFragment" />
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
-
-    <fragment
-        android:id="@+id/myDonationsFragment"
-        android:name="com.mashup.mobalmobal.ui.mydonations.MyDonationsFragment"
-        android:label="MyDonationsFragment" />
 
     <fragment
         android:id="@+id/chargeFragment"
@@ -96,4 +91,8 @@
             android:id="@+id/action_CreateDonationFragment_to_createDonationCompleteFragment"
             app:destination="@id/create_donation_complete_fragment" />
     </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.mashup.mobalmobal.ui.editprofile.EditProfileFragment"
+        android:label="EditProfileFragment" />
 </navigation>

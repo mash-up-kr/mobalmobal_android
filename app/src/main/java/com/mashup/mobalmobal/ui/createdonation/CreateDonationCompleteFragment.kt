@@ -51,7 +51,6 @@ class CreateDonationCompleteFragment :
             createDonationViewModel.clearData()
             navigateToMain()
         }
-
     }
 
     override fun onBindViewModels() {

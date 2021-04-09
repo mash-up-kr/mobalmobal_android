@@ -2,7 +2,6 @@ package com.mashup.mobalmobal.ui.createdonation
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
@@ -15,7 +14,6 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
-import java.util.*
 import javax.inject.Inject
 
 
@@ -59,6 +57,7 @@ class CreateDonationViewModel @Inject constructor(
     fun clearData() {
         _createDonationInputSubject.onNext(CreateDonation())
         _createCompleteInputSubject.onNext(CreateCompleteDonation())
+        _navigateToCompleteSubject.onNext(false)
     }
 
     fun setCreateDonationProductName(productName: String?) {
@@ -145,7 +144,6 @@ class CreateDonationViewModel @Inject constructor(
                 }
             }
             .subscribeWithErrorLogger { response ->
-                Log.d("res des", response.data?.post?.description.toString())
                 if (response.data != null) {
                     _createCompleteInputSubject.onNext(
                         CreateCompleteDonation(

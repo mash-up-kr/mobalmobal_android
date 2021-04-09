@@ -4,4 +4,7 @@
     <dimen name="profile_user_radius">18dp</dimen>
     <dimen name="main_app_bar_layout_height">108dp</dimen>
     <dimen name="donation_progress_bar_shadow_horizontal_margin">10dp</dimen>
+    <dimen name="profile_post_item_margin">10dp</dimen>
+    <dimen name="profile_post_header_top_margin">20dp</dimen>
+    <dimen name="profile_post_item_bottom_margin">12dp</dimen>
 </resources>

@@ -5,13 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="28dp"
-<<<<<<< HEAD
-    android:paddingBottom="62dp"
-    tools:background="@color/content_background">
-=======
-    android:paddingBottom="46dp"
+    android:paddingBottom="22dp"
     tools:background="@color/dark_grey">
->>>>>>> ec2754f... 🎨 Update user profile
 
     <ImageView
         android:id="@+id/iv_profile"

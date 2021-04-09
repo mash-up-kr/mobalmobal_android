@@ -89,4 +89,5 @@
     <string name="void_due_date">dueDate가 비었습니다.</string>
     <string name="donate_error_message">후원하기에 실패하였습니다. 다시 시도해 주세요.</string>
     <string name="donate_error_post_id">올바른 경로가 아닙니다. 다시 시도해 주세요.</string>
+    <string name="charge_hint">충전할 금액을 입력하세요.</string>
 </resources>

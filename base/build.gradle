@@ -80,4 +80,8 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
     api "com.github.bumptech.glide:okhttp3-integration:4.9.0"
     api 'jp.wasabeef:glide-transformations:4.0.0'
+
+    // An adaptation of the JSR-310 backport for Android.
+    api 'com.jakewharton.threetenabp:threetenabp:1.2.1'
+    testImplementation 'org.threeten:threetenbp:1.4.0'
 }

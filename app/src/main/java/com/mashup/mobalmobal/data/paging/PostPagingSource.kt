@@ -11,31 +11,25 @@ import io.reactivex.Single
 
 class PostPagingSource(
     private val service: PostService,
-    private val order: String = "ASC",
+    private val order: String = "DESC",
     private val myDonationItem: MainAdapterItem.MyDonation
-) : RxPagingSource<String, MainAdapterItem>() {
+) : RxPagingSource<Int, MainAdapterItem>() {
 
-    override fun getRefreshKey(state: PagingState<String, MainAdapterItem>): String? {
-        /** TODO ItemKeyed의 기준이 되는 created_at이 현재 String이라 증감연산자로 이전 key를 알아 낼
-         *** 수 없어서 우선 무조건 null를 반환하도록 합니다.
-         *
-         *        val anchorPosition = state.anchorPosition ?: return null
-         *        val anchorPage = state.closestPageToPosition(anchorPosition) ?: return null
-         *        anchorPage.prevKey?.let { return it + 1 }
-         *        anchorPage.nextKey?.let { return it - 1 }
-         **/
+    override fun getRefreshKey(state: PagingState<Int, MainAdapterItem>): Int? {
+        val anchorPosition = state.anchorPosition ?: return null
+        val anchorPage = state.closestPageToPosition(anchorPosition) ?: return null
+        anchorPage.prevKey?.let { return it + 1 }
+        anchorPage.nextKey?.let { return it - 1 }
         return null
     }
 
-    override fun loadSingle(params: LoadParams<String>): Single<LoadResult<String, MainAdapterItem>> {
-        // TODO 이것도 위와 같은 이유로 증감을 하지 않습니다
-        val nextPageNumber = params.key
+    override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, MainAdapterItem>> {
+        val nextPageNumber = params.key?.let { it - 1 }
         return service.getPosts(
             limit = params.loadSize,
             order = order,
             after = nextPageNumber
-        )
-            .subscribeOn(SchedulerProvider.io())
+        ).subscribeOn(SchedulerProvider.io())
             .map { response ->
                 response.data?.let {
                     LoadResult.Page(
@@ -48,7 +42,7 @@ class PostPagingSource(
                             it.toMainAdapterItems()
                         },
                         null,
-                        it.posts.lastOrNull()?.createdAt
+                        it.posts.lastOrNull()?.postId
                     )
                 } ?: LoadResult.Page(createEmptyMainAdapterItem(), null, null)
             }

@@ -3,7 +3,9 @@ package com.mashup.mobalmobal.ui.main
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -36,6 +38,10 @@ class MyDonationAdapter(
 
     init {
         setHasStableIds(true)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return getItem(position).id.hashCode().toLong()
     }
 
     override fun getItemViewType(position: Int): Int = when (getItem(position)) {
@@ -76,7 +82,20 @@ class MyDonationAdapter(
 
     private fun MyDonationViewHolder.bind(item: MyDonationAdapterItem.Donation) {
         title.text = item.title
-        currentPrice.text = item.currentPriceText
+        currentPrice.text = String.format("%,d", item.currentPrice)
+        val donationStateDrawable = when {
+            item.donationRatio < 0.25 -> R.drawable.img_poorman
+            item.donationRatio < 0.50 -> R.drawable.img_chicken
+            item.donationRatio < 0.75 -> R.drawable.img_chanel_girl
+            else -> R.drawable.img_rich
+        }
+        image.setImageDrawable(
+            ResourcesCompat.getDrawable(
+                itemView.resources,
+                donationStateDrawable,
+                null
+            )
+        )
         itemView.setOnClickListener {
             listener?.onDonationClick(item.donationId)
         }
@@ -87,6 +106,7 @@ class MyDonationAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         val title: TextView = binding.mainMyDonationTitle
         val currentPrice: TextView = binding.mainMyDonationCurrentPrice
+        val image: ImageView = binding.mainMyDonationImage
     }
 
     private class MyAdditionViewHolder(

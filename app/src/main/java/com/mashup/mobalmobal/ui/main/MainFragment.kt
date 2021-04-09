@@ -7,6 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.funin.base.funinbase.base.BaseViewBindingFragment
@@ -16,6 +17,7 @@ import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentMainBinding
 import com.mashup.mobalmobal.ui.donationdetail.presenter.DonationDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -35,8 +37,9 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter
         binding.mainProfile.setOnClickListener {
             // TODO go to ProfileShow
         }
-        binding.mainAlarm.setOnClickListener {
-            // TODO go to AlarmShow
+        binding.mainSwipeRefreshLayout.setOnRefreshListener {
+            mainAdapter.refresh()
+            viewModel.refresh()
         }
     }
 
@@ -57,6 +60,14 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter
                 lifecycleScope.launchWhenCreated { mainAdapter.submitData(it) }
             }
             .addToDisposables()
+
+        lifecycleScope.launchWhenCreated {
+            mainAdapter.loadStateFlow.collectLatest { loadStates ->
+                if (loadStates.refresh !is LoadState.Loading) {
+                    binding.mainSwipeRefreshLayout.isRefreshing = false
+                }
+            }
+        }
     }
 
     private fun navigateMainToDetail(donationId: Int) =

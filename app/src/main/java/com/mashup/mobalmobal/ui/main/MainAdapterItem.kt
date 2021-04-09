@@ -2,6 +2,7 @@ package com.mashup.mobalmobal.ui.main
 
 import com.mashup.mobalmobal.data.dto.PostDto
 import com.mashup.mobalmobal.data.dto.PostsDto
+import com.mashup.mobalmobal.util.DateTimeUtils
 
 sealed class MainAdapterItem(val id: String) {
     override fun hashCode(): Int = id.hashCode()
@@ -40,7 +41,7 @@ fun PostsDto.toMainAdapterItems(): List<MainAdapterItem.ProgressDonation> =
 fun PostDto.toMainAdapterItem(): MainAdapterItem.ProgressDonation {
     return MainAdapterItem.ProgressDonation(
         postId = postId,
-        dueDateText = "TODO $endAt - $startedAt",
+        dueDateText = DateTimeUtils.calculateDecimalDayText(startedAt, endAt) ?: "",
         currentPrice = currentAmount,
         goalPrice = goalPrice,
         title = title,

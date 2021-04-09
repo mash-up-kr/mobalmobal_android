@@ -10,7 +10,8 @@ sealed class MyDonationAdapterItem(val id: String) {
     data class Donation(
         val donationId: Int,
         val title: String,
-        val currentPriceText: String
+        val currentPrice: Int,
+        val donationRatio: Float
     ) : MyDonationAdapterItem("MyDonation-$donationId")
 
     object Addition : MyDonationAdapterItem("My-Donation-Addition")
@@ -23,6 +24,7 @@ fun PostDto.toMyDonationAdapterItem(): MyDonationAdapterItem {
     return MyDonationAdapterItem.Donation(
         donationId = postId,
         title = title,
-        currentPriceText = "0"
+        currentPrice = currentAmount,
+        donationRatio = currentAmount.toFloat() / goalPrice
     )
 }

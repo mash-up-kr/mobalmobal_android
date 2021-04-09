@@ -15,5 +15,5 @@ data class PostDto(
     @SerializedName("update_at") val updatedAt: String? = null,
     @SerializedName("started_at") val startedAt: String? = null,
     @SerializedName("end_at") val endAt: String? = null,
-    @SerializedName("user") val donatedUsers: List<UserDto>? = null
+    @SerializedName("donated_users") val donatedUsers: List<UserDto>? = null
 )

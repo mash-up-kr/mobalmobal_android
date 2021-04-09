@@ -10,9 +10,9 @@ interface PostService {
 
     @GET("posts")
     fun getPosts(
-        @Query("item") after: String? = null,
+        @Query("item") after: Int? = null,
         @Query("limit") limit: Int? = null,
-        @Query("order") order: String? = "ASC"
+        @Query("order") order: String? = "DESC"
     ): Single<Response<PostsDto>>
 
     @GET("posts/my")

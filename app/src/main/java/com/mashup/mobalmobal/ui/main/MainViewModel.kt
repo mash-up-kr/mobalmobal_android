@@ -49,7 +49,6 @@ class MainViewModel @Inject constructor(
             .addToDisposables()
     }
 
-    // TODO Add refreshing donation Items
     fun refresh() {
         fetchMyDonation()
     }

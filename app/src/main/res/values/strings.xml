@@ -80,4 +80,5 @@
     <string name="donation_detail_title">%1s 는\n%2s 가지고 싶어요</string>
     <string name="donation_price">%,d</string>
     <string name="donation_percent">%.1f%%</string>
+    <string name="main_user_name">Hi, %s</string>
 </resources>

@@ -6,6 +6,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
 import com.facebook.stetho.Stetho
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.data.sharedpreferences.MobalSharedPreferencesImpl
 import dagger.hilt.android.HiltAndroidApp
@@ -17,6 +18,7 @@ class MobalApplication : Application() {
         super.onCreate()
         initializeStetho()
         initializeSharedPreferences()
+        initializeThreeTen()
         createNotificationChannel()
     }
 
@@ -26,6 +28,10 @@ class MobalApplication : Application() {
 
     private fun initializeSharedPreferences() {
         MobalSharedPreferencesImpl.init(this)
+    }
+
+    private fun initializeThreeTen() {
+        AndroidThreeTen.init(this)
     }
 
     @TargetApi(Build.VERSION_CODES.O)

@@ -16,6 +16,7 @@ import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentDetailBinding
 import com.mashup.mobalmobal.ui.donationdetail.domain.DonationItem
+import com.mashup.mobalmobal.util.DateTimeUtils
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -73,13 +74,15 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
             .into(ivProduct)
 
         glideRequests.load(donation.author.profileUrl)
+            .placeholder(R.drawable.img_profile_default)
+            .error(R.drawable.img_profile_default)
             .circleCrop()
             .into(ivProfile)
 
         tvDonationDescription.text = donation.description
         tvGoalPrice.text = getString(R.string.donation_price, donation.goalPrice)
         tvDonationCurrnetPrice.text = getString(R.string.donation_price, donation.currentPrice)
-        tvDonationEndDate.text = donation.endAt
+        tvDonationEndDate.text = DateTimeUtils.beautifyDateFormat(donation.endAt)
         tvDonationPercent.text = getString(R.string.donation_percent, donation.donatePercent)
         progressDonating.progress = donation.donatePercent.toInt()
         tvDonator.text = if (donation.donators.isNotEmpty()) {

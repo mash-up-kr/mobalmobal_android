@@ -5,7 +5,7 @@ import com.mashup.mobalmobal.dto.UserDto
 
 data class PostDto(
     @SerializedName("post_id") val postId: Int,
-    @SerializedName("user") val user: UserDto?,
+    @SerializedName("user") val user: UserDto? = null,
     @SerializedName("post_image") val postImage: String? = null,
     @SerializedName("title") val title: String,
     @SerializedName("post_description") val description: String? = null,

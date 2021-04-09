@@ -8,6 +8,9 @@ import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.data.repository.DonateRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.rxkotlin.zipWith
+import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
@@ -17,14 +20,42 @@ class DonateViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val donateRepository: DonateRepository
 ) : BaseViewModel(schedulerProvider) {
+
+    companion object {
+        private const val KEY_POST_ID = "postId"
+    }
+
     private val _donationDetailTriggerSubject: PublishSubject<Boolean> = PublishSubject.create()
     val donationDetailTrigger: Observable<Boolean> = _donationDetailTriggerSubject
 
     private val _donateErrorMessageSubject: PublishSubject<Int> = PublishSubject.create()
     val donateErrorMessage: Observable<Int> = _donateErrorMessageSubject
 
-    fun requestDonation(postId: Int, amount: String) {
-        donateRepository.donate(postId.toString(), amount)
+    private val postIdProcessor: BehaviorSubject<Int> = BehaviorSubject.create()
+
+    private val postIdSingle: Single<Int> = postIdProcessor.firstOrError()
+
+    init {
+        val initialPostId = savedStateHandle.get<Int>(KEY_POST_ID)
+        if (initialPostId != null) {
+            postIdProcessor.onNext(initialPostId)
+        } else {
+            _donateErrorMessageSubject.onNext(R.string.donate_error_post_id)
+            navigateToDonationDetail()
+        }
+    }
+
+    private val _donateAmountSubject: BehaviorSubject<String> = BehaviorSubject.create()
+
+    fun setDonateAmount(amount: String) {
+        _donateAmountSubject.onNext(amount)
+    }
+
+    fun requestDonation() {
+        postIdSingle.zipWith(_donateAmountSubject.firstOrError())
+            .flatMap { (postId, donateAmount) ->
+                donateRepository.donate(postId.toString(), donateAmount)
+            }
             .subscribeWithErrorLogger { isSuccess ->
                 if (isSuccess) {
                     navigateToDonationDetail()
@@ -39,4 +70,5 @@ class DonateViewModel @Inject constructor(
     private fun navigateToDonationDetail() {
         _donationDetailTriggerSubject.onNext(true)
     }
+
 }

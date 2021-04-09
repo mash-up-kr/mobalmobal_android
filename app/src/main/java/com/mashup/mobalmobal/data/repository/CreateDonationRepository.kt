@@ -4,6 +4,7 @@ import com.funin.base.funinbase.extension.requestBodyOf
 import com.mashup.mobalmobal.data.dto.PostDto
 import com.mashup.mobalmobal.network.Response
 import com.mashup.mobalmobal.network.service.CreateDonationService
+import com.mashup.mobalmobal.ui.donationdetail.data.dto.DonationDetailResultDto
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -14,7 +15,7 @@ class CreateDonationRepository @Inject constructor(private val service: CreateDo
         goal: Int,
         startedAt: String,
         endAt: String
-    ): Single<Response<PostDto>> {
+    ): Single<Response<DonationDetailResultDto>> {
          return service.createDonation(
             requestBodyOf {
                 "title" to title

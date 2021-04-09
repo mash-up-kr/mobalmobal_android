@@ -146,10 +146,10 @@ class CreateDonationViewModel @Inject constructor(
                 if (response.data != null) {
                     _createCompleteInputSubject.onNext(
                         CreateCompleteDonation(
-                            title = response.data.title,
-                            description = response.data.description,
-                            goal = response.data.goalPrice,
-                            postImage = response.data.postImage,
+                            title = response.data.data.post.title,
+                            description = response.data.data.post.description,
+                            goal = response.data.data.post.goalPrice,
+                            postImage = response.data.data.post.postImage,
                             dday = "D-12"
                         )
                     )

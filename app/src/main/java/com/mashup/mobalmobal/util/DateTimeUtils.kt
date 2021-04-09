@@ -38,6 +38,16 @@ object DateTimeUtils {
         return betweenDates.toDecimalDayText()
     }
 
+    fun beautifyDateFormat(source: String?, isShowTime: Boolean = false): String? {
+        if (source == null) return null
+        val dateFormat = SimpleDateFormat(
+            "yyyy.MM.dd ${if (isShowTime) "HH:mm:ss" else ""}",
+            Locale.getDefault()
+        )
+        val date = SimpleDateFormat(MOBAL_DATE_FORMAT, Locale.getDefault()).parse(source)
+        return date?.let { dateFormat.format(it).trim() }
+    }
+
     private fun Long.toDecimalDayText(): String = if (this >= 0) {
         "D-${kotlin.math.abs(this)}"
     } else {

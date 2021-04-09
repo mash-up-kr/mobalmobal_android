@@ -35,10 +35,10 @@ sealed class ProfileItem(
         val author: UserDto,
         val title: String,
         val description: String,
-        val goalPrice: Double,
-        val donatedPrice: Double,
-        val startDate: Double,
-        val dueDate: Double,
+        val goalPrice: Long,
+        val donatedPrice: Long,
+        val startDate: String,
+        val dueDate: String,
     ) : ProfileItem(donationId)
 
     data class Donated(
@@ -46,9 +46,9 @@ sealed class ProfileItem(
         val author: UserDto,
         val title: String,
         val description: String,
-        val goalPrice: Double,
-        val donatedPrice: Double,
-        val startDate: Double,
-        val dueDate: Double,
+        val goalPrice: Long,
+        val donatedPrice: Long,
+        val startDate: String,
+        val dueDate: String,
     ) : ProfileItem(donationId)
 }

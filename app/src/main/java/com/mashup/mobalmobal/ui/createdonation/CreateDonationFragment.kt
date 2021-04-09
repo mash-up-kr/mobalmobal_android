@@ -66,10 +66,10 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         setInputTextWatcher()
         setDateTimePickerDialog()
         binding.createDonationCompleteButton.setOnClickListener {
-            createDonationViewModel.createDonation()
-            navigateCreateDonationToComplete()
+            createDonationViewModel.createDonation(requireContext())
         }
         binding.toolbar.setNavigationOnClickListener {
+            createDonationViewModel.clearData()
             navigateToBack()
         }
     }
@@ -79,6 +79,15 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             .observeOnMain()
             .subscribeWithErrorLogger {
                 binding.createDonationCompleteButton.isVisible = it
+            }
+            .addToDisposables()
+
+        createDonationViewModel.completeTrigger
+            .observeOnMain()
+            .subscribeWithErrorLogger { complete ->
+                if (complete) {
+                    navigateCreateDonationToComplete()
+                }
             }
             .addToDisposables()
     }
@@ -117,7 +126,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             TedRxImagePicker.with(requireActivity())
                 .start()
                 .subscribe({ uri ->
-                    createDonationViewModel.setCreateDonationFile(uri)
+                    createDonationViewModel.setCreateDonationUrl(uri)
                     glideRequest.load(uri)
                         .centerCrop()
                         .into(binding.createDonationProductImageView)
@@ -229,9 +238,10 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
                 it.set(Calendar.MINUTE, minute)
             }
             val formattedDateTime = getFormattedDateTime(calendar.timeInMillis)
+            val formattedDateTimeForAPI = getFomattedDateTimeForAPI(calendar.timeInMillis)
 
             if (viewId == START_DATE_TIME_PICKER) {
-                createDonationViewModel.setCreateDonationStartDate(calendar.timeInMillis)
+                createDonationViewModel.setCreateDonationStartDate(formattedDateTimeForAPI)
                 binding.createDonationStartDateInput.setText(formattedDateTime)
                 if (!binding.createDonationProductImageView.isVisible) {
                     goDownAnimation(
@@ -242,7 +252,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
                 }
 
             } else {
-                createDonationViewModel.setCreateDonationDueDate(calendar.timeInMillis)
+                createDonationViewModel.setCreateDonationDueDate(formattedDateTimeForAPI)
                 binding.createDonationDueDateInput.setText(formattedDateTime)
 
                 if (!binding.createDonationProductImageView.isVisible) {
@@ -266,4 +276,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
 
     private fun getFormattedDateTime(milliSeconds: Long) =
         SimpleDateFormat("yyyy-MM-dd HH:mm").format(milliSeconds)
+
+    private fun getFomattedDateTimeForAPI(milliSeconds: Long) =
+        SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(milliSeconds)
 }

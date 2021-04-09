@@ -6,12 +6,16 @@ import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.activityViewModels
 import com.funin.base.funinbase.base.BaseViewBindingFragment
+import com.funin.base.funinbase.extension.rx.observeOnMain
+import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentCreateDonationCompleteBinding
@@ -23,9 +27,8 @@ class CreateDonationCompleteFragment :
     BaseViewBindingFragment<FragmentCreateDonationCompleteBinding>() {
     @Inject
     lateinit var glideRequests: GlideRequests
-    private val productName: String by lazy {
-        arguments?.getString("KEY_DONATION_PRODUCT") ?: "PS5"
-    }
+    private val createDonationViewModel by activityViewModels<CreateDonationViewModel>()
+    private var productName: String? = null
 
     override fun setBinding(
         inflater: LayoutInflater,
@@ -34,7 +37,6 @@ class CreateDonationCompleteFragment :
         FragmentCreateDonationCompleteBinding.inflate(inflater, container, false)
 
     override fun onSetupViews(view: View) {
-        setupCreatingDonationCompleteTitleView()
         binding.createDonationCompleteShareButton.setOnClickListener {
             val text = "(손 싹싹) 기부 부탁드립니다."
             startActivity(
@@ -44,19 +46,32 @@ class CreateDonationCompleteFragment :
                     .setType("text/plain")
             )
         }
-        binding.createDonationCompleteCustomView.apply {
-            title = "티끌모아 닌텐도 스위치"
-            dueDate = "D-12"
-            goalPrice = 30000
-            currentPrice = 25000
-            setDonationImage(
-                glideRequests,
-                "https://blog.kakaocdn.net/dn/lNp7m/btqIvFeQr77/kGEVFLnvqVh80gowQtKn9K/img.png"
-            )
-        }
+
         binding.backButton.setOnClickListener {
+            createDonationViewModel.clearData()
             navigateToMain()
         }
+    }
+
+    override fun onBindViewModels() {
+        createDonationViewModel.createCompleteInput
+            .observeOnMain()
+            .subscribeWithErrorLogger {
+                binding.createDonationCompleteCustomView.apply {
+                    productName = it.title
+                    title = it.description
+                    dueDate = it.dday
+                    goalPrice = it.goal ?: 0
+                    currentPrice = 0
+                    setDonationImage(
+                        glideRequests,
+                        it.postImage
+                    )
+                }
+                setupCreatingDonationCompleteTitleView()
+            }
+            .addToDisposables()
+
     }
 
     private fun setupCreatingDonationCompleteTitleView() {

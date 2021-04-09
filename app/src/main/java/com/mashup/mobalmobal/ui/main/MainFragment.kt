@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
+import com.funin.base.funinbase.extension.showToast
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentMainBinding
 import com.mashup.mobalmobal.ui.donationdetail.presenter.DonationDetailFragment
@@ -24,6 +26,7 @@ import javax.inject.Inject
 class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter.OnClickListener {
 
     private val viewModel by viewModels<MainViewModel>()
+    private val meViewModel by activityViewModels<MeViewModel>()
 
     @Inject
     lateinit var mainAdapter: MainAdapter
@@ -35,7 +38,7 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter
     override fun onSetupViews(view: View) {
         binding.mainRecycler.setup()
         binding.mainProfile.setOnClickListener {
-            // TODO go to ProfileShow
+            showToast("TODO Main Profile!!")
         }
         binding.mainSwipeRefreshLayout.setOnRefreshListener {
             mainAdapter.refresh()
@@ -58,6 +61,13 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter
             .observeOnMain()
             .subscribeWithErrorLogger {
                 lifecycleScope.launchWhenCreated { mainAdapter.submitData(it) }
+            }
+            .addToDisposables()
+
+        meViewModel.meName
+            .observeOnMain()
+            .subscribeWithErrorLogger {
+                binding.mainUserName.text = getString(R.string.main_user_name, it)
             }
             .addToDisposables()
 

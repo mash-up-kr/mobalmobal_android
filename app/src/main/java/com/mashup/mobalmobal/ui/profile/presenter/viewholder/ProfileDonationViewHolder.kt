@@ -27,11 +27,8 @@ class ProfileDonationViewHolder (
         binding.donation.apply {
             goalPrice = item.goalPrice.toInt()
             currentPrice = item.donatedPrice.toInt()
-            dueDate = item.endAt.toString()
-            currentPriceText = context.getString(
-                R.string.profile_user_point,
-                item.donatedPrice.toInt()
-            )
+            dueDate = item.endAt
+            currentPrice = item.donatedPrice.toInt()
             setDonationImage(glideRequests, item.imageUrl)
         }
     }

@@ -111,7 +111,7 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
         vDonator.apply {
             setDonatorProfiles(
                 glideRequests,
-                donation.donators.map { it.profileUrl }
+                donation.donators.map { it.profileUrl ?: "" }
             )
         }
         tvDonationDDay.text = donation.dueDateText

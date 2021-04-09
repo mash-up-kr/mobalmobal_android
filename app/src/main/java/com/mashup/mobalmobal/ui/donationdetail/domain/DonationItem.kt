@@ -46,5 +46,5 @@ fun PostDto.toDonationItem(): DonationItem =
 data class User(
     val userId: String,
     val nickName: String,
-    val profileUrl: String
+    val profileUrl: String?
 )

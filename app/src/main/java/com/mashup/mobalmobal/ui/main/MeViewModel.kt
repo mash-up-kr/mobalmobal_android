@@ -30,7 +30,7 @@ class MeViewModel @Inject constructor(
     init {
         isSignedIn()
             .distinctUntilChanged()
-            .filter { true }
+            .filter { it }
             .flatMapCompletable { fetchMe() }
             .subscribeOnIO()
             .subscribeWithErrorLogger()
@@ -44,5 +44,4 @@ class MeViewModel @Inject constructor(
     private fun fetchMe(): Completable = userRepository.fetchUser()
         .doOnSuccess { response -> response.data?.let { _meSubject.onNext(it) } }
         .ignoreElement()
-
 }

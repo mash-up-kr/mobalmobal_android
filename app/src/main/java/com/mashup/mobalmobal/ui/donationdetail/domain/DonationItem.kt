@@ -3,7 +3,7 @@ package com.mashup.mobalmobal.ui.donationdetail.domain
 import com.mashup.mobalmobal.data.dto.PostDto
 
 data class DonationItem(
-    val imageUrl: String,
+    val imageUrl: String?,
     val productName: String,
     val description: String,
     val author: User,
@@ -19,7 +19,7 @@ data class DonationItem(
 
 fun PostDto.toDonationItem(): DonationItem =
     DonationItem(
-        imageUrl = postImage ?: "",
+        imageUrl = postImage,
         productName = title,
         description = description ?: "",
         author = User(

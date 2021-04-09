@@ -1,11 +1,12 @@
 package com.mashup.mobalmobal.ui.profile.data.repository
 
+import com.funin.base.funinbase.extension.JsonObject
+import com.funin.base.funinbase.extension.requestBodyOf
 import com.mashup.mobalmobal.ui.profile.data.dto.MyDonateResponseDto
 import com.mashup.mobalmobal.ui.profile.data.dto.MyPostResponseDto
 import com.mashup.mobalmobal.ui.profile.data.dto.ProfileResponseDto
 import com.mashup.mobalmobal.ui.profile.data.service.ProfileService
 import io.reactivex.Single
-
 class ProfileRepositoryImpl(
     private val profileService: ProfileService
 ) : ProfileRepository {
@@ -14,10 +15,16 @@ class ProfileRepositoryImpl(
         profileService.getUserInfo()
 
     override fun getMyPosts(status: String): Single<MyPostResponseDto> {
-        TODO("API 정의되고 나면 추가할 예정입니다.")
+        val reqeustBody = requestBodyOf {
+            put("filter", JsonObject().apply {
+                put("status", status)
+            })
+        }
+        return profileService.getMyPosts(reqeustBody)
     }
 
-    override fun getMyDonations(): Single<MyDonateResponseDto> {
-        TODO("Not yet implemented")
-    }
+
+    override fun getMyDonations(): Single<MyDonateResponseDto> =
+        profileService.getMyDonates()
 }
+

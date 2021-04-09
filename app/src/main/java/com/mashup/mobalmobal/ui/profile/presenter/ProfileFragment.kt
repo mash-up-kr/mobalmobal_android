@@ -12,7 +12,6 @@ import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.extension.showToast
 import com.mashup.mobalmobal.R
-import com.mashup.mobalmobal.data.sharedpreferences.MobalSharedPreferencesImpl
 import com.mashup.mobalmobal.databinding.FragmentProfileBinding
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 import dagger.hilt.android.AndroidEntryPoint

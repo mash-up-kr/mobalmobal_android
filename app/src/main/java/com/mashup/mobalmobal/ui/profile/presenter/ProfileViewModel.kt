@@ -22,9 +22,9 @@ class ProfileViewModel @Inject constructor(
 ) : BaseViewModel(schedulerProvider) {
 
     companion object {
-        const val STATUS_DONATION_BEFORE = "before"
-        const val STATUS_DONATION_INPROGRESS = "inprogress"
-        const val STATUS_DONATION_EXPIRED = "expired"
+        const val STATUS_DONATION_BEFORE = "BEFORE"
+        const val STATUS_DONATION_INPROGRESS = "IN_PROGRESS"
+        const val STATUS_DONATION_EXPIRED = "EXPIRED"
     }
 
     private val _toastSubject: PublishSubject<String> = PublishSubject.create()
@@ -41,15 +41,10 @@ class ProfileViewModel @Inject constructor(
     val backTriggerSubject get() = _backTriggerSubject
 
     init {
-        requestProfile("34")
+        requestProfile()
     }
 
-    private fun requestProfile(userId: String?) {
-        if(userId.isNullOrBlank()) {
-            backTriggerSubject.onNext(Unit)
-            return
-        }
-
+    private fun requestProfile() {
         profileRepository.getUserInfo()
             .zipWith(requestDonations())
             .subscribeOnIO()

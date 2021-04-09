@@ -4,6 +4,7 @@ import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
 import com.mashup.mobalmobal.R
+import com.mashup.mobalmobal.ui.profile.data.dto.MyPostDto
 import com.mashup.mobalmobal.ui.profile.data.dto.toProfileItem
 import com.mashup.mobalmobal.ui.profile.data.dto.toProfileItems
 import com.mashup.mobalmobal.ui.profile.data.dto.toSummaryProfileItem
@@ -62,27 +63,42 @@ class ProfileViewModel @Inject constructor(
     }
 
     private fun requestDonations() =
-        profileRepository.getMyDonations(STATUS_DONATION_BEFORE)
-            .zipWith(profileRepository.getMyDonations(STATUS_DONATION_INPROGRESS))
-            .zipWith(profileRepository.getMyDonations(STATUS_DONATION_EXPIRED))
+        requestMyCreateDonations()
+            .zipWith(requestMyDonated())
+            .zipWith(reuqestMyClosed())
             .map {
-                val requestDonations =
-                    it.first.first.data.toProfileItems(R.string.profile_header_donation_request)
+                val createDonations =
+                    it.first.first.toProfileItems(R.string.profile_header_donation_request)
                 val donatedDoantions =
-                    it.first.second.data.toProfileItems(R.string.profile_header_donated)
+                    it.first.second.toProfileItems(R.string.profile_header_donated)
                 val closedDonations =
-                    it.second.data.toProfileItems(R.string.profile_header_donation_closed)
+                    it.second.toProfileItems(R.string.profile_header_donation_closed)
 
                 mutableListOf<ProfileItem>().apply {
                     addAll(
                         Triple(
-                            requestDonations.size,
+                            createDonations.size,
                             donatedDoantions.size,
                             closedDonations.size
                         ).toSummaryProfileItem()
                     )
 
-                    addAll(requestDonations + donatedDoantions + closedDonations)
+                    addAll(createDonations + donatedDoantions + closedDonations)
                 }
             }
+
+    private fun requestMyCreateDonations() =
+        profileRepository.getMyPosts(STATUS_DONATION_BEFORE)
+            .zipWith(profileRepository.getMyPosts(STATUS_DONATION_INPROGRESS))
+            .map{
+                MyPostDto(it.first.data.posts + it.second.data.posts)
+            }
+
+    private fun requestMyDonated() =
+        profileRepository.getMyDonations()
+            .map { it.data }
+
+    private fun reuqestMyClosed() =
+        profileRepository.getMyPosts(STATUS_DONATION_EXPIRED)
+            .map { it.data }
 }

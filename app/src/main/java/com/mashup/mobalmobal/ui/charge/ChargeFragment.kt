@@ -10,11 +10,9 @@ import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
-import com.funin.base.funinbase.extension.showSoftInput
 import com.funin.base.funinbase.extension.showToast
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentChargeBinding
-import com.mashup.mobalmobal.extensions.showChargeBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,20 +37,30 @@ class ChargeFragment : BaseViewBindingFragment<FragmentChargeBinding>() {
     ): FragmentChargeBinding = FragmentChargeBinding.inflate(inflater, container, false)
 
     override fun onSetupViews(view: View) {
-        super.onSetupViews(view)
-        bindCharge()
-
-        showChargeBottomSheet(
-            "충전",
-            onPriceClick = { price ->
-                binding.chargeAmount.setText(String.format("%,d", price.toLong()))
-                true
-            },
-            onDirectClick = {
-                binding.chargeAmount.showSoftInput()
-                true
+        with(binding) {
+            chargeToolbar.setNavigationOnClickListener {
+                findNavController().popBackStack()
             }
-        )
+
+            chargeButton.setOnClickListener {
+                val date = Date(System.currentTimeMillis())
+                chargeViewModel.setChargedAt(dateFormat.format(date))
+                chargeViewModel.requestCharge()
+            }
+
+            chargePriceWatcher = chargeAmount.doOnTextChanged { text, _, _, _ ->
+                if (text.toString().isNotBlank() && text.toString() != formatAmount) {
+                    val amount = text.toString().replace(",", "")
+                    formatAmount = String.format("%,d", amount.toLongOrNull() ?: 0L)
+                    chargeAmount.setText(formatAmount)
+                    chargeAmount.setSelection(formatAmount.length)
+                    chargeViewModel.setChargeAmount(formatAmount)
+                    chargeButton.isEnabled = true
+                } else {
+                    chargeButton.isEnabled = false
+                }
+            }
+        }
     }
 
     override fun onBindViewModels() {
@@ -73,33 +81,8 @@ class ChargeFragment : BaseViewBindingFragment<FragmentChargeBinding>() {
     }
 
     override fun onDestroyView() {
+        binding.chargeAmount.removeTextChangedListener(chargePriceWatcher)
         super.onDestroyView()
-        chargePriceWatcher = null
-    }
-
-    private fun bindCharge() = with(binding) {
-        chargeToolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
-
-        chargeButton.setOnClickListener {
-            val date = Date(System.currentTimeMillis())
-            chargeViewModel.setChargedAt(dateFormat.format(date))
-            chargeViewModel.requestCharge()
-        }
-
-        chargePriceWatcher = chargeAmount.doOnTextChanged { text, _, _, _ ->
-            if (text.toString().isNotBlank() && text.toString() != formatAmount) {
-                val amount = text.toString().replace(",", "")
-                formatAmount = String.format("%,d", amount.toLongOrNull() ?: 0L)
-                chargeAmount.setText(formatAmount)
-                chargeAmount.setSelection(formatAmount.length)
-                chargeViewModel.setChargeAmount(formatAmount)
-                chargeButton.isEnabled = true
-            } else {
-                chargeButton.isEnabled = false
-            }
-        }
     }
 
     private fun navigateDonate() =

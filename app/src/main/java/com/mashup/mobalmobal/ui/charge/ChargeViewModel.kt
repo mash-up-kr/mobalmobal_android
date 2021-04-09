@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ChargeViewModel @Inject constructor(
     schedulerProvider: BaseSchedulerProvider,
-    private val savedStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle,
     private val chargeRepository: ChargeRepository
 ) : BaseViewModel(schedulerProvider) {
 

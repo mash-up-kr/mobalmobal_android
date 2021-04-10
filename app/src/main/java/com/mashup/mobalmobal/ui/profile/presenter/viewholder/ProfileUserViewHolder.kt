@@ -30,8 +30,8 @@ class ProfileUserViewHolder(
                         RoundedCornersTransformation.CornerType.ALL
                     )
                 )
-                .placeholder(R.drawable.img_profile)
-                .error(R.drawable.img_profile)
+                .placeholder(R.drawable.img_profile_default)
+                .error(R.drawable.img_profile_default)
                 .into(ivProfile)
         }
     }

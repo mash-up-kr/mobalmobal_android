@@ -113,7 +113,10 @@
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="normal"
+                app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guide_end"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="@id/guide_start"
                 app:layout_constraintTop_toBottomOf="@id/iv_profile"
                 tools:text="안녕하세요\n한달안에 스위치 사려고 만들었습니다. 모든지역 찾아가서 \n 그랜절하겠습니다. 북한빼고 다가요" />

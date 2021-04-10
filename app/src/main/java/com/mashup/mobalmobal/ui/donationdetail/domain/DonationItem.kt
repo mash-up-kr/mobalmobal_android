@@ -24,9 +24,9 @@ fun PostDto.toDonationItem(): DonationItem =
         productName = title,
         description = description ?: "",
         author = User(
-            userId = user?.userId ?: "",
-            nickName = user?.nickName ?: "",
-            profileUrl = user?.profileUrl ?: ""
+            userId = user?.userId ?: "2",
+            nickName = user?.nickName ?: "리액션마스터",
+            profileUrl = user?.profileUrl ?: "http://pht.qoo-static.com/VHB9bVB8cTcnqwnu0nJqKYbiutRclnbGxTpwnayKB4vMxZj8pk1220Rg-6oQ68DwAkqO=w300"
         ),
         goalPrice = goalPrice,
         currentPrice = currentAmount,

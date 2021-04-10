@@ -38,7 +38,7 @@ object ProfileMockData {
       "data": {
         "user": {
           "user_id": 0909,
-          "nick_name": "리액션마스",
+          "nick_name": "리액션마스터",
           "profile_image": "http://pht.qoo-static.com/VHB9bVB8cTcnqwnu0nJqKYbiutRclnbGxTpwnayKB4vMxZj8pk1220Rg-6oQ68DwAkqO=w300",
           "cash": 135000
         }

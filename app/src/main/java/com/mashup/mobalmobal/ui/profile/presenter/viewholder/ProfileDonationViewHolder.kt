@@ -6,6 +6,7 @@ import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.HolderProfileDonationBinding
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 import com.mashup.mobalmobal.ui.profile.presenter.ProfileAdapter
+import com.mashup.mobalmobal.util.DateTimeUtils
 
 class ProfileDonationViewHolder (
     private val binding: HolderProfileDonationBinding,
@@ -27,7 +28,7 @@ class ProfileDonationViewHolder (
         binding.donation.apply {
             goalPrice = item.goalPrice.toInt()
             currentPrice = item.donatedPrice.toInt()
-            dueDate = item.endAt
+            dueDate = DateTimeUtils.calculateDecimalDayText(item.startAt,item.endAt) ?: ""
             currentPrice = item.donatedPrice.toInt()
             setDonationImage(glideRequests, item.imageUrl)
         }

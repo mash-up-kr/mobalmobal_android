@@ -15,9 +15,11 @@ import com.funin.base.funinbase.extension.getIntOrNull
 import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.extension.showToast
+import com.funin.base.funinbase.extension.toPixelsAsFloat
 import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.constant.Constants.KEY_POST_ID
+import com.mashup.mobalmobal.custom.span.ShadowSpan
 import com.mashup.mobalmobal.databinding.FragmentDetailBinding
 import com.mashup.mobalmobal.extensions.showChargeBottomSheet
 import com.mashup.mobalmobal.ui.donate.DonateViewModel
@@ -76,6 +78,18 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
                 RelativeSizeSpan(1.15f),
                 donationTitle.indexOf(donation.author.nickName),
                 donationTitle.indexOf(donation.author.nickName) + donation.author.nickName.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            setSpan(
+                ShadowSpan(
+                    ContextCompat.getColor(requireContext(), R.color.shadow_detail_product),
+                    requireContext().toPixelsAsFloat(10),
+                    0f,
+                    0f
+                ),
+                donationTitle.indexOf(donation.productName),
+                donationTitle.indexOf(donation.productName) + donation.productName.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
 

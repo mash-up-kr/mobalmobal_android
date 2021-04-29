@@ -1,4 +1,4 @@
-package com.mashup.mobalmobal.customview
+package com.mashup.mobalmobal.custom.view
 
 import android.content.Context
 import android.util.AttributeSet

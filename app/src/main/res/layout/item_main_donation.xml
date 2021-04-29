@@ -1,4 +1,4 @@
-<com.mashup.mobalmobal.customview.DonationView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mashup.mobalmobal.custom.view.DonationView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="9dp"

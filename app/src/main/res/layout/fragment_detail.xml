@@ -191,7 +191,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_donation_current"
                 tools:text="@string/donation_detail_donator" />
 
-            <com.mashup.mobalmobal.customview.DonatorView
+            <com.mashup.mobalmobal.custom.view.DonatorView
                 android:id="@+id/v_donator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

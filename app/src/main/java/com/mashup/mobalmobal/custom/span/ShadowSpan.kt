@@ -9,7 +9,7 @@ class ShadowSpan(
     private val dx: Float,
     private val dy: Float
 ) : CharacterStyle() {
-    override fun updateDrawState(p0: TextPaint?) {
-        p0?.setShadowLayer(radius, dx, dy, color)
+    override fun updateDrawState(paint: TextPaint?) {
+        paint?.setShadowLayer(radius, dx, dy, color)
     }
 }

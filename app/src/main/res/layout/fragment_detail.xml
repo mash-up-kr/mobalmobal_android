@@ -47,16 +47,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="D-12" />
 
-            <ProgressBar
+            <View
                 android:id="@+id/progress_donating"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:max="100"
-                android:progressBackgroundTint="@color/gray_61"
-                android:progressTint="@color/light_yellow"
+                android:layout_height="22dp"
+                android:background="@drawable/progress_detail_neon"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

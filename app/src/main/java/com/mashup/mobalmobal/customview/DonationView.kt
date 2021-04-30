@@ -5,6 +5,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.use
+import androidx.core.view.doOnPreDraw
+import androidx.core.view.updateLayoutParams
 import com.mashup.base.extensions.forEach
 import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.R
@@ -49,18 +51,34 @@ class DonationView @JvmOverloads constructor(
             binding.donationDueDate.text = value
         }
 
-    var goalPrice: Int
-        get() = binding.donationProgressbar.max
+    var goalPrice: Int? = null
         set(value) {
-            binding.donationProgressbar.max = value
+            field = value
+            updateProgressbarSize()
         }
 
-    var currentPrice: Int
-        get() = binding.donationProgressbar.progress
+    var currentPrice: Int? = null
         set(value) {
-            binding.donationProgressbar.progress = value
-            binding.donationCurrentPrice.text = String.format("%,d", value)
+            field = value
+            binding.donationCurrentPrice.text = String.format("%,d", value ?: 0)
+            updateProgressbarSize()
         }
+
+    private fun updateProgressbarSize() {
+        val progress = currentPrice ?: return
+        val max = goalPrice ?: return
+        val ratio = progress.toFloat() / max.toFloat()
+        val horizontalMargin =
+            resources.getDimensionPixelSize(R.dimen.donation_progress_bar_shadow_horizontal_margin)
+        val actualRatio = if (ratio > 1.0f) 1.0f else ratio
+        doOnPreDraw {
+            binding.donationProgressbar.updateLayoutParams<LayoutParams> {
+                val actualMeasuredWidth = it.measuredWidth + horizontalMargin
+                val actualWidth = horizontalMargin + actualMeasuredWidth * actualRatio
+                width = actualWidth.toInt()
+            }
+        }
+    }
 
     init {
         initializeAttributes(attrs)

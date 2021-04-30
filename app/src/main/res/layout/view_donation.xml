@@ -52,33 +52,33 @@
         app:layout_constraintTop_toBottomOf="@id/donationDueDate"
         tools:text="153,000" />
 
-    <FrameLayout
-        android:id="@+id/donationProgressbarContainer"
+    <View
+        android:id="@+id/donationProgressbarStartLine"
         android:layout_width="0dp"
-        android:layout_height="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/donationImage">
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/donation_progress_bar_shadow_horizontal_margin"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ProgressBar
-            android:id="@+id/donationProgressbar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:progressBackgroundTint="@color/gray_61"
-            android:progressTint="@color/light_yellow"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:max="100"
-            tools:progress="30" />
-
-    </FrameLayout>
+    <View
+        android:id="@+id/donationProgressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:background="@drawable/progress_neon_shadow"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="@id/donationImage"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/donationProgressbarStartLine"
+        app:layout_constraintTop_toBottomOf="@id/donationImage" />
 
     <TextView
         android:id="@+id/donationTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="13dp"
         android:layout_marginBottom="22dp"
         android:ellipsize="end"
@@ -90,7 +90,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/donationProgressbarContainer"
+        app:layout_constraintTop_toBottomOf="@id/donationImage"
         tools:text="한번만 부탁드립니다. 착하게살겠읍니다" />
 
 </merge>

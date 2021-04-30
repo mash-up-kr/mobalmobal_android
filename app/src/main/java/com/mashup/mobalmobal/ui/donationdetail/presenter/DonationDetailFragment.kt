@@ -6,8 +6,11 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.doOnPreDraw
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
@@ -115,7 +118,7 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
         tvDonationCurrnetPrice.text = getString(R.string.donation_price, donation.currentPrice)
         tvDonationEndDate.text = DateTimeUtils.beautifyDateFormat(donation.endAt)
         tvDonationPercent.text = getString(R.string.donation_percent, donation.donatePercent)
-        progressDonating.progress = donation.donatePercent.toInt()
+        updateProgressbarSize(donation.currentPrice, donation.goalPrice)
         tvDonator.text = if (donation.donators.isNotEmpty()) {
             getString(R.string.donation_detail_donator, donation.donators.size)
         } else {
@@ -141,6 +144,18 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
                     true
                 }
             )
+        }
+    }
+
+    private fun updateProgressbarSize(progress: Int, max: Int) {
+        val ratio = progress.toFloat() / max.toFloat()
+        val actualRatio = if (ratio > 1.0f) 1.0f else ratio
+        binding.root.doOnPreDraw {
+            binding.progressDonating.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                val actualMeasuredWidth = it.measuredWidth
+                val actualWidth = actualMeasuredWidth * actualRatio
+                width = actualWidth.toInt()
+            }
         }
     }
 

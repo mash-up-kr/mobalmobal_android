@@ -49,11 +49,10 @@
         android:id="@+id/create_donation_product_image_view"
         android:layout_width="match_parent"
         android:layout_height="223dp"
-        android:layout_marginTop="16dp"
         android:background="@color/dark_grey_two"
         android:scaleType="center"
-        android:src="@drawable/ic_camera_create_donation_imageview"
         android:visibility="gone"
+        android:src="@drawable/ic_camera_create_donation_imageview"
         app:layout_constraintBottom_toTopOf="@id/guide_horizontal_middle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,9 +73,8 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             app:boxBackgroundColor="@color/dark_black"
-            app:boxStrokeColor="@color/create_donation_stroke_color"
-            app:boxStrokeWidth="1dp"
-            app:boxStrokeWidthFocused="1dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -85,10 +83,16 @@
                 android:layout_height="wrap_content"
                 android:editable="false"
                 android:hint="@string/create_donation_due_date_hint"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp"
+                android:paddingBottom="0dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:textColor="@color/create_donation_text_color"
                 android:textColorHint="@color/white" />
+            <ImageView
+                android:id="@+id/create_donation_due_date_bottom_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bottom_line_focused"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -98,9 +102,8 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             app:boxBackgroundColor="@color/dark_black"
-            app:boxStrokeColor="@color/create_donation_stroke_color"
-            app:boxStrokeWidth="1dp"
-            app:boxStrokeWidthFocused="1dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -109,10 +112,16 @@
                 android:layout_height="wrap_content"
                 android:editable="false"
                 android:hint="@string/create_donation_start_date_hint"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp"
+                android:paddingBottom="0dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:textColor="@color/create_donation_text_color"
                 android:textColorHint="@color/white" />
+            <ImageView
+                android:id="@+id/create_donation_start_date_bottom_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bottom_line_focused"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -121,9 +130,8 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             app:boxBackgroundColor="@color/dark_black"
-            app:boxStrokeColor="@color/create_donation_stroke_color"
-            app:boxStrokeWidth="1dp"
-            app:boxStrokeWidthFocused="1dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -133,10 +141,16 @@
                 android:hint="@string/create_donation_price_hint"
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp"
+                android:paddingBottom="0dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:textColor="@color/create_donation_text_color"
                 android:textColorHint="@color/white" />
+            <ImageView
+                android:id="@+id/create_donation_price_bottom_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bottom_line_focused"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -145,9 +159,8 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             app:boxBackgroundColor="@color/dark_black"
-            app:boxStrokeColor="@color/create_donation_stroke_color"
-            app:boxStrokeWidth="1dp"
-            app:boxStrokeWidthFocused="1dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -157,20 +170,26 @@
                 android:hint="@string/create_donation_description_hint"
                 android:imeOptions="actionDone"
                 android:inputType="text"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp"
+                android:paddingBottom="0dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:textColor="@color/create_donation_text_color"
                 android:textColorHint="@color/white" />
+            <ImageView
+                android:id="@+id/create_donation_description_bottom_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bottom_line_focused"/>
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/create_donation_name_text_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:boxBackgroundColor="@color/dark_black"
-            app:boxStrokeColor="@color/create_donation_stroke_color"
-            app:boxStrokeWidth="1dp"
-            app:boxStrokeWidthFocused="1dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
             app:layout_constraintBottom_toTopOf="@+id/guide_horizontal_middle"
             app:layout_constraintEnd_toStartOf="@+id/guide_end"
@@ -182,12 +201,20 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/create_donation_product_name_hint"
                 android:imeOptions="actionDone"
+                android:background="@color/dark_black"
                 android:inputType="text"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp"
+                android:paddingBottom="0dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:textColor="@color/create_donation_text_color"
                 android:textColorHint="@color/white"/>
+            <ImageView
+                android:id="@+id/create_donation_name_bottom_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bottom_line_focused"/>
         </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
     <TextView

@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.core.animation.doOnEnd
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
@@ -158,6 +159,25 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             binding.createDonationStartDateInput
         )
 
+        binding.createDonationNameInput.setOnFocusChangeListener(
+            binding.createDonationNameBottomLine
+        )
+
+        binding.createDonationDescriptionInput.setOnFocusChangeListener(
+            binding.createDonationDescriptionBottomLine
+        )
+
+        binding.createDonationPriceInput.setOnFocusChangeListener(
+            binding.createDonationPriceBottomLine
+        )
+
+        binding.createDonationStartDateInput.setOnFocusChangeListener(
+            binding.createDonationStartDateBottomLine
+        )
+
+        binding.createDonationDueDateInput.setOnFocusChangeListener(
+            binding.createDonationDueDateBottomLine
+        )
     }
 
     private fun EditText.setAnimationListener(
@@ -171,6 +191,18 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
                 goDownAnimation(viewIndex, nextViewLayout, nextView)
             }
             false
+        }
+    }
+
+    private fun EditText.setOnFocusChangeListener(
+        bottomLineView: ImageView
+    ) {
+        setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                bottomLineView.setImageResource(R.drawable.bottom_line_focused)
+            } else {
+                bottomLineView.setImageResource(R.drawable.bottom_line_unfocused)
+            }
         }
     }
 

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.funin.base.funinbase.extension.inflate
 import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.R
-import com.mashup.mobalmobal.customview.DonationView
+import com.mashup.mobalmobal.custom.view.DonationView
 import com.mashup.mobalmobal.databinding.ItemMainDonationBinding
 import com.mashup.mobalmobal.databinding.ItemMainHeaderBinding
 import com.mashup.mobalmobal.databinding.ItemMainMyDonationsBinding

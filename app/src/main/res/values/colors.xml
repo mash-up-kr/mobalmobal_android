@@ -38,4 +38,5 @@
     <color name="light_green_1">#7AFF97</color>
     <color name="list_background">#222222</color>
     <color name="white_50">#80ffffff</color>
+    <color name="shadow_detail_product">#ccffe074</color>
 </resources>

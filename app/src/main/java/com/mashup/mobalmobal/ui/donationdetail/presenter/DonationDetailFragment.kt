@@ -6,8 +6,11 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.doOnPreDraw
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
@@ -15,9 +18,11 @@ import com.funin.base.funinbase.extension.getIntOrNull
 import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.extension.showToast
+import com.funin.base.funinbase.extension.toPixelsAsFloat
 import com.mashup.base.image.GlideRequests
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.constant.Constants.KEY_POST_ID
+import com.mashup.mobalmobal.custom.span.ShadowSpan
 import com.mashup.mobalmobal.databinding.FragmentDetailBinding
 import com.mashup.mobalmobal.extensions.showChargeBottomSheet
 import com.mashup.mobalmobal.ui.donate.DonateViewModel
@@ -80,6 +85,18 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
             )
 
             setSpan(
+                ShadowSpan(
+                    ContextCompat.getColor(requireContext(), R.color.shadow_detail_product),
+                    requireContext().toPixelsAsFloat(10),
+                    0f,
+                    0f
+                ),
+                donationTitle.indexOf(donation.productName),
+                donationTitle.indexOf(donation.productName) + donation.productName.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            setSpan(
                 ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.light_yellow)),
                 donationTitle.indexOf(donation.productName),
                 donationTitle.indexOf(donation.productName) + donation.productName.length,
@@ -101,7 +118,7 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
         tvDonationCurrnetPrice.text = getString(R.string.donation_price, donation.currentPrice)
         tvDonationEndDate.text = DateTimeUtils.beautifyDateFormat(donation.endAt)
         tvDonationPercent.text = getString(R.string.donation_percent, donation.donatePercent)
-        progressDonating.progress = donation.donatePercent.toInt()
+        updateProgressbarSize(donation.currentPrice, donation.goalPrice)
         tvDonator.text = if (donation.donators.isNotEmpty()) {
             getString(R.string.donation_detail_donator, donation.donators.size)
         } else {
@@ -127,6 +144,18 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
                     true
                 }
             )
+        }
+    }
+
+    private fun updateProgressbarSize(progress: Int, max: Int) {
+        val ratio = progress.toFloat() / max.toFloat()
+        val actualRatio = if (ratio > 1.0f) 1.0f else ratio
+        binding.root.doOnPreDraw {
+            binding.progressDonating.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                val actualMeasuredWidth = it.measuredWidth
+                val actualWidth = actualMeasuredWidth * actualRatio
+                width = actualWidth.toInt()
+            }
         }
     }
 

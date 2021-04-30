@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:text="PS5 가지고싶다\n생성완료" />
 
-    <com.mashup.mobalmobal.customview.DonationView
+    <com.mashup.mobalmobal.custom.view.DonationView
         android:id="@+id/create_donation_complete_custom_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"

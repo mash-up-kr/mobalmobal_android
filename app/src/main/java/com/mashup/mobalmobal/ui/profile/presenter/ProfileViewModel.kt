@@ -5,7 +5,7 @@ import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.data.dto.PostDto
-import com.mashup.mobalmobal.data.sharedpreferences.MobalSharedPreferencesImpl
+import com.mashup.mobalmobal.dto.UserDto
 import com.mashup.mobalmobal.ui.profile.data.dto.*
 import com.mashup.mobalmobal.ui.profile.data.repository.ProfileRepository
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
@@ -40,27 +40,23 @@ class ProfileViewModel @Inject constructor(
     private val _backTriggerSubject: PublishSubject<Unit> = PublishSubject.create()
     val backTriggerSubject get() = _backTriggerSubject
 
+    private val _userDtoSubject: BehaviorSubject<UserDto> = BehaviorSubject.create()
+
     init {
-        requestProfile()
+        profileRepository.getUserInfo()
+            .subscribeOnIO()
+            .subscribeWithErrorLogger {
+                _userDtoSubject.onNext(it.data.user)
+            }.addToDisposables()
     }
 
-    private fun requestProfile() {
-        profileRepository.getUserInfo()
-            .zipWith(requestDonations())
-            .subscribeOnIO()
-            .subscribeWithErrorLogger { response ->
-                val userDto = response.first.data.user
-                val donations = response.second
-
-                val profileModel: List<ProfileItem> =
-                    listOfNotNull(
-                        userDto.toProfileItem()
-                    ) + donations
-
-                _userNickSubject.onNext(userDto.nickName)
-                _profileSubject.onNext(profileModel)
-            }
-            .addToDisposables()
+    init {
+        _userDtoSubject.switchMapSingle { userDto ->
+            requestDonations()
+                .map { listOfNotNull(userDto.toProfileItem()) + it }
+        }.subscribeWithErrorLogger {
+            _profileSubject.onNext(it)
+        }.addToDisposables()
     }
 
     private fun requestDonations() =

@@ -84,8 +84,7 @@
                 android:editable="false"
                 android:hint="@string/create_donation_due_date_hint"
                 android:paddingBottom="0dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingHorizontal="10dp"
                 android:textColor="@color/create_donation_text_color"
                 android:textColorHint="@color/white" />
             <ImageView
@@ -113,8 +112,7 @@
                 android:editable="false"
                 android:hint="@string/create_donation_start_date_hint"
                 android:paddingBottom="0dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingHorizontal="10dp"
                 android:textColor="@color/create_donation_text_color"
                 android:textColorHint="@color/white" />
             <ImageView
@@ -142,8 +140,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
                 android:paddingBottom="0dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingHorizontal="10dp"
                 android:textColor="@color/create_donation_text_color"
                 android:textColorHint="@color/white" />
             <ImageView
@@ -171,8 +168,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="text"
                 android:paddingBottom="0dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingHorizontal="10dp"
                 android:textColor="@color/create_donation_text_color"
                 android:textColorHint="@color/white" />
             <ImageView
@@ -204,15 +200,14 @@
                 android:background="@color/dark_black"
                 android:inputType="text"
                 android:paddingBottom="0dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingHorizontal="10dp"
                 android:textColor="@color/create_donation_text_color"
                 android:textColorHint="@color/white"/>
             <ImageView
                 android:id="@+id/create_donation_name_bottom_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/bottom_line_focused"/>
+                android:src="@drawable/bottom_line_unfocused"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>

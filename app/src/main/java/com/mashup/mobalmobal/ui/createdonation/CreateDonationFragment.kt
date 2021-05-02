@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
-import android.widget.ImageView
 import androidx.core.animation.doOnEnd
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
@@ -159,25 +158,45 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             binding.createDonationStartDateInput
         )
 
-        binding.createDonationNameInput.setOnFocusChangeListener(
-            binding.createDonationNameBottomLine
-        )
+        binding.createDonationNameInput.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.createDonationNameBottomLine.setImageResource(R.drawable.bottom_line_focused)
+            } else {
+                binding.createDonationNameBottomLine.setImageResource(R.drawable.bottom_line_unfocused)
+            }
+        }
 
-        binding.createDonationDescriptionInput.setOnFocusChangeListener(
-            binding.createDonationDescriptionBottomLine
-        )
+        binding.createDonationDescriptionInput.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.createDonationDescriptionBottomLine.setImageResource(R.drawable.bottom_line_focused)
+            } else {
+                binding.createDonationDescriptionBottomLine.setImageResource(R.drawable.bottom_line_unfocused)
+            }
+        }
 
-        binding.createDonationPriceInput.setOnFocusChangeListener(
-            binding.createDonationPriceBottomLine
-        )
+        binding.createDonationPriceInput.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.createDonationPriceBottomLine.setImageResource(R.drawable.bottom_line_focused)
+            } else {
+                binding.createDonationPriceBottomLine.setImageResource(R.drawable.bottom_line_unfocused)
+            }
+        }
 
-        binding.createDonationStartDateInput.setOnFocusChangeListener(
-            binding.createDonationStartDateBottomLine
-        )
+        binding.createDonationStartDateInput.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.createDonationStartDateBottomLine.setImageResource(R.drawable.bottom_line_focused)
+            } else {
+                binding.createDonationStartDateBottomLine.setImageResource(R.drawable.bottom_line_unfocused)
+            }
+        }
 
-        binding.createDonationDueDateInput.setOnFocusChangeListener(
-            binding.createDonationDueDateBottomLine
-        )
+        binding.createDonationDueDateInput.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.createDonationDueDateBottomLine.setImageResource(R.drawable.bottom_line_focused)
+            } else {
+                binding.createDonationDueDateBottomLine.setImageResource(R.drawable.bottom_line_unfocused)
+            }
+        }
     }
 
     private fun EditText.setAnimationListener(
@@ -191,18 +210,6 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
                 goDownAnimation(viewIndex, nextViewLayout, nextView)
             }
             false
-        }
-    }
-
-    private fun EditText.setOnFocusChangeListener(
-        bottomLineView: ImageView
-    ) {
-        setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                bottomLineView.setImageResource(R.drawable.bottom_line_focused)
-            } else {
-                bottomLineView.setImageResource(R.drawable.bottom_line_unfocused)
-            }
         }
     }
 

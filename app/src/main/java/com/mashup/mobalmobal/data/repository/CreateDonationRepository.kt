@@ -29,13 +29,14 @@ class CreateDonationRepository @Inject constructor(private val service: CreateDo
         )
         return service.createDonation(
             mapOf(
-                "title" to title.toRequestBody("text/plain".toMediaTypeOrNull()),
-                "description" to description.toRequestBody("text/plain".toMediaTypeOrNull()),
-                "goal" to goal.toString().toRequestBody("text/plain".toMediaTypeOrNull()),
-                "started_at" to startedAt.toRequestBody("text/plain".toMediaTypeOrNull()),
-                "end_at" to endAt.toRequestBody("text/plain".toMediaTypeOrNull())
+                "title" to title.toTextPlainRequestBody(),
+                "description" to description.toTextPlainRequestBody(),
+                "goal" to goal.toString().toTextPlainRequestBody(),
+                "started_at" to startedAt.toTextPlainRequestBody(),
+                "end_at" to endAt.toTextPlainRequestBody()
             ),
             filePart
         )
     }
+    fun String.toTextPlainRequestBody() = this.toRequestBody("text/plain".toMediaTypeOrNull())
 }

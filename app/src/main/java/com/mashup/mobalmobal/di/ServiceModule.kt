@@ -39,10 +39,6 @@ object ServiceModule {
         MobalRetrofit.create(okHttpClient)
 
     @Provides
-    fun provideFileService(okHttpClient: OkHttpClient): FileService =
-        MobalRetrofit.create(okHttpClient)
-
-    @Provides
     fun provideDonateService(okHttpClient: OkHttpClient): DonateService =
         MobalRetrofit.create(okHttpClient)
 

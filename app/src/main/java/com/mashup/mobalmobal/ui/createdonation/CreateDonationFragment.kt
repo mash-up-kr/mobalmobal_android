@@ -67,7 +67,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         setInputTextWatcher()
         setDateTimePickerDialog()
         binding.createDonationCompleteButton.setOnClickListener {
-            createDonationViewModel.createDonation(requireContext())
+            createDonationViewModel.createDonation()
         }
         binding.toolbar.setNavigationOnClickListener {
             createDonationViewModel.clearData()

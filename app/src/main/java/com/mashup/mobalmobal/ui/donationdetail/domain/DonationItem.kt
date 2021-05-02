@@ -34,7 +34,7 @@ fun PostDto.toDonationItem(): DonationItem =
             it.addAll(donatedUsers?.map { donator ->
                 User(
                     userId = donator.id,
-                    nickName = donator.nickname,
+                    nickName = donator.nickname ?: "",
                     profileUrl = donator.profileImage
                 )
             } ?: emptyList())

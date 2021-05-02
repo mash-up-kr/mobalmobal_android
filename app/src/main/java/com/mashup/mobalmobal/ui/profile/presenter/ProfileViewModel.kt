@@ -5,7 +5,7 @@ import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.data.dto.PostDto
-import com.mashup.mobalmobal.dto.UserDto
+import com.mashup.mobalmobal.data.dto.UserDto
 import com.mashup.mobalmobal.ui.profile.data.dto.*
 import com.mashup.mobalmobal.ui.profile.data.repository.ProfileRepository
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem

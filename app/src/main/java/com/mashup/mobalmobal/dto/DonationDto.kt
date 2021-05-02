@@ -1,6 +1,7 @@
 package com.mashup.mobalmobal.dto
 
 import com.google.gson.annotations.SerializedName
+import com.mashup.mobalmobal.data.dto.UserDto
 
 data class DonationDto(
     @SerializedName("donation_id")

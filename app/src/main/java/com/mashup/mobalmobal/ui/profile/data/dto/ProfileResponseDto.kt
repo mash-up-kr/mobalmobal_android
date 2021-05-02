@@ -1,7 +1,7 @@
 package com.mashup.mobalmobal.ui.profile.data.dto
 
 import com.google.gson.annotations.SerializedName
-import com.mashup.mobalmobal.dto.UserDto
+import com.mashup.mobalmobal.data.dto.UserDto
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 
 data class ProfileResponseDto (
@@ -18,10 +18,10 @@ data class ProfileDto (
 
 fun UserDto.toProfileItem(): ProfileItem =
     ProfileItem.User(
-        userId = userId,
-        nickName = nickName,
-        profileUrl = profileUrl ?: "",
-        point = cash ?: 0
+        userId = id,
+        nickName = nickname ?: "",
+        profileUrl = profileImage ?: "",
+        point = cash
     )
 
 

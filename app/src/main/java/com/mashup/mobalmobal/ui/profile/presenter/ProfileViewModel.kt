@@ -77,7 +77,7 @@ class ProfileViewModel @Inject constructor(
     private fun requestDonations() =
         requestMyCreateDonations()
             .zipWith(requestMyDonated())
-            .zipWith(reuqestMyClosed())
+            .zipWith(requestMyClosed())
             .map {
                 val createDonations =
                     it.first.first.toProfileItems(R.string.profile_header_donation_request)
@@ -89,7 +89,7 @@ class ProfileViewModel @Inject constructor(
                 mutableListOf<ProfileItem>().apply {
                     addAll(
                         Triple(
-                            createDonations.getDonationCount() ,
+                            createDonations.getDonationCount(),
                             donatedDoantions.getDonationCount(),
                             closedDonations.getDonationCount()
                         ).toSummaryProfileItem()
@@ -102,12 +102,12 @@ class ProfileViewModel @Inject constructor(
     private fun requestMyCreateDonations() =
         profileRepository.getMyPosts(STATUS_DONATION_BEFORE)
             .zipWith(profileRepository.getMyPosts(STATUS_DONATION_INPROGRESS))
-            .map{pair ->
+            .map { pair ->
                 val beforeDonation = pair.first.data.posts
                 val inProgressDonation = pair.second.data.posts
                 val list = mutableListOf<PostDto>().also {
-                    if(!beforeDonation.isNullOrEmpty()) it.addAll(beforeDonation)
-                    if(!inProgressDonation.isNullOrEmpty()) it.addAll(inProgressDonation)
+                    if (!beforeDonation.isNullOrEmpty()) it.addAll(beforeDonation)
+                    if (!inProgressDonation.isNullOrEmpty()) it.addAll(inProgressDonation)
                 }
                 MyPostDto(list)
             }
@@ -115,27 +115,27 @@ class ProfileViewModel @Inject constructor(
     private fun requestMyDonated() =
         profileRepository.getMyDonations()
             .map {
-                if(it.data.donates.isNullOrEmpty()){
+                if (it.data.donates.isNullOrEmpty()) {
                     MyDonateDto(emptyList())
-                }else{
+                } else {
                     it.data
                 }
             }
 
-    private fun reuqestMyClosed() =
+    private fun requestMyClosed() =
         profileRepository.getMyPosts(STATUS_DONATION_EXPIRED)
             .map {
-                if(it.data.posts.isNullOrEmpty()){
+                if (it.data.posts.isNullOrEmpty()) {
                     MyPostDto(emptyList())
-                }else{
+                } else {
                     it.data
                 }
             }
 
     private fun List<ProfileItem>.getDonationCount() =
-        if(isNullOrEmpty()) {
+        if (isNullOrEmpty()) {
             0
-        }else{
+        } else {
             size - 1
         }
 }

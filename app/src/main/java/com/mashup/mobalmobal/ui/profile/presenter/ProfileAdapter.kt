@@ -3,14 +3,19 @@ package com.mashup.mobalmobal.ui.profile.presenter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.base.image.GlideRequests
-import com.mashup.mobalmobal.databinding.*
+import com.mashup.mobalmobal.databinding.HolderProfileDonationBinding
+import com.mashup.mobalmobal.databinding.HolderProfileDonationSummaryBinding
+import com.mashup.mobalmobal.databinding.HolderProfileHeaderBinding
+import com.mashup.mobalmobal.databinding.HolderProfileUserBinding
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
-import com.mashup.mobalmobal.ui.profile.presenter.viewholder.*
+import com.mashup.mobalmobal.ui.profile.presenter.viewholder.ProfileDonationSummaryViewHolder
+import com.mashup.mobalmobal.ui.profile.presenter.viewholder.ProfileDonationViewHolder
+import com.mashup.mobalmobal.ui.profile.presenter.viewholder.ProfileHeaderViewHolder
+import com.mashup.mobalmobal.ui.profile.presenter.viewholder.ProfileUserViewHolder
 import javax.inject.Inject
 
 class ProfileAdapter @Inject constructor(

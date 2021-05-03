@@ -4,21 +4,21 @@ import com.google.gson.annotations.SerializedName
 import com.mashup.mobalmobal.data.dto.PostDto
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 
-data class MyDonateResponseDto (
+data class MyDonateResponseDto(
     @SerializedName("code")
     val code: Int,
     @SerializedName("data")
     val `data`: MyDonateDto
 )
 
-data class MyDonateDto (
+data class MyDonateDto(
     @SerializedName("donate")
     val donates: List<DonateDto>?
 )
 
 fun MyDonateDto.toProfileItems(headerStringId: Int): List<ProfileItem> {
     return mutableListOf<ProfileItem>().also {
-        if(donates.isNullOrEmpty()) return emptyList()
+        if (donates.isNullOrEmpty()) return emptyList()
 
         it.add(
             ProfileItem.Header(

@@ -4,15 +4,13 @@ import com.google.gson.Gson
 import com.mashup.mobalmobal.ui.profile.data.ProfileMockData
 import com.mashup.mobalmobal.ui.profile.data.dto.MyDonateResponseDto
 import com.mashup.mobalmobal.ui.profile.data.dto.MyPostResponseDto
-import com.mashup.mobalmobal.ui.profile.data.dto.ProfileResponseDto
-import com.mashup.mobalmobal.ui.profile.presenter.ProfileFragment
 import com.mashup.mobalmobal.ui.profile.presenter.ProfileViewModel
 import io.reactivex.Single
 
 class MockProfileRepositoryImpl : ProfileRepository {
 
     override fun getMyPosts(status: String): Single<MyPostResponseDto> =
-        when(status){
+        when (status) {
             ProfileViewModel.STATUS_DONATION_BEFORE -> {
                 Single.just(
                     Gson().fromJson(
@@ -37,7 +35,7 @@ class MockProfileRepositoryImpl : ProfileRepository {
                     )
                 )
             }
-            else ->{
+            else -> {
                 Single.just(
                     Gson().fromJson(
                         ProfileMockData.postDataExpired,

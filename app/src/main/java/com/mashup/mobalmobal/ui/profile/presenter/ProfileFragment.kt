@@ -48,16 +48,19 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
                     super.getItemOffsets(outRect, view, parent, state)
                     val position = parent.getChildAdapterPosition(view)
 
-                    when(profileAdapter.currentList[position]){
+                    when (profileAdapter.currentList[position]) {
                         is ProfileItem.Header -> {
                             context?.let {
-                                outRect.top = it.resources.getDimensionPixelOffset(R.dimen.profile_post_header_top_margin)
-                                outRect.bottom = it.resources.getDimensionPixelOffset(R.dimen.profile_post_item_bottom_margin)
+                                outRect.top =
+                                    it.resources.getDimensionPixelOffset(R.dimen.profile_post_header_top_margin)
+                                outRect.bottom =
+                                    it.resources.getDimensionPixelOffset(R.dimen.profile_post_item_bottom_margin)
                             }
                         }
                         is ProfileItem.Donation -> {
                             context?.let {
-                                outRect.bottom = it.resources.getDimensionPixelOffset(R.dimen.profile_post_item_bottom_margin)
+                                outRect.bottom =
+                                    it.resources.getDimensionPixelOffset(R.dimen.profile_post_item_bottom_margin)
                             }
                         }
                     }

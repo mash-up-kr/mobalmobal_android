@@ -6,17 +6,18 @@ import com.mashup.mobalmobal.ui.profile.data.dto.MyDonateResponseDto
 import com.mashup.mobalmobal.ui.profile.data.dto.MyPostResponseDto
 import com.mashup.mobalmobal.ui.profile.data.service.ProfileService
 import io.reactivex.Single
+
 class ProfileRepositoryImpl(
     private val profileService: ProfileService
 ) : ProfileRepository {
 
     override fun getMyPosts(status: String): Single<MyPostResponseDto> {
-        val reqeustBody = requestBodyOf {
+        val requestBody = requestBodyOf {
             put("filter", JsonObject().apply {
                 put("status", status)
             })
         }
-        return profileService.getMyPosts(reqeustBody)
+        return profileService.getMyPosts(requestBody)
     }
 
 

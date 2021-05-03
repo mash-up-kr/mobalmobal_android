@@ -2,7 +2,6 @@ package com.mashup.mobalmobal.ui.profile.data.repository
 
 import com.mashup.mobalmobal.ui.profile.data.dto.MyDonateResponseDto
 import com.mashup.mobalmobal.ui.profile.data.dto.MyPostResponseDto
-import com.mashup.mobalmobal.ui.profile.data.dto.ProfileResponseDto
 import io.reactivex.Single
 
 interface ProfileRepository {

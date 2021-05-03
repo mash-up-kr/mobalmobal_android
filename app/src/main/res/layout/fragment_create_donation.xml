@@ -91,7 +91,7 @@
                 android:id="@+id/create_donation_due_date_bottom_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/bottom_line_focused"/>
+                android:src="@drawable/able_shadow_line"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -119,7 +119,7 @@
                 android:id="@+id/create_donation_start_date_bottom_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/bottom_line_focused"/>
+                android:src="@drawable/able_shadow_line"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -147,7 +147,7 @@
                 android:id="@+id/create_donation_price_bottom_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/bottom_line_focused"/>
+                android:src="@drawable/able_shadow_line"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -175,7 +175,7 @@
                 android:id="@+id/create_donation_description_bottom_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/bottom_line_focused"/>
+                android:src="@drawable/able_shadow_line"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -207,7 +207,7 @@
                 android:id="@+id/create_donation_name_bottom_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/bottom_line_unfocused"/>
+                android:src="@drawable/disable_shadow_line"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>

@@ -39,5 +39,5 @@
     <color name="list_background">#222222</color>
     <color name="white_50">#80ffffff</color>
     <color name="shadow_detail_product">#ccffe074</color>
-    <color name="shadow_detail_product_image">#b3101010</color>
+    <color name="shadow_detail_product_image">#66101010</color>
 </resources>

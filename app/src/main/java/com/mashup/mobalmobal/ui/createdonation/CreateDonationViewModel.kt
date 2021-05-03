@@ -1,13 +1,11 @@
 package com.mashup.mobalmobal.ui.createdonation
 
-import android.content.Context
 import android.net.Uri
 import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.data.repository.CreateDonationRepository
-import com.mashup.mobalmobal.data.repository.FileRepository
 import com.mashup.mobalmobal.util.DateTimeUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
@@ -21,7 +19,6 @@ import javax.inject.Inject
 class CreateDonationViewModel @Inject constructor(
     schedulerProvider: BaseSchedulerProvider,
     private val createDonationRepository: CreateDonationRepository,
-    private val fileRepository: FileRepository
 ) : BaseViewModel(schedulerProvider) {
 
     private val _createDonationInputSubject: BehaviorSubject<CreateDonation> =
@@ -102,13 +99,14 @@ class CreateDonationViewModel @Inject constructor(
         )
     }
 
-    fun createDonation(context: Context) {
+    fun createDonation() {
         _createDonationInputSubject.firstOrError()
             .subscribeOnIO()
             .flatMap { createDonationInput ->
                 if (!createDonationInput.description.isNullOrBlank() &&
                     !createDonationInput.productName.isNullOrBlank() &&
                     createDonationInput.fundAmount != null &&
+                    createDonationInput.postImage != null &&
                     !createDonationInput.startDate.isNullOrBlank() &&
                     !createDonationInput.dueDate.isNullOrBlank()
                 ) {
@@ -116,11 +114,10 @@ class CreateDonationViewModel @Inject constructor(
                         title = createDonationInput.productName,
                         description = createDonationInput.description,
                         goal = createDonationInput.fundAmount,
+                        postImage = createDonationInput.postImage,
                         startedAt = createDonationInput.startDate,
                         endAt = createDonationInput.dueDate
                     )
-
-
                 } else {
                     when {
                         createDonationInput.description.isNullOrBlank() ->

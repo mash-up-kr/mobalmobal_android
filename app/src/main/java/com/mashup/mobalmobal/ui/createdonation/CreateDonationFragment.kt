@@ -66,7 +66,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         setInputTextWatcher()
         setDateTimePickerDialog()
         binding.createDonationCompleteButton.setOnClickListener {
-            createDonationViewModel.createDonation(requireContext())
+            createDonationViewModel.createDonation()
         }
         binding.toolbar.setNavigationOnClickListener {
             createDonationViewModel.clearData()
@@ -158,6 +158,45 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             binding.createDonationStartDateInput
         )
 
+        binding.createDonationNameInput.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.createDonationNameBottomLine.setImageResource(R.drawable.able_shadow_line)
+            } else {
+                binding.createDonationNameBottomLine.setImageResource(R.drawable.disable_shadow_line)
+            }
+        }
+
+        binding.createDonationDescriptionInput.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.createDonationDescriptionBottomLine.setImageResource(R.drawable.able_shadow_line)
+            } else {
+                binding.createDonationDescriptionBottomLine.setImageResource(R.drawable.disable_shadow_line)
+            }
+        }
+
+        binding.createDonationPriceInput.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.createDonationPriceBottomLine.setImageResource(R.drawable.able_shadow_line)
+            } else {
+                binding.createDonationPriceBottomLine.setImageResource(R.drawable.disable_shadow_line)
+            }
+        }
+
+        binding.createDonationStartDateInput.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.createDonationStartDateBottomLine.setImageResource(R.drawable.able_shadow_line)
+            } else {
+                binding.createDonationStartDateBottomLine.setImageResource(R.drawable.disable_shadow_line)
+            }
+        }
+
+        binding.createDonationDueDateInput.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.createDonationDueDateBottomLine.setImageResource(R.drawable.able_shadow_line)
+            } else {
+                binding.createDonationDueDateBottomLine.setImageResource(R.drawable.disable_shadow_line)
+            }
+        }
     }
 
     private fun EditText.setAnimationListener(

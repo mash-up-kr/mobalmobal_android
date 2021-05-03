@@ -156,7 +156,7 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
                     val actualWidth = it.measuredWidth * actualRatio
                     width = actualWidth.toInt()
                 }
-                if(actualRatio > 0) visibility = ViewGroup.VISIBLE
+                if (actualRatio > 0) visibility = ViewGroup.VISIBLE
             }
         }
     }

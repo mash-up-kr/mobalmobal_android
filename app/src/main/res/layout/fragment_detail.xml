@@ -59,8 +59,8 @@
                 android:id="@+id/progress_donating"
                 android:layout_width="0dp"
                 android:layout_height="22dp"
-                android:visibility="gone"
                 android:background="@drawable/progress_detail_neon"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -102,11 +102,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="normal"
-                android:maxLines="2"
-                android:ellipsize="end"
                 app:layout_constraintStart_toEndOf="@id/iv_profile"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Jercy는 \nPS5 가지고 싶어요." />

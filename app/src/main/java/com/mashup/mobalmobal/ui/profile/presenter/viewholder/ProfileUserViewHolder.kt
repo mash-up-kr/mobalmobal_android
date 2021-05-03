@@ -14,6 +14,12 @@ class ProfileUserViewHolder(
     private val glideRequests: GlideRequests
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    init {
+        binding.tvProfilePoint.setOnClickListener {
+            listener?.onProfileItemClick(it, bindingAdapterPosition)
+        }
+    }
+
     private val profileUserRadius = binding.root.context.resources
         .getDimensionPixelSize(R.dimen.profile_user_radius)
 

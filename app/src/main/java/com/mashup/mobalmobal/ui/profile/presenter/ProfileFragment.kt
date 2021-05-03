@@ -13,6 +13,8 @@ import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.extension.showToast
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentProfileBinding
+import com.mashup.mobalmobal.extensions.showChargeBottomSheet
+import com.mashup.mobalmobal.ui.charge.ChargeViewModel
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -22,6 +24,7 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
     ProfileAdapter.ProfileClickListener {
 
     private val profileViewModel: ProfileViewModel by viewModels()
+    private val chargeViewModel: ChargeViewModel by viewModels()
 
     @Inject
     lateinit var profileAdapter: ProfileAdapter
@@ -90,7 +93,19 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
     }
 
     override fun onProfileItemClick(view: View, position: Int) {
-
+        if (view.id == R.id.tv_profile_point) {
+            showChargeBottomSheet(
+                title = getString(R.string.charging),
+                onPriceClick = { price ->
+                    chargeViewModel.setChargeAmount(price.toString())
+                    true
+                },
+                onDirectClick = {
+                    navigateProfileToCharging()
+                    true
+                }
+            )
+        }
     }
 
     private fun navigateToBack() =
@@ -102,4 +117,6 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
     private fun navigateProfileToSettings() =
         findNavController().navigate(R.id.action_profileFragment_to_settingsFragment)
 
+    private fun navigateProfileToCharging() =
+        findNavController().navigate(R.id.action_profileFragment_to_chargeFragment)
 }

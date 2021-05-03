@@ -24,18 +24,18 @@ fun PostDto.toDonationItem(): DonationItem =
         productName = title,
         description = description ?: "",
         author = User(
-            userId = user?.userId ?: "",
-            nickName = user?.nickName ?: "",
-            profileUrl = user?.profileUrl ?: ""
+            userId = user?.id ?: -1,
+            nickName = user?.nickname ?: "",
+            profileUrl = user?.profileImage ?: ""
         ),
         goalPrice = goalPrice,
         currentPrice = currentAmount,
         donators = mutableListOf<User>().also {
             it.addAll(donatedUsers?.map { donator ->
                 User(
-                    userId = donator.userId,
-                    nickName = donator.nickName,
-                    profileUrl = donator.profileUrl
+                    userId = donator.id,
+                    nickName = donator.nickname,
+                    profileUrl = donator.profileImage ?: ""
                 )
             } ?: emptyList())
         },
@@ -44,7 +44,7 @@ fun PostDto.toDonationItem(): DonationItem =
     )
 
 data class User(
-    val userId: String,
+    val userId: Int,
     val nickName: String,
     val profileUrl: String
 )

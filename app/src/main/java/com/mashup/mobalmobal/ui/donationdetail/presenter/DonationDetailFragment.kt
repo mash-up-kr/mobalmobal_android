@@ -151,10 +151,12 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
         val ratio = progress.toFloat() / max.toFloat()
         val actualRatio = if (ratio > 1.0f) 1.0f else ratio
         binding.root.doOnPreDraw {
-            binding.progressDonating.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                val actualMeasuredWidth = it.measuredWidth
-                val actualWidth = actualMeasuredWidth * actualRatio
-                width = actualWidth.toInt()
+            binding.progressDonating.apply {
+                updateLayoutParams<ConstraintLayout.LayoutParams> {
+                    val actualWidth = it.measuredWidth * actualRatio
+                    width = actualWidth.toInt()
+                }
+                if(actualRatio > 0) visibility = ViewGroup.VISIBLE
             }
         }
     }

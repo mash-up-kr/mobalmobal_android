@@ -1,7 +1,6 @@
 package com.mashup.mobalmobal.data.dto
 
 import com.google.gson.annotations.SerializedName
-import com.mashup.mobalmobal.dto.UserDto
 
 data class PostDto(
     @SerializedName("post_id") val postId: Int,

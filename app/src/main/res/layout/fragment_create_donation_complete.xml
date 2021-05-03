@@ -41,15 +41,13 @@
 
     <TextView
         android:id="@+id/create_donation_complete_share_button"
-        android:layout_width="140dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:background="@drawable/round_shadow_button"
         android:gravity="center"
-        android:paddingStart="44dp"
-        android:paddingTop="17.3dp"
-        android:paddingEnd="44dp"
-        android:paddingBottom="17.3dp"
+        android:paddingHorizontal="44dp"
+        android:paddingVertical="17.3dp"
         android:text="@string/create_donation_share_button"
         android:textColor="@color/white"
         android:textSize="14sp"

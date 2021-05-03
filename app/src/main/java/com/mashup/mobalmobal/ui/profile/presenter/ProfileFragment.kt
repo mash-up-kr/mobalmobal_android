@@ -72,7 +72,7 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
                 .subscribeWithErrorLogger(::showToast)
                 .addToDisposables()
 
-            profileSubject.observeOnMain()
+            itemSubject.observeOnMain()
                 .subscribeWithErrorLogger { profileAdapter.submitList(it) }
                 .addToDisposables()
 

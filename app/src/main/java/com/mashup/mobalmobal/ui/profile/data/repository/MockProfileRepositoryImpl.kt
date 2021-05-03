@@ -11,14 +11,6 @@ import io.reactivex.Single
 
 class MockProfileRepositoryImpl : ProfileRepository {
 
-    override fun getUserInfo(): Single<ProfileResponseDto> =
-        Single.just(
-            Gson().fromJson(
-                ProfileMockData.userData,
-                ProfileResponseDto::class.java
-            )
-        )
-
     override fun getMyPosts(status: String): Single<MyPostResponseDto> =
         when(status){
             ProfileViewModel.STATUS_DONATION_BEFORE -> {

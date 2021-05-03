@@ -1,6 +1,7 @@
 package com.mashup.mobalmobal.ui.profile.domain.model
 
 import androidx.annotation.StringRes
+import com.mashup.mobalmobal.data.dto.UserDto
 
 sealed class ProfileItem(
     val id: String
@@ -42,3 +43,11 @@ sealed class ProfileItem(
         val endAt: String,
     ) : ProfileItem(donationId.toString())
 }
+
+fun UserDto.toProfileItem(): ProfileItem =
+    ProfileItem.User(
+        userId = id,
+        nickName = nickname ?: "",
+        profileUrl = profileImage ?: "",
+        point = cash
+    )

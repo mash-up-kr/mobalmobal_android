@@ -38,5 +38,6 @@ class CreateDonationRepository @Inject constructor(private val service: CreateDo
             filePart
         )
     }
+
     fun String.toTextPlainRequestBody() = this.toRequestBody("text/plain".toMediaTypeOrNull())
 }

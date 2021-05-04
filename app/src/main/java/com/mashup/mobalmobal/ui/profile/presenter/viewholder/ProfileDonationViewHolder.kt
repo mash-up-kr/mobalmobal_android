@@ -26,7 +26,6 @@ class ProfileDonationViewHolder(
 
         binding.donation.apply {
             goalPrice = item.goalPrice.toInt()
-            currentPrice = item.donatedPrice.toInt()
             dueDate = DateTimeUtils.calculateDecimalDayText(item.startAt, item.endAt) ?: ""
             currentPrice = item.donatedPrice.toInt()
             setDonationImage(glideRequests, item.imageUrl)

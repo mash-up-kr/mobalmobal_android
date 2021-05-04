@@ -39,10 +39,6 @@ class DonationDetailViewModel @Inject constructor(
     private val _donationSubject: BehaviorSubject<DonationItem> = BehaviorSubject.create()
     val donationSubject get() = _donationSubject
 
-    init {
-        requestDonationDetail()
-    }
-
     fun requestDonationDetail() {
         _postIdSubject.firstOrError()
             .flatMap { donationDetailRepository.getDonationDetail(it.toString()) }

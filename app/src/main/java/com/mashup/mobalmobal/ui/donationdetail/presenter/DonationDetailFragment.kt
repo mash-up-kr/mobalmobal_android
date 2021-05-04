@@ -78,9 +78,16 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
 
         tvDonationTitle.text = SpannableStringBuilder(donationTitle).apply {
             setSpan(
-                RelativeSizeSpan(1.15f),
+                RelativeSizeSpan(1.2f),
                 donationTitle.indexOf(donation.author.nickName),
                 donationTitle.indexOf(donation.author.nickName) + donation.author.nickName.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            setSpan(
+                RelativeSizeSpan(1.2f),
+                donationTitle.indexOf(donation.productName),
+                donationTitle.indexOf(donation.productName) + donation.productName.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
 

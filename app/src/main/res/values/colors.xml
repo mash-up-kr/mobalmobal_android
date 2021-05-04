@@ -41,5 +41,5 @@
     <color name="shadow_detail_product">#ccffe074</color>
     <color name="shadow_detail_product_image">#66101010</color>
     <color name="content_background">#151516</color>
-    <color name="loading_view_mask">#661f262a</color>
+    <color name="loading_view_mask">#66565656</color>
 </resources>

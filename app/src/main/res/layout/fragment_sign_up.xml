@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_grey">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/sign_up_app_bar_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_navigation_24dp"
+            app:title="회원가입"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sign_up_nickname_text_input_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="33dp"
+        android:foregroundGravity="center_vertical"
+        android:gravity="center_vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        app:boxBackgroundColor="#11FFFFFF"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="35dp"
+        app:boxCornerRadiusBottomStart="35dp"
+        app:boxCornerRadiusTopEnd="35dp"
+        app:boxCornerRadiusTopStart="35dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sign_up_app_bar_layout"
+        app:startIconDrawable="@drawable/ic_profile"
+        app:startIconTint="#7aff97">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sign_up_nickname_text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="@string/sign_up_nickname_hint"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingTop="21dp"
+            android:paddingBottom="21dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sign_up_cell_phone_text_input_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="33dp"
+        android:foregroundGravity="center_vertical"
+        android:gravity="center_vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        app:boxBackgroundColor="#11FFFFFF"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="35dp"
+        app:boxCornerRadiusBottomStart="35dp"
+        app:boxCornerRadiusTopEnd="35dp"
+        app:boxCornerRadiusTopStart="35dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sign_up_nickname_text_input_layout"
+        app:startIconDrawable="@drawable/ic_call"
+        app:startIconTint="#7AFF97">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sign_up_cell_phone_text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="@string/sign_up_cell_phone_hint"
+            android:importantForAutofill="no"
+            android:inputType="phone"
+            android:paddingTop="21dp"
+            android:paddingBottom="21dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sign_up_email_text_input_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="33dp"
+        android:foregroundGravity="center_vertical"
+        android:gravity="center_vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        app:boxBackgroundColor="#11FFFFFF"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="35dp"
+        app:boxCornerRadiusBottomStart="35dp"
+        app:boxCornerRadiusTopEnd="35dp"
+        app:boxCornerRadiusTopStart="35dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sign_up_cell_phone_text_input_layout"
+        app:startIconDrawable="@drawable/ic_message"
+        app:startIconTint="#7AFF97">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sign_up_email_text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="@string/sign_up_email_hint"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:paddingTop="21dp"
+            android:paddingBottom="21dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/sign_up_policy_check_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="35dp"
+        app:buttonTint="#7AFF97"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sign_up_email_text_input_layout" />
+
+    <TextView
+        android:id="@+id/sign_up_policy_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="33dp"
+        android:maxLines="2"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="@id/sign_up_policy_check_box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/sign_up_policy_check_box"
+        app:layout_constraintTop_toTopOf="@id/sign_up_policy_check_box"
+        tools:text="@tools:sample/lorem/random" />
+
+    <TextView
+        android:id="@+id/sign_up_sign_up_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/sign_up_complete_selector"
+        android:paddingStart="65dp"
+        android:paddingTop="21dp"
+        android:paddingEnd="65dp"
+        android:paddingBottom="21dp"
+        android:text="@string/sign_up_complete"
+        android:textColor="@color/complete_text_color_selector"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sign_up_policy_text" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

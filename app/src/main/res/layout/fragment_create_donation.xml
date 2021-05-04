@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_black">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/sign_up_app_bar_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_navigation_24dp"
+            app:title="@string/create_donation_title"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_horizontal_middle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="300dp" />
+
+    <ImageView
+        android:id="@+id/create_donation_product_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="223dp"
+        android:background="@color/dark_grey_two"
+        android:scaleType="center"
+        android:src="@drawable/ic_camera_create_donation_imageview"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/guide_horizontal_middle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sign_up_app_bar_layout"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:id="@+id/create_donation_input_wrapper_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/guide_horizontal_middle"
+        app:layout_constraintEnd_toStartOf="@id/guide_end"
+        app:layout_constraintStart_toStartOf="@id/guide_start">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_donation_due_date_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:boxBackgroundColor="@color/dark_black"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_donation_due_date_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/create_donation_due_date_hint"
+                android:paddingHorizontal="10dp"
+                android:paddingBottom="0dp"
+                android:textColor="@color/create_donation_text_color"
+                android:textColorHint="@color/white" />
+
+            <ImageView
+                android:id="@+id/create_donation_due_date_bottom_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/able_shadow_line" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_donation_start_date_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:boxBackgroundColor="@color/dark_black"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_donation_start_date_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/create_donation_start_date_hint"
+                android:paddingHorizontal="10dp"
+                android:paddingBottom="0dp"
+                android:textColor="@color/create_donation_text_color"
+                android:textColorHint="@color/white" />
+
+            <ImageView
+                android:id="@+id/create_donation_start_date_bottom_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/able_shadow_line" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_donation_price_text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:boxBackgroundColor="@color/dark_black"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_donation_price_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/create_donation_price_hint"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:paddingHorizontal="10dp"
+                android:paddingBottom="0dp"
+                android:textColor="@color/create_donation_text_color"
+                android:textColorHint="@color/white" />
+
+            <ImageView
+                android:id="@+id/create_donation_price_bottom_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/able_shadow_line"
+                tools:ignore="ContentDescription" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_donation_description_text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:boxBackgroundColor="@color/dark_black"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_donation_description_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/create_donation_description_hint"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:paddingHorizontal="10dp"
+                android:paddingBottom="0dp"
+                android:textColor="@color/create_donation_text_color"
+                android:textColorHint="@color/white" />
+
+            <ImageView
+                android:id="@+id/create_donation_description_bottom_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/able_shadow_line" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_donation_name_text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="@color/dark_black"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false"
+            app:layout_constraintBottom_toTopOf="@+id/guide_horizontal_middle"
+            app:layout_constraintEnd_toStartOf="@+id/guide_end"
+            app:layout_constraintStart_toStartOf="@+id/guide_start">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_donation_name_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/dark_black"
+                android:hint="@string/create_donation_product_name_hint"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:paddingHorizontal="10dp"
+                android:paddingBottom="0dp"
+                android:textColor="@color/create_donation_text_color"
+                android:textColorHint="@color/white" />
+
+            <ImageView
+                android:id="@+id/create_donation_name_bottom_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/disable_shadow_line"
+                tools:ignore="ContentDescription" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/create_donation_complete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/create_donation_complete_background"
+        android:gravity="center"
+        android:paddingStart="65dp"
+        android:paddingTop="21dp"
+        android:paddingEnd="65dp"
+        android:paddingBottom="21dp"
+        android:text="@string/create_donation_complete"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.mashup.mobalmobal.custom.view.LoadingView
+        android:id="@+id/create_donation_loading_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:background="@color/loading_view_mask"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

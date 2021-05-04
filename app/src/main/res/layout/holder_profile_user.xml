@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="28dp"
+    android:paddingBottom="22dp"
+    tools:background="@color/dark_grey">
+
+    <ImageView
+        android:id="@+id/iv_profile"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/img_profile" />
+
+    <TextView
+        android:id="@+id/tv_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="7dp"
+        android:textAppearance="@style/MobalComponent.ProfileUser"
+        app:layout_constraintStart_toEndOf="@id/iv_profile"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="유저이름" />
+
+    <TextView
+        android:id="@+id/tv_profile_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="11dp"
+        android:drawablePadding="5dp"
+        android:textAppearance="@style/MobalComponent.ProfileUserPoint"
+        app:drawableEndCompat="@drawable/arrow_right"
+        app:layout_constraintStart_toEndOf="@id/iv_profile"
+        app:layout_constraintTop_toBottomOf="@id/tv_profile_name"
+        tools:text="12,340원" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

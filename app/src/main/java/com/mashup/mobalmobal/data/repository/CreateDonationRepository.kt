@@ -1,19 +1,19 @@
 package com.mashup.mobalmobal.data.repository
 
+import android.content.Context
 import android.net.Uri
-import androidx.core.net.toFile
+import com.funin.base.funinbase.extension.toMultipartBody
 import com.mashup.mobalmobal.network.Response
 import com.mashup.mobalmobal.network.service.CreateDonationService
 import com.mashup.mobalmobal.ui.donationdetail.data.dto.DonationDetailDto
 import io.reactivex.Single
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
 class CreateDonationRepository @Inject constructor(private val service: CreateDonationService) {
     fun createDonation(
+        context: Context,
         title: String,
         description: String,
         goal: Int,
@@ -21,11 +21,8 @@ class CreateDonationRepository @Inject constructor(private val service: CreateDo
         startedAt: String,
         endAt: String
     ): Single<Response<DonationDetailDto>> {
-        val postFile = postImage.toFile()
-        val filePart = MultipartBody.Part.createFormData(
-            "post_image",
-            postFile.name,
-            postFile.asRequestBody(MultipartBody.FORM)
+        val multipartBody = postImage.toMultipartBody(context, "post_image") ?: return Single.error(
+            IllegalArgumentException("createDonation failed postImage: $postImage")
         )
         return service.createDonation(
             mapOf(
@@ -35,7 +32,7 @@ class CreateDonationRepository @Inject constructor(private val service: CreateDo
                 "started_at" to startedAt.toTextPlainRequestBody(),
                 "end_at" to endAt.toTextPlainRequestBody()
             ),
-            filePart
+            multipartBody
         )
     }
 

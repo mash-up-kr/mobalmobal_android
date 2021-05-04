@@ -29,7 +29,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBinding>() {
 
@@ -66,7 +65,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         setInputTextWatcher()
         setDateTimePickerDialog()
         binding.createDonationCompleteButton.setOnClickListener {
-            createDonationViewModel.createDonation()
+            createDonationViewModel.createDonation(requireContext())
         }
         binding.toolbar.setNavigationOnClickListener {
             createDonationViewModel.clearData()
@@ -88,6 +87,13 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
                 if (complete) {
                     navigateCreateDonationToComplete()
                 }
+            }
+            .addToDisposables()
+
+        createDonationViewModel.isCreatingDonation
+            .observeOnMain()
+            .subscribeWithErrorLogger {
+                binding.createDonationLoadingView.isVisible = it
             }
             .addToDisposables()
     }
@@ -277,7 +283,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
                 it.set(Calendar.MINUTE, minute)
             }
             val formattedDateTime = getFormattedDateTime(calendar.timeInMillis)
-            val formattedDateTimeForAPI = getFomattedDateTimeForAPI(calendar.timeInMillis)
+            val formattedDateTimeForAPI = getFormattedDateTimeForAPI(calendar.timeInMillis)
 
             if (viewId == START_DATE_TIME_PICKER) {
                 createDonationViewModel.setCreateDonationStartDate(formattedDateTimeForAPI)
@@ -314,8 +320,8 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
     }
 
     private fun getFormattedDateTime(milliSeconds: Long) =
-        SimpleDateFormat("yyyy-MM-dd HH:mm").format(milliSeconds)
+        SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREAN).format(milliSeconds)
 
-    private fun getFomattedDateTimeForAPI(milliSeconds: Long) =
-        SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(milliSeconds)
+    private fun getFormattedDateTimeForAPI(milliSeconds: Long) =
+        SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN).format(milliSeconds)
 }

@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="26dp"
                 android:layout_marginBottom="16dp"
-                android:textAppearance="@style/ModalComponent.DonationDetailPercent"
+                android:textAppearance="@style/MobalComponent.DonationDetailPercent"
                 app:layout_constraintBottom_toBottomOf="@id/iv_product"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="12%" />
@@ -153,7 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
                 android:text="@string/donation_detail_goal_price"
-                android:textAppearance="@style/ModalComponent.DonationDetailInfo"
+                android:textAppearance="@style/MobalComponent.DonationDetailInfo"
                 app:layout_constraintStart_toStartOf="@id/guide_start_second"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -162,7 +162,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
-                android:textAppearance="@style/ModalComponent.DonationDetailInfoCount"
+                android:textAppearance="@style/MobalComponent.DonationDetailInfoCount"
                 app:layout_constraintEnd_toStartOf="@id/guide_end_second"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="2,000,000" />
@@ -173,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:text="@string/donation_detail_current_price"
-                android:textAppearance="@style/ModalComponent.DonationDetailInfo"
+                android:textAppearance="@style/MobalComponent.DonationDetailInfo"
                 app:layout_constraintStart_toStartOf="@id/guide_start_second"
                 app:layout_constraintTop_toBottomOf="@id/tv_goal" />
 
@@ -182,7 +182,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
-                android:textAppearance="@style/ModalComponent.DonationDetailInfoCurrentPrice"
+                android:textAppearance="@style/MobalComponent.DonationDetailInfoCurrentPrice"
                 app:layout_constraintEnd_toStartOf="@id/guide_end_second"
                 app:layout_constraintTop_toBottomOf="@id/tv_goal"
                 tools:text="153,000" />
@@ -192,7 +192,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
-                android:textAppearance="@style/ModalComponent.DonationDetailInfo"
+                android:textAppearance="@style/MobalComponent.DonationDetailInfo"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@id/guide_start_second"
                 app:layout_constraintTop_toBottomOf="@id/tv_donation_current"
@@ -214,7 +214,7 @@
                 android:layout_marginTop="50dp"
                 android:layout_marginBottom="32dp"
                 android:text="@string/donation_detail_end_date"
-                android:textAppearance="@style/ModalComponent.DonationDetailInfo"
+                android:textAppearance="@style/MobalComponent.DonationDetailInfo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/guide_start_second"
                 app:layout_constraintTop_toBottomOf="@id/tv_donator" />
@@ -224,7 +224,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:layout_marginTop="50dp"
-                android:textAppearance="@style/ModalComponent.DonationDetailEndDay"
+                android:textAppearance="@style/MobalComponent.DonationDetailEndDay"
                 app:layout_constraintEnd_toStartOf="@id/guide_end_second"
                 app:layout_constraintTop_toBottomOf="@id/tv_donator"
                 tools:text="2021.03.01" />
@@ -241,7 +241,7 @@
                 android:id="@+id/tv_funding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/ModalComponent.DonationDetailInfoFunding"
+                android:textAppearance="@style/MobalComponent.DonationDetailInfoFunding"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

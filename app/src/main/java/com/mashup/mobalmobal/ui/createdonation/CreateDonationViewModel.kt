@@ -1,5 +1,6 @@
 package com.mashup.mobalmobal.ui.createdonation
 
+import android.content.Context
 import android.net.Uri
 import com.funin.base.funinbase.base.BaseViewModel
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
@@ -29,10 +30,8 @@ class CreateDonationViewModel @Inject constructor(
     val isCreateDonationEnabled: Observable<Boolean> = _isCreateDonationInputEnableSubject
 
     private val _createDonationErrorIdSubject: PublishSubject<Int> = PublishSubject.create()
-    val createDonationErrorIdSubject: Observable<Int> = _createDonationErrorIdSubject
 
     private val _createDonationErrorMessageSubject: PublishSubject<String> = PublishSubject.create()
-    val createDonationErrorMessage: Observable<String> = _createDonationErrorMessageSubject
 
     private val _navigateToCompleteSubject: BehaviorSubject<Boolean> =
         BehaviorSubject.createDefault(false)
@@ -40,7 +39,8 @@ class CreateDonationViewModel @Inject constructor(
 
     private val _createCompleteInputSubject: BehaviorSubject<CreateCompleteDonation> =
         BehaviorSubject.createDefault(CreateCompleteDonation())
-    val createCompleteInput = _createCompleteInputSubject.distinctUntilChanged()
+    val createCompleteInput: Observable<CreateCompleteDonation> =
+        _createCompleteInputSubject.distinctUntilChanged()
 
     init {
         _createDonationInputSubject
@@ -50,6 +50,10 @@ class CreateDonationViewModel @Inject constructor(
             }
             .addToDisposables()
     }
+
+    private val _isCreatingDonationSubject: BehaviorSubject<Boolean> =
+        BehaviorSubject.createDefault(false)
+    val isCreatingDonation: Observable<Boolean> = _isCreatingDonationSubject.distinctUntilChanged()
 
     fun clearData() {
         _createDonationInputSubject.onNext(CreateDonation())
@@ -99,9 +103,10 @@ class CreateDonationViewModel @Inject constructor(
         )
     }
 
-    fun createDonation() {
+    fun createDonation(context: Context) {
         _createDonationInputSubject.firstOrError()
             .subscribeOnIO()
+            .doOnSubscribe { _isCreatingDonationSubject.onNext(true) }
             .flatMap { createDonationInput ->
                 if (!createDonationInput.description.isNullOrBlank() &&
                     !createDonationInput.productName.isNullOrBlank() &&
@@ -111,6 +116,7 @@ class CreateDonationViewModel @Inject constructor(
                     !createDonationInput.dueDate.isNullOrBlank()
                 ) {
                     createDonationRepository.createDonation(
+                        context = context,
                         title = createDonationInput.productName,
                         description = createDonationInput.description,
                         goal = createDonationInput.fundAmount,
@@ -140,6 +146,8 @@ class CreateDonationViewModel @Inject constructor(
                     )
                 }
             }
+            .doOnSuccess { _isCreatingDonationSubject.onNext(false) }
+            .doOnError { _isCreatingDonationSubject.onNext(false) }
             .subscribeWithErrorLogger { response ->
                 if (response.data != null) {
                     _createCompleteInputSubject.onNext(

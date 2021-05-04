@@ -14,7 +14,8 @@
         android:layout_height="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/img_profile"/>
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/img_profile" />
 
     <TextView
         android:id="@+id/tv_profile_name"
@@ -22,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
         android:layout_marginTop="7dp"
-        android:textAppearance="@style/ModalComponent.ProfileUser"
+        android:textAppearance="@style/MobalComponent.ProfileUser"
         app:layout_constraintStart_toEndOf="@id/iv_profile"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="유저이름" />
@@ -33,8 +34,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
         android:layout_marginTop="11dp"
-        android:textAppearance="@style/ModalComponent.ProfileUserPoint"
         android:drawablePadding="5dp"
+        android:textAppearance="@style/MobalComponent.ProfileUserPoint"
         app:drawableEndCompat="@drawable/arrow_right"
         app:layout_constraintStart_toEndOf="@id/iv_profile"
         app:layout_constraintTop_toBottomOf="@id/tv_profile_name"

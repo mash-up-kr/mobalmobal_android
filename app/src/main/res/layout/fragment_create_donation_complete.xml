@@ -7,13 +7,16 @@
     android:background="@color/dark_black"
     tools:context=".ui.createdonation.CreateDonationCompleteFragment">
 
-    <ImageButton
+    <ImageView
         android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_menu_close"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="10dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_menu_close"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/create_donation_complete_title"

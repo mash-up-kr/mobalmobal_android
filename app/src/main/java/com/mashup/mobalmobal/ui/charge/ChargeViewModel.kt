@@ -1,24 +1,37 @@
 package com.mashup.mobalmobal.ui.charge
 
-import androidx.lifecycle.SavedStateHandle
 import com.funin.base.funinbase.base.BaseViewModel
+import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.rx.schedulers.BaseSchedulerProvider
-import com.mashup.mobalmobal.R
-import com.mashup.mobalmobal.constant.Constants.KEY_USER_NAME
+import com.mashup.mobalmobal.data.dto.UserDto
 import com.mashup.mobalmobal.data.repository.ChargeRepository
+import com.mashup.mobalmobal.data.repository.UserRepository
+import com.mashup.mobalmobal.util.DateTimeUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.rxkotlin.zipWith
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class ChargeViewModel @Inject constructor(
     schedulerProvider: BaseSchedulerProvider,
-    savedStateHandle: SavedStateHandle,
+    userRepository: UserRepository,
     private val chargeRepository: ChargeRepository
 ) : BaseViewModel(schedulerProvider) {
+
+    private val _meSubject: BehaviorSubject<UserDto> = BehaviorSubject.create()
+    private val meName: Observable<String> = _meSubject.map { it.nickname }.distinctUntilChanged()
+
+    init {
+        userRepository.fetchUser()
+            .subscribeOnIO()
+            .subscribeWithErrorLogger { response -> response.data?.let { _meSubject.onNext(it) } }
+            .addToDisposables()
+    }
 
     private val _donateTriggerSubject: PublishSubject<Boolean> = PublishSubject.create()
     val donateTrigger: Observable<Boolean> = _donateTriggerSubject
@@ -26,53 +39,39 @@ class ChargeViewModel @Inject constructor(
     private val _chargeCompleteTriggerSubject: PublishSubject<Boolean> = PublishSubject.create()
     val chargeCompleteTriggerSubject: Observable<Boolean> = _chargeCompleteTriggerSubject
 
+    private val _requestedPriceSubject: PublishSubject<Int> = PublishSubject.create()
+    val requestedPrice: Observable<Int> = _requestedPriceSubject
+
     private val _chargeErrorMessageSubject: PublishSubject<Int> = PublishSubject.create()
     val chargeErrorMessage: Observable<Int> = _chargeErrorMessageSubject
 
-    private val _chargeInputSubject: BehaviorSubject<Charge> =
-        BehaviorSubject.createDefault(Charge())
-
-    private val userNameProcessor: BehaviorSubject<String> = BehaviorSubject.create()
-
-    private val userNameSingle: Single<String> = userNameProcessor.firstOrError()
-
-    init {
-        val initialUserName = savedStateHandle.get<String>(KEY_USER_NAME)
-        if (initialUserName != null) {
-            userNameProcessor.onNext(initialUserName)
-        } else {
-            _chargeErrorMessageSubject.onNext(R.string.charge_error_user_name)
-            navigateToDonation()
-        }
-    }
+    private val _chargeAmountSubject: BehaviorSubject<String> = BehaviorSubject.create()
 
     fun setChargeAmount(amount: String) {
-        _chargeInputSubject.onNext(
-            _chargeInputSubject.value?.copy(amount = amount) ?: Charge(amount = amount)
-        )
-    }
-
-    fun setChargedAt(date: String) {
-        _chargeInputSubject.onNext(
-            _chargeInputSubject.value?.copy(chargedAt = date) ?: Charge(chargedAt = date)
-        )
+        _chargeAmountSubject.onNext(amount)
     }
 
     fun requestCharge() {
-
+        _chargeAmountSubject.firstOrError().zipWith(meName.firstOrError())
+            .flatMap { (amount, meName) ->
+                val actualAmount = amount.replace(",", "").trim()
+                if (actualAmount.isBlank()) {
+                    Single.error(IllegalArgumentException("request charge failed charge amount is blank"))
+                } else {
+                    chargeRepository.charge(
+                        amount = actualAmount,
+                        userName = meName,
+                        chargedAt = DateTimeUtils.createDateByMobalDateFormat(Date(System.currentTimeMillis()))
+                    )
+                }
+            }
+            .subscribeOnIO()
+            .subscribeWithErrorLogger {
+                if (it.data != null) {
+                    _chargeCompleteTriggerSubject.onNext(true)
+                    _requestedPriceSubject.onNext(it.data.charge.amount)
+                }
+            }
+            .addToDisposables()
     }
-
-    private fun navigateToDonation() {
-        _donateTriggerSubject.onNext(true)
-    }
-
-    private fun navigateToChargeComplete() {
-        _chargeCompleteTriggerSubject.onNext(true)
-    }
-
-    data class Charge(
-        val amount: String? = null,
-        val chargedAt: String? = null
-    )
-
 }

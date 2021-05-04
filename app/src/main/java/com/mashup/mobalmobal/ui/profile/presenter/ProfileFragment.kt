@@ -92,23 +92,22 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
                 .subscribeWithErrorLogger { findNavController().popBackStack() }
                 .addToDisposables()
         }
+
+        chargeViewModel.chargeCompleteTriggerSubject
+            .observeOnMain()
+            .subscribeWithErrorLogger {
+                if (it) {
+                    profileViewModel.fetchUser()
+                }
+            }
+            .addToDisposables()
     }
 
     override fun onProfilePointClicked() {
-        showChargeBottomSheet(
-            title = getString(R.string.charging),
-            onPriceClick = { price ->
-                chargeViewModel.setChargeAmount(price.toString())
-                true
-            },
-            onDirectClick = {
-                navigateProfileToCharging()
-                true
-            }
-        )
+        navigateProfileToCharging()
     }
 
-    override fun onDonationClicked(position : Int) {
+    override fun onDonationClicked(position: Int) {
         val donation = profileAdapter.currentList[position] as? ProfileItem.Donation
         donation?.let { navigateProfileToDetail(it.postId) }
     }
@@ -124,9 +123,8 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
     private fun navigateProfileToCharging() =
         findNavController().navigate(R.id.action_profileFragment_to_chargeFragment)
 
-    private fun navigateProfileToDetail(postId: Int) =
-        findNavController().navigate(
-            R.id.action_profileFragment_to_detailFragment,
-            bundleOf(Constants.KEY_POST_ID to postId)
-        )
+    private fun navigateProfileToDetail(postId: Int) = findNavController().navigate(
+        R.id.action_profileFragment_to_detailFragment,
+        bundleOf(Constants.KEY_POST_ID to postId)
+    )
 }

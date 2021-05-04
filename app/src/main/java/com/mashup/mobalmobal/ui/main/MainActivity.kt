@@ -7,6 +7,7 @@ import com.funin.base.funinbase.base.BaseActivity
 import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.mashup.mobalmobal.databinding.ActivityMainBinding
+import com.mashup.mobalmobal.ui.accountnumber.AccountNumberFragment
 import com.mashup.mobalmobal.ui.sign.SignActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,5 +39,13 @@ class MainActivity : BaseActivity() {
     private fun startSignActivity() {
         startActivity(Intent(this, SignActivity::class.java))
         finish()
+    }
+
+    override fun onBackPressed() {
+        val fragment = supportFragmentManager.primaryNavigationFragment
+        val actualFragment = fragment?.childFragmentManager?.primaryNavigationFragment
+        val consume = (actualFragment as? AccountNumberFragment)?.onBackPressed() ?: false
+        if (consume) return
+        super.onBackPressed()
     }
 }

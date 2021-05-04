@@ -70,39 +70,71 @@
     <fragment
         android:id="@+id/chargeFragment"
         android:name="com.mashup.mobalmobal.ui.charge.ChargeFragment"
-        android:label="ChargeFragment" />
+        android:label="ChargeFragment">
+
+        <action
+            android:id="@+id/action_charge_fragment_to_charge_complete_fragment"
+            app:destination="@id/charge_complete_fragment" />
+
+        <action
+            android:id="@+id/action_charge_fragment_to_account_number_fragment"
+            app:destination="@id/account_number_fragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/account_number_fragment"
         android:name="com.mashup.mobalmobal.ui.accountnumber.AccountNumberFragment"
-        android:label="AccountNumberFragment" />
+        android:label="AccountNumberFragment">
+
+        <action
+            android:id="@+id/action_account_number_fragment_to_profile_fragmnet"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/charge_complete_fragment"
         android:name="com.mashup.mobalmobal.ui.charge.complete.ChargeCompleteFragment"
-        android:label="ChargeCompleteFragment" />
+        android:label="ChargeCompleteFragment">
+
+        <action
+            android:id="@+id/action_charge_complete_fragment_to_main_framgnet"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/create_donation_complete_fragment"
         android:name="com.mashup.mobalmobal.ui.createdonation.CreateDonationCompleteFragment"
         android:label="fragment_create_donation_complete">
+
         <action
             android:id="@+id/action_create_donation_complete_fragment_to_mainFragment"
             app:destination="@id/mainFragment"
             app:popUpTo="@id/mainFragment"
             app:popUpToInclusive="true" />
+
     </fragment>
 
     <fragment
         android:id="@+id/create_donation_fragment"
         android:name="com.mashup.mobalmobal.ui.createdonation.CreateDonationFragment"
         android:label="CreateDonationFragment">
+
         <action
             android:id="@+id/action_CreateDonationFragment_to_createDonationCompleteFragment"
             app:destination="@id/create_donation_complete_fragment" />
+
     </fragment>
+
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.mashup.mobalmobal.ui.editprofile.EditProfileFragment"
         android:label="EditProfileFragment" />
+
 </navigation>

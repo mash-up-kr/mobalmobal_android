@@ -48,6 +48,11 @@ object DateTimeUtils {
         return date?.let { dateFormat.format(it).trim() }
     }
 
+    fun createDateByMobalDateFormat(date: Date): String {
+        val mobalDateFormat = SimpleDateFormat(MOBAL_DATE_FORMAT, Locale.getDefault())
+        return mobalDateFormat.format(date)
+    }
+
     private fun Long.toDecimalDayText(): String = if (this >= 0) {
         "D-${kotlin.math.abs(this)}"
     } else {

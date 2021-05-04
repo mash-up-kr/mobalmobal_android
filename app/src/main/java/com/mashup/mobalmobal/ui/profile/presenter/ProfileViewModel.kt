@@ -12,6 +12,8 @@ import com.mashup.mobalmobal.ui.profile.data.dto.*
 import com.mashup.mobalmobal.ui.profile.data.repository.ProfileRepository
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 import com.mashup.mobalmobal.ui.profile.domain.model.toProfileItem
+import com.mashup.mobalmobal.ui.profile.domain.model.toProfileItems
+import com.mashup.mobalmobal.ui.profile.domain.model.toSummaryProfileItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.zipWith

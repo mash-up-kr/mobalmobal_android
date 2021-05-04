@@ -16,33 +16,6 @@ data class MyDonateDto(
     val donates: List<DonateDto>?
 )
 
-fun MyDonateDto.toProfileItems(headerStringId: Int): List<ProfileItem> {
-    return mutableListOf<ProfileItem>().also {
-        if (donates.isNullOrEmpty()) return emptyList()
-
-        it.add(
-            ProfileItem.Header(
-                titleId = headerStringId
-            )
-        )
-
-        it.addAll(
-            donates.map { donate ->
-                ProfileItem.Donation(
-                    donationId = donate.postId.toString(),
-                    imageUrl = donate.post.postImage ?: "",
-                    title = donate.post.title,
-                    description = donate.post.description ?: "",
-                    goalPrice = donate.post.goalPrice.toDouble(),
-                    donatedPrice = donate.post.currentAmount.toDouble(),
-                    startAt = donate.post.startedAt ?: "",
-                    endAt = donate.post.endAt ?: ""
-                )
-            }
-        )
-    }
-}
-
 data class DonateDto(
     @SerializedName("donate_id")
     val donateId: Int,

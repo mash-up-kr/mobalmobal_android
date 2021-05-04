@@ -15,7 +15,6 @@ import com.funin.base.funinbase.extension.showToast
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.constant.Constants
 import com.mashup.mobalmobal.databinding.FragmentProfileBinding
-import com.mashup.mobalmobal.extensions.showChargeBottomSheet
 import com.mashup.mobalmobal.ui.charge.ChargeViewModel
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 import dagger.hilt.android.AndroidEntryPoint

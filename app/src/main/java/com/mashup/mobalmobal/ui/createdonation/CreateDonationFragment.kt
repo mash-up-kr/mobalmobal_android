@@ -1,7 +1,6 @@
 package com.mashup.mobalmobal.ui.createdonation
 
 import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.text.TextWatcher
@@ -42,6 +41,8 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         private const val END_DATE_TIME_PICKER = 2
         private const val TRANSLATION_Y = "translationY"
         private const val PRICE_INPUT_VIEW_INDEX = 2
+
+        private const val TAG = "CreateDonationFrag"
     }
 
     @Inject
@@ -138,7 +139,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
                         .centerCrop()
                         .into(binding.createDonationProductImageView)
                 }, { error ->
-                    Log.e("CreateDonationShow", "Set image from gallery", error)
+                    Log.e(TAG, "Set image from gallery", error)
                 })
         }
     }
@@ -259,9 +260,10 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val dateSetListener = DatePickerDialog.OnDateSetListener { _, dateYear, dateMonth, dayOfMonth ->
-            showTimePickerDialog(viewId, dateYear, dateMonth, dayOfMonth)
-        }
+        val dateSetListener =
+            DatePickerDialog.OnDateSetListener { _, dateYear, dateMonth, dayOfMonth ->
+                showTimePickerDialog(viewId, dateYear, dateMonth, dayOfMonth)
+            }
 
         DatePickerDialog(requireActivity(), dateSetListener, year, month, day).show()
     }
@@ -276,7 +278,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         val minute = calendar.get(Calendar.MINUTE)
 
         val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, timeMinute ->
-            val timeCalendar = Calendar.getInstance().also {
+            Calendar.getInstance().also {
                 it.set(Calendar.YEAR, year)
                 it.set(Calendar.MONTH, month)
                 it.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -321,7 +323,6 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         ).show()
     }
 
-    @SuppressLint("SimpleDateFormat")
     private fun getFormattedDateTime(milliSeconds: Long) =
         SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREAN).format(milliSeconds)
 

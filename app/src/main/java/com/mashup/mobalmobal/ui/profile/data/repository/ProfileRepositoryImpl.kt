@@ -20,7 +20,6 @@ class ProfileRepositoryImpl(
         return profileService.getMyPosts(requestBody)
     }
 
-
     override fun getMyDonations(): Single<MyDonateResponseDto> =
         profileService.getMyDonates()
 }

@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_edit"
                 android:visibility="gone"
-                app:layout_constraintEnd_toStartOf="@+id/iv_setting"
+                app:layout_constraintEnd_toStartOf="@id/iv_setting"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView

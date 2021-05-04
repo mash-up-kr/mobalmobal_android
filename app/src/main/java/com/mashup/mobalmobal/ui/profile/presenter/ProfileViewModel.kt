@@ -137,6 +137,6 @@ class ProfileViewModel @Inject constructor(
         if (isNullOrEmpty()) {
             0
         } else {
-            size - 1
+            lastIndex
         }
 }

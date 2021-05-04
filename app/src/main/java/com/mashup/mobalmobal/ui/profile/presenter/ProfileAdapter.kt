@@ -133,7 +133,7 @@ class ProfileAdapter @Inject constructor(
                 && newItem is ProfileItem.Donation
             ) {
                 if (oldItem.title == newItem.title
-                    && oldItem.copy(newItem.title) == newItem
+                    && oldItem.copy(title = newItem.title) == newItem
                 ) {
                     return PAYLOAD_DONATION_TITLE
                 }

@@ -13,9 +13,9 @@ class ProfileRepositoryImpl(
 
     override fun getMyPosts(status: String): Single<MyPostResponseDto> {
         val requestBody = requestBodyOf {
-            put("filter", JsonObject().apply {
-                put("status", status)
-            })
+            "filter" to JsonObject().apply {
+                "status" to status
+            }
         }
         return profileService.getMyPosts(requestBody)
     }

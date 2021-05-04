@@ -13,7 +13,7 @@ class ProfileDonationSummaryViewHolder(
     init {
         with(binding) {
             root.setOnClickListener {
-                listener?.onProfileItemClick(it, absoluteAdapterPosition)
+                listener?.onProfileItemClick(it, bindingAdapterPosition)
             }
         }
     }

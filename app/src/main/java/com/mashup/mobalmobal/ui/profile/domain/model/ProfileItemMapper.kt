@@ -1,20 +1,13 @@
 package com.mashup.mobalmobal.ui.profile.domain.model
 
 import com.mashup.mobalmobal.R
+import com.mashup.mobalmobal.data.dto.UserDto
 import com.mashup.mobalmobal.ui.profile.data.dto.MyDonateDto
 import com.mashup.mobalmobal.ui.profile.data.dto.MyPostDto
 
 fun MyDonateDto.toProfileItems(headerStringId: Int): List<ProfileItem> {
-    return mutableListOf<ProfileItem>().also {
-        if (donates.isNullOrEmpty()) return emptyList()
-
-        it.add(
-            ProfileItem.Header(
-                titleId = headerStringId
-            )
-        )
-
-        it.addAll(
+    return if(donates.isNullOrEmpty()) emptyList()
+    else listOf(ProfileItem.Header(titleId = headerStringId)) +
             donates.map { donate ->
                 ProfileItem.Donation(
                     donationId = donate.postId.toString(),
@@ -27,21 +20,11 @@ fun MyDonateDto.toProfileItems(headerStringId: Int): List<ProfileItem> {
                     endAt = donate.post.endAt ?: ""
                 )
             }
-        )
-    }
 }
 
 fun MyPostDto.toProfileItems(headerStringId: Int): List<ProfileItem> {
-    return mutableListOf<ProfileItem>().also {
-        if (posts.isNullOrEmpty()) return emptyList()
-
-        it.add(
-            ProfileItem.Header(
-                titleId = headerStringId
-            )
-        )
-
-        it.addAll(
+    return if(posts.isNullOrEmpty()) emptyList()
+    else listOf(ProfileItem.Header(titleId = headerStringId)) +
             posts.map { post ->
                 ProfileItem.Donation(
                     donationId = post.postId.toString(),
@@ -54,19 +37,12 @@ fun MyPostDto.toProfileItems(headerStringId: Int): List<ProfileItem> {
                     endAt = post.endAt ?: ""
                 )
             }
-        )
-    }
 }
 
-fun Triple<Int, Int, Int>.toSummaryProfileItem() =
-    listOfNotNull(
-        ProfileItem.Header(
-            titleId = R.string.profile_header_donation_summary
-        ),
-
-        ProfileItem.DonationSummary(
-            requestCount = first,
-            donatedCount = second,
-            closedCount = third
-        )
+fun UserDto.toProfileItem(): ProfileItem =
+    ProfileItem.User(
+        userId = id,
+        nickName = nickname,
+        profileUrl = profileImage,
+        point = cash
     )

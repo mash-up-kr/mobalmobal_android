@@ -78,7 +78,7 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
                 .subscribeWithErrorLogger(::showToast)
                 .addToDisposables()
 
-            itemSubject.observeOnMain()
+            itemsSubject.observeOnMain()
                 .subscribeWithErrorLogger { profileAdapter.submitList(it) }
                 .addToDisposables()
 
@@ -108,8 +108,7 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
         }
     }
 
-    private fun navigateToBack() =
-        findNavController().popBackStack()
+    private fun navigateToBack() = findNavController().popBackStack()
 
     private fun navigateToEditProfile() =
         findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)

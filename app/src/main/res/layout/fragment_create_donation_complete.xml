@@ -47,7 +47,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:background="@drawable/round_shadow_button"
-        android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
         android:paddingHorizontal="44dp"
         android:paddingVertical="17dp"

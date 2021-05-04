@@ -90,6 +90,13 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
                 }
             }
             .addToDisposables()
+
+        createDonationViewModel.isCreatingDonation
+            .observeOnMain()
+            .subscribeWithErrorLogger {
+                binding.createDonationLoadingView.isVisible = it
+            }
+            .addToDisposables()
     }
 
     private fun navigateCreateDonationToComplete() =

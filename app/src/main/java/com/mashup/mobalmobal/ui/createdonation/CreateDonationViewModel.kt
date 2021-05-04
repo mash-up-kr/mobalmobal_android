@@ -51,6 +51,10 @@ class CreateDonationViewModel @Inject constructor(
             .addToDisposables()
     }
 
+    private val _isCreatingDonationSubject: BehaviorSubject<Boolean> =
+        BehaviorSubject.createDefault(false)
+    val isCreatingDonation: Observable<Boolean> = _isCreatingDonationSubject.distinctUntilChanged()
+
     fun clearData() {
         _createDonationInputSubject.onNext(CreateDonation())
         _createCompleteInputSubject.onNext(CreateCompleteDonation())
@@ -102,6 +106,7 @@ class CreateDonationViewModel @Inject constructor(
     fun createDonation() {
         _createDonationInputSubject.firstOrError()
             .subscribeOnIO()
+            .doOnSubscribe { _isCreatingDonationSubject.onNext(true) }
             .flatMap { createDonationInput ->
                 if (!createDonationInput.description.isNullOrBlank() &&
                     !createDonationInput.productName.isNullOrBlank() &&
@@ -140,6 +145,8 @@ class CreateDonationViewModel @Inject constructor(
                     )
                 }
             }
+            .doOnSuccess { _isCreatingDonationSubject.onNext(false) }
+            .doOnError { _isCreatingDonationSubject.onNext(false) }
             .subscribeWithErrorLogger { response ->
                 if (response.data != null) {
                     _createCompleteInputSubject.onNext(

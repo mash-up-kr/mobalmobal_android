@@ -26,7 +26,7 @@ fun PostDto.toDonationItem(): DonationItem =
         author = User(
             userId = user?.id ?: -1,
             nickName = user?.nickname ?: "",
-            profileUrl = user?.profileImage ?: ""
+            profileUrl = user?.profileImage
         ),
         goalPrice = goalPrice,
         currentPrice = currentAmount,
@@ -35,7 +35,7 @@ fun PostDto.toDonationItem(): DonationItem =
                 User(
                     userId = donator.id,
                     nickName = donator.nickname,
-                    profileUrl = donator.profileImage ?: ""
+                    profileUrl = donator.profileImage
                 )
             } ?: emptyList())
         },
@@ -46,5 +46,5 @@ fun PostDto.toDonationItem(): DonationItem =
 data class User(
     val userId: Int,
     val nickName: String,
-    val profileUrl: String
+    val profileUrl: String?
 )

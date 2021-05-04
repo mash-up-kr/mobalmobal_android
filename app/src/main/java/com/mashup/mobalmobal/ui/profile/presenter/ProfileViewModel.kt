@@ -8,7 +8,8 @@ import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.data.dto.PostDto
 import com.mashup.mobalmobal.data.dto.UserDto
 import com.mashup.mobalmobal.data.repository.UserRepository
-import com.mashup.mobalmobal.ui.profile.data.dto.*
+import com.mashup.mobalmobal.ui.profile.data.dto.MyDonateDto
+import com.mashup.mobalmobal.ui.profile.data.dto.MyPostDto
 import com.mashup.mobalmobal.ui.profile.data.repository.ProfileRepository
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 import com.mashup.mobalmobal.ui.profile.domain.model.toProfileItem

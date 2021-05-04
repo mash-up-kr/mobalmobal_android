@@ -108,8 +108,8 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
             .into(ivProduct)
 
         glideRequests.load(donation.author.profileUrl)
-            .placeholder(R.drawable.img_profile_default)
-            .error(R.drawable.img_profile_default)
+            .placeholder(R.drawable.img_profile_default_circle)
+            .error(R.drawable.img_profile_default_circle)
             .circleCrop()
             .into(ivProfile)
 

@@ -6,64 +6,69 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mashup.mobalmobal.databinding.*
+import com.mashup.base.image.GlideRequests
+import com.mashup.mobalmobal.databinding.HolderProfileDonationBinding
+import com.mashup.mobalmobal.databinding.HolderProfileDonationSummaryBinding
+import com.mashup.mobalmobal.databinding.HolderProfileHeaderBinding
+import com.mashup.mobalmobal.databinding.HolderProfileUserBinding
 import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
-import com.mashup.mobalmobal.ui.profile.presenter.viewholder.*
+import com.mashup.mobalmobal.ui.profile.presenter.viewholder.ProfileDonationSummaryViewHolder
+import com.mashup.mobalmobal.ui.profile.presenter.viewholder.ProfileDonationViewHolder
+import com.mashup.mobalmobal.ui.profile.presenter.viewholder.ProfileHeaderViewHolder
+import com.mashup.mobalmobal.ui.profile.presenter.viewholder.ProfileUserViewHolder
+import javax.inject.Inject
 
-class ProfileAdapter(private val clickListener: ProfileClickListener?) :
-    ListAdapter<ProfileItem, RecyclerView.ViewHolder>(ProfileItemDiffCallback()) {
+class ProfileAdapter @Inject constructor(
+    private val clickListener: ProfileClickListener?,
+    private val glideRequests: GlideRequests
+) : ListAdapter<ProfileItem, RecyclerView.ViewHolder>(ProfileItemDiffCallback()) {
 
     companion object {
-        private const val PAYLOAD_REQUEST_DONATION_TITLE = "payload_request_donation_title"
-        private const val PAYLOAD_DONATED_TITLE = "payload_donated_title"
+        private const val PAYLOAD_DONATION_TITLE = "payload_donation_title"
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
+            is ProfileItem.Header -> ViewType.HEADER.ordinal
             is ProfileItem.User -> ViewType.USER.ordinal
-            is ProfileItem.Point -> ViewType.POINT.ordinal
             is ProfileItem.DonationSummary -> ViewType.DONATION_SUMMARY.ordinal
-            is ProfileItem.RequestDonation -> ViewType.REQUEST_DONATION.ordinal
-            is ProfileItem.Donated -> ViewType.DONATED.ordinal
+            is ProfileItem.Donation -> ViewType.DONATION.ordinal
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
+            ViewType.HEADER.ordinal -> ProfileHeaderViewHolder(
+                HolderProfileHeaderBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
             ViewType.USER.ordinal -> ProfileUserViewHolder(
                 HolderProfileUserBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
-                ), clickListener
-            )
-            ViewType.POINT.ordinal -> ProfilePointViewHolder(
-                HolderProfilePointBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                ), clickListener
+                ),
+                clickListener,
+                glideRequests
             )
             ViewType.DONATION_SUMMARY.ordinal -> ProfileDonationSummaryViewHolder(
                 HolderProfileDonationSummaryBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
-                ), clickListener
+                )
             )
-            ViewType.REQUEST_DONATION.ordinal -> ProfileRequestDonationViewHolder(
-                HolderProfileRequestDonationBinding.inflate(
+            ViewType.DONATION.ordinal -> ProfileDonationViewHolder(
+                HolderProfileDonationBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
-                ), clickListener
-            )
-            ViewType.DONATED.ordinal -> ProfileDonatedViewHolder(
-                HolderProfileDonatedBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                ), clickListener
+                ),
+                clickListener,
+                glideRequests
             )
             else -> throw IllegalArgumentException()
         }
@@ -71,20 +76,17 @@ class ProfileAdapter(private val clickListener: ProfileClickListener?) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
+            is ProfileHeaderViewHolder -> {
+                (getItem(position) as? ProfileItem.Header)?.let { holder.bind(it) }
+            }
             is ProfileUserViewHolder -> {
                 (getItem(position) as? ProfileItem.User)?.let { holder.bind(it) }
-            }
-            is ProfilePointViewHolder -> {
-                (getItem(position) as? ProfileItem.Point)?.let { holder.bind(it) }
             }
             is ProfileDonationSummaryViewHolder -> {
                 (getItem(position) as? ProfileItem.DonationSummary)?.let { holder.bind(it) }
             }
-            is ProfileRequestDonationViewHolder -> {
-                (getItem(position) as? ProfileItem.RequestDonation)?.let { holder.bind(it) }
-            }
-            is ProfileDonatedViewHolder -> {
-                (getItem(position) as? ProfileItem.Donated)?.let { holder.bind(it) }
+            is ProfileDonationViewHolder -> {
+                (getItem(position) as? ProfileItem.Donation)?.let { holder.bind(it) }
             }
         }
     }
@@ -100,15 +102,9 @@ class ProfileAdapter(private val clickListener: ProfileClickListener?) :
             val item = getItem(position)
             payloads.forEach { payload ->
                 when (payload) {
-                    PAYLOAD_REQUEST_DONATION_TITLE -> {
-                        (item as? ProfileItem.RequestDonation)?.let { item ->
-                            (holder as? ProfileRequestDonationViewHolder)?.bindTitle(item)
-                        }
-                    }
-
-                    PAYLOAD_DONATED_TITLE -> {
-                        (item as? ProfileItem.Donated)?.let { item ->
-                            (holder as? ProfileDonatedViewHolder)?.bindTitle(item)
+                    PAYLOAD_DONATION_TITLE -> {
+                        (item as? ProfileItem.Donation)?.let { item ->
+                            (holder as? ProfileDonationViewHolder)?.bindTitle(item)
                         }
                     }
                 }
@@ -117,11 +113,10 @@ class ProfileAdapter(private val clickListener: ProfileClickListener?) :
     }
 
     enum class ViewType {
+        HEADER,
         USER,
-        POINT,
         DONATION_SUMMARY,
-        REQUEST_DONATION,
-        DONATED
+        DONATION
     }
 
     class ProfileItemDiffCallback : DiffUtil.ItemCallback<ProfileItem>() {
@@ -134,21 +129,13 @@ class ProfileAdapter(private val clickListener: ProfileClickListener?) :
         }
 
         override fun getChangePayload(oldItem: ProfileItem, newItem: ProfileItem): Any? {
-            if (oldItem is ProfileItem.RequestDonation
-                && newItem is ProfileItem.RequestDonation
+            if (oldItem is ProfileItem.Donation
+                && newItem is ProfileItem.Donation
             ) {
                 if (oldItem.title == newItem.title
-                    && oldItem.copy(newItem.title) == newItem
+                    && oldItem.copy(title = newItem.title) == newItem
                 ) {
-                    return PAYLOAD_REQUEST_DONATION_TITLE
-                }
-            } else if (oldItem is ProfileItem.Donated
-                && newItem is ProfileItem.Donated
-            ) {
-                if (oldItem.title == newItem.title
-                    && oldItem.copy(newItem.title) == newItem
-                ) {
-                    return PAYLOAD_DONATED_TITLE
+                    return PAYLOAD_DONATION_TITLE
                 }
             }
             return null
@@ -156,6 +143,7 @@ class ProfileAdapter(private val clickListener: ProfileClickListener?) :
     }
 
     interface ProfileClickListener {
-        fun onProfileItemClick(view: View, position: Int)
+        fun onProfilePointClicked()
+        fun onDonationClicked(position: Int)
     }
 }

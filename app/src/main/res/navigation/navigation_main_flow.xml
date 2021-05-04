@@ -10,7 +10,7 @@
         android:label="MainFragment">
         <action
             android:id="@+id/action_mainFragment_to_detailFragment"
-            app:destination="@id/donationDeatilFragment">
+            app:destination="@id/donationDetailFragment">
             <argument
                 android:name="key_selected_donation_id"
                 app:argType="integer" />
@@ -24,7 +24,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/donationDeatilFragment"
+        android:id="@+id/donationDetailFragment"
         android:name="com.mashup.mobalmobal.ui.donationdetail.presenter.DonationDetailFragment"
         android:label="DonationDetailFragment">
         <action
@@ -53,14 +53,19 @@
             android:id="@+id/action_profileFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_myDonationsFragment"
-            app:destination="@id/myDonationsFragment" />
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_chargeFragment"
+            app:destination="@id/chargeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_detailFragment"
+            app:destination="@id/donationDetailFragment">
+            <argument
+                android:name="key_selected_donation_id"
+                app:argType="integer" />
+        </action>
     </fragment>
-
-    <fragment
-        android:id="@+id/myDonationsFragment"
-        android:name="com.mashup.mobalmobal.ui.mydonations.MyDonationsFragment"
-        android:label="MyDonationsFragment" />
 
     <fragment
         android:id="@+id/chargeFragment"
@@ -96,4 +101,8 @@
             android:id="@+id/action_CreateDonationFragment_to_createDonationCompleteFragment"
             app:destination="@id/create_donation_complete_fragment" />
     </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.mashup.mobalmobal.ui.editprofile.EditProfileFragment"
+        android:label="EditProfileFragment" />
 </navigation>

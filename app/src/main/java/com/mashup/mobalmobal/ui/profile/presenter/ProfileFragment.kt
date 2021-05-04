@@ -1,19 +1,23 @@
 package com.mashup.mobalmobal.ui.profile.presenter
 
+import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.extension.showToast
 import com.mashup.mobalmobal.R
-import com.mashup.mobalmobal.constant.Constants.KEY_USER_ID
+import com.mashup.mobalmobal.constant.Constants
 import com.mashup.mobalmobal.databinding.FragmentProfileBinding
+import com.mashup.mobalmobal.extensions.showChargeBottomSheet
+import com.mashup.mobalmobal.ui.charge.ChargeViewModel
+import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -22,18 +26,10 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
     ProfileAdapter.ProfileClickListener {
 
     private val profileViewModel: ProfileViewModel by viewModels()
-    private val userId: String by lazy { arguments?.getString(KEY_USER_ID) ?: "" }
+    private val chargeViewModel: ChargeViewModel by viewModels()
 
     @Inject
     lateinit var profileAdapter: ProfileAdapter
-
-    init {
-        checkVerifyUserId()
-    }
-
-    private fun checkVerifyUserId() {
-        if (userId.isEmpty()) findNavController().popBackStack()
-    }
 
     override fun setBinding(
         inflater: LayoutInflater,
@@ -41,36 +37,96 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
     ): FragmentProfileBinding = FragmentProfileBinding.inflate(inflater, container, false)
 
     override fun onSetupViews(view: View) {
-        super.onSetupViews(view)
-        binding.recyclerViewProfile.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = profileAdapter
+        with(binding) {
+            ivBack.setOnClickListener { navigateToBack() }
+            ivEdit.setOnClickListener { navigateToEditProfile() }
+            ivSetting.setOnClickListener { navigateProfileToSettings() }
+            recyclerViewProfile.adapter = profileAdapter
+
+            recyclerViewProfile.addItemDecoration(object : RecyclerView.ItemDecoration() {
+                override fun getItemOffsets(
+                    outRect: Rect,
+                    view: View,
+                    parent: RecyclerView,
+                    state: RecyclerView.State
+                ) {
+                    super.getItemOffsets(outRect, view, parent, state)
+                    val position = parent.getChildAdapterPosition(view)
+
+                    when (profileAdapter.currentList[position]) {
+                        is ProfileItem.Header -> {
+                            context?.let {
+                                outRect.top =
+                                    it.resources.getDimensionPixelOffset(R.dimen.profile_post_header_top_margin)
+                                outRect.bottom =
+                                    it.resources.getDimensionPixelOffset(R.dimen.profile_post_item_bottom_margin)
+                            }
+                        }
+                        is ProfileItem.Donation -> {
+                            context?.let {
+                                outRect.bottom =
+                                    it.resources.getDimensionPixelOffset(R.dimen.profile_post_item_bottom_margin)
+                            }
+                        }
+                    }
+                }
+            })
         }
     }
 
     override fun onBindViewModels() {
-        super.onBindViewModels()
         with(profileViewModel) {
             toastSubject.observeOnMain()
-                .subscribeWithErrorLogger { context?.showToast(it, Toast.LENGTH_SHORT) }
+                .subscribeWithErrorLogger(::showToast)
                 .addToDisposables()
 
-            profileSubject.observeOnMain()
+            itemsSubject.observeOnMain()
                 .subscribeWithErrorLogger { profileAdapter.submitList(it) }
                 .addToDisposables()
+
+            userNickSubject.observeOnMain()
+                .subscribeWithErrorLogger { binding.tvTitle.text = it }
+                .addToDisposables()
+
+            backTriggerSubject.observeOnMain()
+                .subscribeWithErrorLogger { findNavController().popBackStack() }
+                .addToDisposables()
         }
     }
 
-    override fun onProfileItemClick(view: View, position: Int) {
-        when (view.id) {
-            R.id.tv_setting -> navigateProfileToSettings()
-        }
+    override fun onProfilePointClicked() {
+        showChargeBottomSheet(
+            title = getString(R.string.charging),
+            onPriceClick = { price ->
+                chargeViewModel.setChargeAmount(price.toString())
+                true
+            },
+            onDirectClick = {
+                navigateProfileToCharging()
+                true
+            }
+        )
     }
 
-    private fun navigateProfileToMyDonations() =
-        findNavController().navigate(R.id.action_profileFragment_to_myDonationsFragment)
+    override fun onDonationClicked(position : Int) {
+        val donation = profileAdapter.currentList[position] as? ProfileItem.Donation
+        donation?.let { navigateProfileToDetail(it.postId) }
+    }
+
+    private fun navigateToBack() = findNavController().popBackStack()
+
+    private fun navigateToEditProfile() =
+        findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
 
     private fun navigateProfileToSettings() =
         findNavController().navigate(R.id.action_profileFragment_to_settingsFragment)
 
+    private fun navigateProfileToCharging() =
+        findNavController().navigate(R.id.action_profileFragment_to_chargeFragment)
+
+    private fun navigateProfileToDetail(postId: Int) =
+        findNavController().navigate(
+            R.id.action_profileFragment_to_detailFragment,
+            bundleOf(Constants.KEY_POST_ID to postId)
+        )
 }

@@ -1,6 +1,7 @@
 package com.mashup.mobalmobal.ui.profile.domain.model
 
-import com.mashup.mobalmobal.dto.UserDto
+import androidx.annotation.StringRes
+import com.mashup.mobalmobal.R
 
 sealed class ProfileItem(
     val id: String
@@ -13,16 +14,17 @@ sealed class ProfileItem(
         return id.hashCode()
     }
 
-    data class User(
-        val userId: String,
-        val name: String,
-        val nickName: String,
-        val profileUrl: String
-    ) : ProfileItem(userId)
+    data class Header(
+        @StringRes
+        val titleId: Int
+    ) : ProfileItem(titleId.toString())
 
-    data class Point(
-        val point: Double
-    ) : ProfileItem("profile item point : $point")
+    data class User(
+        val userId: Int,
+        val nickName: String,
+        val profileUrl: String?,
+        val point: Int
+    ) : ProfileItem(userId.toString())
 
     data class DonationSummary(
         val requestCount: Int,
@@ -30,25 +32,27 @@ sealed class ProfileItem(
         val closedCount: Int
     ) : ProfileItem("profile donation summary")
 
-    data class RequestDonation(
-        val donationId: String,
-        val author: UserDto,
+    data class Donation(
+        val postId: Int,
+        val imageUrl: String,
         val title: String,
         val description: String,
-        val goalPrice: Long,
-        val donatedPrice: Long,
-        val startDate: String,
-        val dueDate: String,
-    ) : ProfileItem(donationId)
-
-    data class Donated(
-        val donationId: String,
-        val author: UserDto,
-        val title: String,
-        val description: String,
-        val goalPrice: Long,
-        val donatedPrice: Long,
-        val startDate: String,
-        val dueDate: String,
-    ) : ProfileItem(donationId)
+        val goalPrice: Double,
+        val donatedPrice: Double,
+        val startAt: String,
+        val endAt: String,
+    ) : ProfileItem(postId.toString())
 }
+
+fun createProfileHeaderItems(requestCount: Int, donatedCount: Int, closedCount: Int): List<ProfileItem> =
+    listOfNotNull(
+        ProfileItem.Header(
+            titleId = R.string.profile_header_donation_summary
+        ),
+
+        ProfileItem.DonationSummary(
+            requestCount = requestCount,
+            donatedCount = donatedCount,
+            closedCount = closedCount
+        )
+    )

@@ -38,7 +38,7 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter
     override fun onSetupViews(view: View) {
         binding.mainRecycler.setup()
         binding.mainProfile.setOnClickListener {
-            showToast("TODO Main Profile!!")
+            navigateMainToProfile()
         }
         binding.mainSwipeRefreshLayout.setOnRefreshListener {
             mainAdapter.refresh()
@@ -79,6 +79,9 @@ class MainFragment : BaseViewBindingFragment<FragmentMainBinding>(), MainAdapter
             }
         }
     }
+
+    private fun navigateMainToProfile() =
+        findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
 
     private fun navigateMainToDetail(donationId: Int) =
         findNavController().navigate(

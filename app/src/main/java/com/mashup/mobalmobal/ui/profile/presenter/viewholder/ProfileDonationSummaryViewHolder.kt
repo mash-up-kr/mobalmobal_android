@@ -6,17 +6,8 @@ import com.mashup.mobalmobal.ui.profile.domain.model.ProfileItem
 import com.mashup.mobalmobal.ui.profile.presenter.ProfileAdapter
 
 class ProfileDonationSummaryViewHolder(
-    private val binding: HolderProfileDonationSummaryBinding,
-    private val listener: ProfileAdapter.ProfileClickListener?
+    private val binding: HolderProfileDonationSummaryBinding
 ) : RecyclerView.ViewHolder(binding.root) {
-
-    init {
-        with(binding) {
-            root.setOnClickListener {
-                listener?.onProfileItemClick(it, absoluteAdapterPosition)
-            }
-        }
-    }
 
     fun bind(item: ProfileItem.DonationSummary) {
         with(binding) {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentSettingsBinding
@@ -17,6 +18,9 @@ class SettingsFragment : BaseViewBindingFragment<FragmentSettingsBinding>() {
     ): FragmentSettingsBinding = FragmentSettingsBinding.inflate(inflater, container, false)
 
     override fun onSetupViews(view: View) {
+        binding.settingsToolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
         binding.settingsOpenSource.setOnClickListener {
             onWebLinkClick(getString(R.string.open_source_url))
         }

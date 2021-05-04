@@ -44,7 +44,11 @@ sealed class ProfileItem(
     ) : ProfileItem(postId.toString())
 }
 
-fun createProfileHeaderItems(requestCount: Int, donatedCount: Int, closedCount: Int): List<ProfileItem> =
+fun createProfileHeaderItems(
+    requestCount: Int,
+    donatedCount: Int,
+    closedCount: Int
+): List<ProfileItem> =
     listOfNotNull(
         ProfileItem.Header(
             titleId = R.string.profile_header_donation_summary

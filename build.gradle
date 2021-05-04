@@ -1,8 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    ext.versions = [
+            'app': [
+                    'major'  : 1,
+                    'feature': 0,
+                    'regular': 0,
+                    'minor'  : 0,
+            ]
+    ]
     ext.kotlin_version = "1.4.21"
     ext.hilt_version = "2.31-alpha"
-    ext.navigation_version = "2.3.3"
+    ext.navigation_version = "2.3.5"
 
     repositories {
         google()
@@ -10,7 +18,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:4.1.2"
+        classpath "com.android.tools.build:gradle:4.1.3"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath 'com.google.gms:google-services:4.3.5'

@@ -5,7 +5,7 @@ import com.mashup.mobalmobal.ui.profile.data.dto.MyDonateDto
 import com.mashup.mobalmobal.ui.profile.data.dto.MyPostDto
 
 fun MyDonateDto.toProfileItems(headerStringId: Int): List<ProfileItem> {
-    return if(donates.isNullOrEmpty()) emptyList()
+    return if (donates.isNullOrEmpty()) emptyList()
     else listOf(ProfileItem.Header(titleId = headerStringId)) +
             donates.map { donate ->
                 ProfileItem.Donation(
@@ -22,7 +22,7 @@ fun MyDonateDto.toProfileItems(headerStringId: Int): List<ProfileItem> {
 }
 
 fun MyPostDto.toProfileItems(headerStringId: Int): List<ProfileItem> {
-    return if(posts.isNullOrEmpty()) emptyList()
+    return if (posts.isNullOrEmpty()) emptyList()
     else listOf(ProfileItem.Header(titleId = headerStringId)) +
             posts.map { post ->
                 ProfileItem.Donation(

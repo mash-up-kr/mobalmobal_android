@@ -16,8 +16,11 @@ android {
         applicationId "com.mashup.mobalmobal"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode versions.app.major * 1000 +
+                versions.app.feature * 100 +
+                versions.app.regular * 10 +
+                versions.app.minor
+        versionName "${versions.app.major}.${versions.app.feature}.${versions.app.regular}.${versions.app.minor}"
 
         javaCompileOptions {
             annotationProcessorOptions {

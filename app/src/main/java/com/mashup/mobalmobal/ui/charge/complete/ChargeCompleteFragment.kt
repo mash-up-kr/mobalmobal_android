@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.constant.Constants.KEY_CHARGING_PRICE
@@ -27,7 +28,7 @@ class ChargeCompleteFragment : BaseViewBindingFragment<FragmentChargeCompleteBin
     override fun onSetupViews(view: View) {
         setupChargingPriceTitleView()
         binding.chargeCompleteClose.setOnClickListener {
-            // TODO Close ChargeCompleteShow
+            findNavController().navigate(R.id.donationDetailFragment)
         }
     }
 

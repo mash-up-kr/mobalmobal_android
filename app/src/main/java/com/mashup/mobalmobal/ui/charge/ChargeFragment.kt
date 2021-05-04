@@ -4,6 +4,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,23 +14,16 @@ import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.extension.showToast
 import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.databinding.FragmentChargeBinding
+import com.mashup.mobalmobal.ui.accountnumber.AccountNumberFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
-import java.util.*
 
 @AndroidEntryPoint
 class ChargeFragment : BaseViewBindingFragment<FragmentChargeBinding>() {
-
-    companion object {
-        private const val DATE_FORMAT = "yyyy-MM-dd hh:mm:ss"
-    }
 
     private val chargeViewModel by viewModels<ChargeViewModel>()
 
     private var chargePriceWatcher: TextWatcher? = null
     private var formatAmount = ""
-
-    private val dateFormat = SimpleDateFormat(DATE_FORMAT)
 
     override fun setBinding(
         inflater: LayoutInflater,
@@ -43,8 +37,6 @@ class ChargeFragment : BaseViewBindingFragment<FragmentChargeBinding>() {
             }
 
             chargeButton.setOnClickListener {
-                val date = Date(System.currentTimeMillis())
-                chargeViewModel.setChargedAt(dateFormat.format(date))
                 chargeViewModel.requestCharge()
             }
 
@@ -69,9 +61,9 @@ class ChargeFragment : BaseViewBindingFragment<FragmentChargeBinding>() {
             .subscribeWithErrorLogger { navigateDonate() }
             .addToDisposables()
 
-        chargeViewModel.chargeCompleteTriggerSubject
+        chargeViewModel.requestedPrice
             .observeOnMain()
-            .subscribeWithErrorLogger { navigateChargeComplete() }
+            .subscribeWithErrorLogger { navigateAccountNumber(it) }
             .addToDisposables()
 
         chargeViewModel.chargeErrorMessage
@@ -85,10 +77,12 @@ class ChargeFragment : BaseViewBindingFragment<FragmentChargeBinding>() {
         super.onDestroyView()
     }
 
-    private fun navigateDonate() =
-        findNavController().popBackStack()
+    private fun navigateDonate() = findNavController().popBackStack()
 
-    private fun navigateChargeComplete() =
-        findNavController().navigate(R.id.action_donateFragment_to_chargeFragment)
+    private fun navigateAccountNumber(chargePrice: Int) =
+        findNavController().navigate(
+            R.id.action_charge_fragment_to_account_number_fragment,
+            bundleOf(AccountNumberFragment.KEY_CHARGE_PRICE to chargePrice)
+        )
 
 }

@@ -26,7 +26,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     schedulerProvider: BaseSchedulerProvider,
-    userRepository: UserRepository,
+    private val userRepository: UserRepository,
     private val profileRepository: ProfileRepository
 ) : BaseViewModel(schedulerProvider) {
 
@@ -47,12 +47,7 @@ class ProfileViewModel @Inject constructor(
     private val _userDtoSubject: BehaviorSubject<UserDto> = BehaviorSubject.create()
 
     init {
-        userRepository.fetchUser()
-            .subscribeOnIO()
-            .subscribeWithErrorLogger { userDto ->
-                userDto.data?.let { _userDtoSubject.onNext(it) }
-            }
-            .addToDisposables()
+        fetchUser()
     }
 
     private val _donationsSubject: BehaviorSubject<List<ProfileItem>> =
@@ -76,6 +71,15 @@ class ProfileViewModel @Inject constructor(
             .map { listOf(it.first.toProfileItem()) + it.second }
             .subscribeWithErrorLogger {
                 _itemsSubject.onNext(it)
+            }
+            .addToDisposables()
+    }
+
+    fun fetchUser() {
+        userRepository.fetchUser()
+            .subscribeOnIO()
+            .subscribeWithErrorLogger { userDto ->
+                userDto.data?.let { _userDtoSubject.onNext(it) }
             }
             .addToDisposables()
     }

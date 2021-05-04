@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import com.funin.base.funinbase.base.BaseViewBindingFragment
 import com.funin.base.funinbase.extension.showToast
 import com.mashup.base.extensions.clipData
@@ -28,7 +29,7 @@ class AccountNumberFragment : BaseViewBindingFragment<FragmentAccountNumberBindi
     override fun onSetupViews(view: View) {
         setupAccountNumberText()
         binding.accountNumberClose.setOnClickListener {
-            // TODO Close AccountNumberShow
+            findNavController().navigate(R.id.action_account_number_fragment_to_profile_fragmnet)
         }
     }
 
@@ -76,6 +77,11 @@ class AccountNumberFragment : BaseViewBindingFragment<FragmentAccountNumberBindi
             accountNumberSpannableString,
             TextView.BufferType.SPANNABLE
         )
+    }
+
+    fun onBackPressed(): Boolean {
+        findNavController().navigate(R.id.action_account_number_fragment_to_profile_fragmnet)
+        return true
     }
 
     override fun setBinding(

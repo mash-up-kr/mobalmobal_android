@@ -64,7 +64,7 @@
 
     <View
         android:id="@+id/donationProgressbar"
-        android:layout_width="wrap_content"
+        android:layout_width="10dp"
         android:layout_height="22dp"
         android:background="@drawable/progress_neon_shadow"
         app:layout_constrainedWidth="true"

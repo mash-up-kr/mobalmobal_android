@@ -9,13 +9,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "30.0.2"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.mashup.mobalmobal"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode versions.app.major * 1000 +
                 versions.app.feature * 100 +
                 versions.app.regular * 10 +

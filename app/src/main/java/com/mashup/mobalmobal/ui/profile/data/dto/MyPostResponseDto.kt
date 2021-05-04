@@ -11,6 +11,6 @@ data class MyPostResponseDto(
 )
 
 data class MyPostDto(
-    @SerializedName("post")
+    @SerializedName("posts")
     val posts: List<PostDto>?
 )

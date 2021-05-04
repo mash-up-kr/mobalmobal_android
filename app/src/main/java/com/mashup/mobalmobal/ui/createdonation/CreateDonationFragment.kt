@@ -329,6 +329,12 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
     private fun getFormattedDateTime(milliSeconds: Long) =
         SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREAN).format(milliSeconds)
 
+<<<<<<< HEAD
     private fun getFormattedDateTimeForAPI(milliSeconds: Long) =
         SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN).format(milliSeconds)
+=======
+    @SuppressLint("SimpleDateFormat")
+    private fun getFomattedDateTimeForAPI(milliSeconds: Long) =
+        SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(milliSeconds)
+>>>>>>> 9dfa308 (🏗️Resolve lint as adding SuppressLint decorater)
 }

@@ -59,7 +59,7 @@ class ProfileAdapter @Inject constructor(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
-                ), clickListener
+                )
             )
             ViewType.DONATION.ordinal -> ProfileDonationViewHolder(
                 HolderProfileDonationBinding.inflate(
@@ -143,6 +143,7 @@ class ProfileAdapter @Inject constructor(
     }
 
     interface ProfileClickListener {
-        fun onProfileItemClick(view: View, position: Int)
+        fun onProfilePointClicked()
+        fun onDonationClicked(position: Int)
     }
 }

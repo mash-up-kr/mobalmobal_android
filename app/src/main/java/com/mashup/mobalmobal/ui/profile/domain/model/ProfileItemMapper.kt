@@ -1,6 +1,5 @@
 package com.mashup.mobalmobal.ui.profile.domain.model
 
-import com.mashup.mobalmobal.R
 import com.mashup.mobalmobal.data.dto.UserDto
 import com.mashup.mobalmobal.ui.profile.data.dto.MyDonateDto
 import com.mashup.mobalmobal.ui.profile.data.dto.MyPostDto
@@ -10,7 +9,7 @@ fun MyDonateDto.toProfileItems(headerStringId: Int): List<ProfileItem> {
     else listOf(ProfileItem.Header(titleId = headerStringId)) +
             donates.map { donate ->
                 ProfileItem.Donation(
-                    donationId = donate.postId.toString(),
+                    postId = donate.postId,
                     imageUrl = donate.post.postImage ?: "",
                     title = donate.post.title,
                     description = donate.post.description ?: "",
@@ -27,7 +26,7 @@ fun MyPostDto.toProfileItems(headerStringId: Int): List<ProfileItem> {
     else listOf(ProfileItem.Header(titleId = headerStringId)) +
             posts.map { post ->
                 ProfileItem.Donation(
-                    donationId = post.postId.toString(),
+                    postId = post.postId,
                     imageUrl = post.postImage ?: "",
                     title = post.title,
                     description = post.description ?: "",

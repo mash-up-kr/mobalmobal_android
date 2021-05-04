@@ -10,7 +10,7 @@
         android:label="MainFragment">
         <action
             android:id="@+id/action_mainFragment_to_detailFragment"
-            app:destination="@id/donationDeatilFragment">
+            app:destination="@id/donationDetailFragment">
             <argument
                 android:name="key_selected_donation_id"
                 app:argType="integer" />
@@ -24,7 +24,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/donationDeatilFragment"
+        android:id="@+id/donationDetailFragment"
         android:name="com.mashup.mobalmobal.ui.donationdetail.presenter.DonationDetailFragment"
         android:label="DonationDetailFragment">
         <action
@@ -58,6 +58,13 @@
         <action
             android:id="@+id/action_profileFragment_to_chargeFragment"
             app:destination="@id/chargeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_detailFragment"
+            app:destination="@id/donationDetailFragment">
+            <argument
+                android:name="key_selected_donation_id"
+                app:argType="integer" />
+        </action>
     </fragment>
 
     <fragment

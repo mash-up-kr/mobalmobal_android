@@ -4,6 +4,7 @@ import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +13,7 @@ import com.funin.base.funinbase.extension.rx.observeOnMain
 import com.funin.base.funinbase.extension.rx.subscribeWithErrorLogger
 import com.funin.base.funinbase.extension.showToast
 import com.mashup.mobalmobal.R
+import com.mashup.mobalmobal.constant.Constants
 import com.mashup.mobalmobal.databinding.FragmentProfileBinding
 import com.mashup.mobalmobal.extensions.showChargeBottomSheet
 import com.mashup.mobalmobal.ui.charge.ChargeViewModel
@@ -92,20 +94,23 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
         }
     }
 
-    override fun onProfileItemClick(view: View, position: Int) {
-        if (view.id == R.id.tv_profile_point) {
-            showChargeBottomSheet(
-                title = getString(R.string.charging),
-                onPriceClick = { price ->
-                    chargeViewModel.setChargeAmount(price.toString())
-                    true
-                },
-                onDirectClick = {
-                    navigateProfileToCharging()
-                    true
-                }
-            )
-        }
+    override fun onProfilePointClicked() {
+        showChargeBottomSheet(
+            title = getString(R.string.charging),
+            onPriceClick = { price ->
+                chargeViewModel.setChargeAmount(price.toString())
+                true
+            },
+            onDirectClick = {
+                navigateProfileToCharging()
+                true
+            }
+        )
+    }
+
+    override fun onDonationClicked(position : Int) {
+        val donation = profileAdapter.currentList[position] as? ProfileItem.Donation
+        donation?.let { navigateProfileToDetail(it.postId) }
     }
 
     private fun navigateToBack() = findNavController().popBackStack()
@@ -118,4 +123,10 @@ class ProfileFragment : BaseViewBindingFragment<FragmentProfileBinding>(),
 
     private fun navigateProfileToCharging() =
         findNavController().navigate(R.id.action_profileFragment_to_chargeFragment)
+
+    private fun navigateProfileToDetail(postId: Int) =
+        findNavController().navigate(
+            R.id.action_profileFragment_to_detailFragment,
+            bundleOf(Constants.KEY_POST_ID to postId)
+        )
 }

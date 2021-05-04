@@ -16,7 +16,7 @@ class ProfileUserViewHolder(
 
     init {
         binding.tvProfilePoint.setOnClickListener {
-            listener?.onProfileItemClick(it, bindingAdapterPosition)
+            listener?.onProfilePointClicked()
         }
     }
 

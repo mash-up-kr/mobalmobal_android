@@ -5,7 +5,7 @@ buildscript {
                     'major'  : 1,
                     'feature': 0,
                     'regular': 0,
-                    'minor'  : 0,
+                    'minor'  : 1,
             ]
     ]
     ext.kotlin_version = "1.4.21"

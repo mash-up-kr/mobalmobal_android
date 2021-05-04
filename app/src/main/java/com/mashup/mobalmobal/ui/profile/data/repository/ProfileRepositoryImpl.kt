@@ -1,7 +1,5 @@
 package com.mashup.mobalmobal.ui.profile.data.repository
 
-import com.funin.base.funinbase.extension.JsonObject
-import com.funin.base.funinbase.extension.requestBodyOf
 import com.mashup.mobalmobal.ui.profile.data.dto.MyDonateResponseDto
 import com.mashup.mobalmobal.ui.profile.data.dto.MyPostResponseDto
 import com.mashup.mobalmobal.ui.profile.data.service.ProfileService
@@ -11,14 +9,8 @@ class ProfileRepositoryImpl(
     private val profileService: ProfileService
 ) : ProfileRepository {
 
-    override fun getMyPosts(status: String): Single<MyPostResponseDto> {
-        val requestBody = requestBodyOf {
-            "filter" to JsonObject().apply {
-                "status" to status
-            }
-        }
-        return profileService.getMyPosts(requestBody)
-    }
+    override fun getMyPosts(status: String): Single<MyPostResponseDto> =
+        profileService.getMyPosts(status)
 
     override fun getMyDonations(): Single<MyDonateResponseDto> =
         profileService.getMyDonates()

@@ -283,13 +283,9 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
                 it.set(Calendar.HOUR_OF_DAY, hourOfDay)
                 it.set(Calendar.MINUTE, timeMinute)
             }
-<<<<<<< HEAD
+
             val formattedDateTime = getFormattedDateTime(calendar.timeInMillis)
             val formattedDateTimeForAPI = getFormattedDateTimeForAPI(calendar.timeInMillis)
-=======
-            val formattedDateTime = getFormattedDateTime(timeCalendar.timeInMillis)
-            val formattedDateTimeForAPI = getFomattedDateTimeForAPI(timeCalendar.timeInMillis)
->>>>>>> 9fa4427 (🏗️ Resolve lint warning)
 
             if (viewId == START_DATE_TIME_PICKER) {
                 createDonationViewModel.setCreateDonationStartDate(formattedDateTimeForAPI)
@@ -329,12 +325,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
     private fun getFormattedDateTime(milliSeconds: Long) =
         SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREAN).format(milliSeconds)
 
-<<<<<<< HEAD
     private fun getFormattedDateTimeForAPI(milliSeconds: Long) =
         SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN).format(milliSeconds)
-=======
-    @SuppressLint("SimpleDateFormat")
-    private fun getFomattedDateTimeForAPI(milliSeconds: Long) =
-        SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(milliSeconds)
->>>>>>> 9dfa308 (🏗️Resolve lint as adding SuppressLint decorater)
+
 }

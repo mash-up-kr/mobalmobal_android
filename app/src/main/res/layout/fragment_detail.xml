@@ -23,6 +23,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="230dp"
+                android:src="@color/shadow_detail_product_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tv_donation_percent"
                 android:layout_width="wrap_content"
@@ -52,6 +60,7 @@
                 android:layout_width="0dp"
                 android:layout_height="22dp"
                 android:background="@drawable/progress_detail_neon"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -93,6 +102,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="normal"

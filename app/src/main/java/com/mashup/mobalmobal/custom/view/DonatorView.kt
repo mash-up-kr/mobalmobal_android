@@ -25,7 +25,7 @@ class DonatorView @JvmOverloads constructor(
         )
     }
 
-    fun setDonatorProfiles(glideRequests: GlideRequests, profiles: List<String>) {
+    fun setDonatorProfiles(glideRequests: GlideRequests, profiles: List<String?>) {
         if (profiles.isEmpty()) return
 
         profileImageViews.forEachIndexed { index, imageView ->
@@ -39,7 +39,7 @@ class DonatorView @JvmOverloads constructor(
         }
     }
 
-    private fun GlideRequests.setImageUrl(imageView: ImageView, url: String) {
+    private fun GlideRequests.setImageUrl(imageView: ImageView, url: String?) {
         this.load(url)
             .circleCrop()
             .into(imageView)

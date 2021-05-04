@@ -39,6 +39,11 @@ class DonateFragment : BaseViewBindingFragment<FragmentDonateBinding>() {
             .subscribeWithErrorLogger { navigateDonationDetail() }
             .addToDisposables()
 
+        donateViewModel.donateToastMessage
+            .observeOnMain()
+            .subscribeWithErrorLogger(::showToast)
+            .addToDisposables()
+
         donateViewModel.donateErrorMessage
             .observeOnMain()
             .subscribeWithErrorLogger(::showToast)

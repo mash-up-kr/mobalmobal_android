@@ -49,6 +49,11 @@ class DonationDetailFragment : BaseViewBindingFragment<FragmentDetailBinding>() 
         return FragmentDetailBinding.inflate(inflater, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        donationDetailViewModel.requestDonationDetail()
+    }
+
     override fun onBindViewModels() {
         donationDetailViewModel.donationSubject.observeOnMain()
             .subscribeWithErrorLogger { bindDonation(it) }

@@ -1,6 +1,7 @@
 package com.mashup.mobalmobal.ui.createdonation
 
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.text.TextWatcher
@@ -164,7 +165,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             binding.createDonationStartDateInput
         )
 
-        binding.createDonationNameInput.setOnFocusChangeListener { v, hasFocus ->
+        binding.createDonationNameInput.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 binding.createDonationNameBottomLine.setImageResource(R.drawable.able_shadow_line)
             } else {
@@ -172,7 +173,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             }
         }
 
-        binding.createDonationDescriptionInput.setOnFocusChangeListener { v, hasFocus ->
+        binding.createDonationDescriptionInput.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 binding.createDonationDescriptionBottomLine.setImageResource(R.drawable.able_shadow_line)
             } else {
@@ -180,7 +181,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             }
         }
 
-        binding.createDonationPriceInput.setOnFocusChangeListener { v, hasFocus ->
+        binding.createDonationPriceInput.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 binding.createDonationPriceBottomLine.setImageResource(R.drawable.able_shadow_line)
             } else {
@@ -188,7 +189,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             }
         }
 
-        binding.createDonationStartDateInput.setOnFocusChangeListener { v, hasFocus ->
+        binding.createDonationStartDateInput.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 binding.createDonationStartDateBottomLine.setImageResource(R.drawable.able_shadow_line)
             } else {
@@ -196,7 +197,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
             }
         }
 
-        binding.createDonationDueDateInput.setOnFocusChangeListener { v, hasFocus ->
+        binding.createDonationDueDateInput.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 binding.createDonationDueDateBottomLine.setImageResource(R.drawable.able_shadow_line)
             } else {
@@ -211,7 +212,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         nextViewLayout: View,
         nextView: View?
     ) {
-        setOnEditorActionListener { v, actionId, event ->
+        setOnEditorActionListener { _, actionId, _ ->
             if (actionId == imeActionId && !binding.createDonationProductImageView.isVisible) {
                 goDownAnimation(viewIndex, nextViewLayout, nextView)
             }
@@ -258,8 +259,8 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-            showTimePickerDialog(viewId, year, month, dayOfMonth)
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, dateYear, dateMonth, dayOfMonth ->
+            showTimePickerDialog(viewId, dateYear, dateMonth, dayOfMonth)
         }
 
         DatePickerDialog(requireActivity(), dateSetListener, year, month, day).show()
@@ -274,16 +275,21 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
 
-        val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-            val calendar = Calendar.getInstance().also {
+        val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, timeMinute ->
+            val timeCalendar = Calendar.getInstance().also {
                 it.set(Calendar.YEAR, year)
                 it.set(Calendar.MONTH, month)
                 it.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 it.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                it.set(Calendar.MINUTE, minute)
+                it.set(Calendar.MINUTE, timeMinute)
             }
+<<<<<<< HEAD
             val formattedDateTime = getFormattedDateTime(calendar.timeInMillis)
             val formattedDateTimeForAPI = getFormattedDateTimeForAPI(calendar.timeInMillis)
+=======
+            val formattedDateTime = getFormattedDateTime(timeCalendar.timeInMillis)
+            val formattedDateTimeForAPI = getFomattedDateTimeForAPI(timeCalendar.timeInMillis)
+>>>>>>> 9fa4427 (🏗️ Resolve lint warning)
 
             if (viewId == START_DATE_TIME_PICKER) {
                 createDonationViewModel.setCreateDonationStartDate(formattedDateTimeForAPI)
@@ -319,6 +325,7 @@ class CreateDonationFragment : BaseViewBindingFragment<FragmentCreateDonationBin
         ).show()
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun getFormattedDateTime(milliSeconds: Long) =
         SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREAN).format(milliSeconds)
 

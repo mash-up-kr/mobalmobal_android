@@ -2,8 +2,8 @@
 buildscript {
     ext.versions = [
             'app': [
-                    'major'  : 0,
-                    'feature': 1,
+                    'major'  : 1,
+                    'feature': 0,
                     'regular': 0,
                     'minor'  : 0,
             ]

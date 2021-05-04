@@ -68,7 +68,7 @@ class DonationView @JvmOverloads constructor(
     private fun updateProgressbarSize() {
         val progress = currentPrice ?: return
         val max = goalPrice ?: return
-        val ratio = progress.toFloat() / max.toFloat()
+        val ratio = if (max <= 0) 0f else progress.toFloat() / max.toFloat()
         val horizontalMargin =
             resources.getDimensionPixelSize(R.dimen.donation_progress_bar_shadow_horizontal_margin)
         val actualRatio = if (ratio > 1.0f) 1.0f else ratio

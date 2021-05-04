@@ -31,7 +31,7 @@ fun MyPostDto.toProfileItems(headerStringId: Int): List<ProfileItem> {
                     title = post.title,
                     description = post.description ?: "",
                     goalPrice = post.goalPrice.toDouble(),
-                    donatedPrice = post.goalPrice.toDouble(),
+                    donatedPrice = post.currentAmount.toDouble(),
                     startAt = post.startedAt ?: "",
                     endAt = post.endAt ?: ""
                 )
